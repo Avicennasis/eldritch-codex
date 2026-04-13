@@ -112,18 +112,6 @@ export const SPELL_FULL_TEXT = {
 
 // --- 1st Level ----------------------------------------
 
-'Arms of Hadar': `
-<div class="sft-school">Level 1 Conjuration</div>
-<div class="sft-sp-note">Can cast by expending 1 Sorcery Point without V, S components.</div>
-<table class="sft-stats">
-  <tr><th>Casting Time</th><td>Action</td></tr>
-  <tr><th>Range</th><td>Self (10-foot Emanation)</td></tr>
-  <tr><th>Components</th><td>V, S</td></tr>
-  <tr><th>Duration</th><td>Instantaneous</td></tr>
-</table>
-<p>Tendrils of dark energy erupt from you. Each creature in a 10-foot Emanation originating from you makes a Strength saving throw. On a failed save, a target takes 2d6 Necrotic damage and can't take Reactions until the start of its next turn. On a successful save, a target takes half as much damage only.</p>
-<p class="sft-upcast"><strong>Using a Higher-Level Spell Slot.</strong> The damage increases by 1d6 for each spell slot level above 1.</p>`,
-
 'Chromatic Orb': `
 <div class="sft-school">Level 1 Evocation</div>
 <table class="sft-stats">
@@ -135,18 +123,6 @@ export const SPELL_FULL_TEXT = {
 <p>You hurl an orb of energy at a target within range. Choose Acid, Cold, Fire, Lightning, Poison, or Thunder for the type of orb you create, and then make a ranged spell attack against the target. On a hit, the target takes 3d8 damage of the chosen type.</p>
 <p>If you roll the same number on two or more of the d8s, the orb leaps to a different target of your choice within 30 feet of the target. Make an attack roll against the new target and make a new damage roll. The orb can't leap again unless you cast the spell with a level 2+ spell slot.</p>
 <p class="sft-upcast"><strong>Using a Higher-Level Spell Slot.</strong> The damage increases by 1d8 for each spell slot level above 1. The orb can leap a maximum number of times equal to the level of the slot expended, and a creature can be targeted only once by each casting of this spell.</p>`,
-
-'Disguise Self': `
-<div class="sft-school">Level 1 Illusion</div>
-<table class="sft-stats">
-  <tr><th>Casting Time</th><td>Action</td></tr>
-  <tr><th>Range</th><td>Self</td></tr>
-  <tr><th>Components</th><td>V, S</td></tr>
-  <tr><th>Duration</th><td>1 hour</td></tr>
-</table>
-<p>You make yourself \u2014 including your clothing, armor, weapons, and other belongings on your person \u2014 look different until the spell ends. You can seem up to 1 foot shorter or taller and can appear heavier or lighter. You must adopt a form that has the same basic arrangement of limbs as you have. Otherwise, the extent of the illusion is up to you.</p>
-<p>The changes wrought by this spell fail to hold up to physical inspection. For example, if you use this spell to add a hat to your outfit, objects pass through the hat, and anyone who touches it would feel nothing.</p>
-<p>To discern that you are disguised, a creature must take a Study action to inspect your appearance and succeed on an Intelligence (Investigation) check against your spell save DC.</p>`,
 
 'Dissonant Whispers': `
 <div class="sft-school">Level 1 Enchantment</div>
@@ -160,16 +136,6 @@ export const SPELL_FULL_TEXT = {
 <p>One creature of your choice that you can see within range hears a discordant melody in its mind. The target makes a Wisdom saving throw. On a failed save, it takes 3d6 Psychic damage and must immediately use its Reaction, if available, to move as far away from you as it can, using the safest route. On a successful save, the target takes half as much damage only.</p>
 <p class="sft-upcast"><strong>Using a Higher-Level Spell Slot.</strong> The damage increases by 1d6 for each spell slot level above 1.</p>`,
 
-'Feather Fall': `
-<div class="sft-school">Level 1 Transmutation</div>
-<table class="sft-stats">
-  <tr><th>Casting Time</th><td>Reaction, which you take when you or a creature you can see within 60 feet of you falls</td></tr>
-  <tr><th>Range</th><td>60 feet</td></tr>
-  <tr><th>Components</th><td>V, M (a feather)</td></tr>
-  <tr><th>Duration</th><td>1 minute</td></tr>
-</table>
-<p>Choose up to five falling creatures within range. A falling creature's rate of descent slows to 60 feet per round until the spell ends. If a creature lands before the spell ends, the creature takes no damage from the fall, and the spell ends for that creature.</p>`,
-
 'Invisibility': `
 <div class="sft-school">Level 2 Illusion</div>
 <table class="sft-stats">
@@ -180,16 +146,6 @@ export const SPELL_FULL_TEXT = {
 </table>
 <p>A creature you touch has the Invisible condition until the spell ends. The spell ends early immediately after the target makes an attack roll, deals damage, or casts a spell.</p>
 <p class="sft-upcast"><strong>Using a Higher-Level Spell Slot.</strong> You can target one additional creature for each spell slot level above 2.</p>`,
-
-'Mage Armor': `
-<div class="sft-school">Level 1 Abjuration</div>
-<table class="sft-stats">
-  <tr><th>Casting Time</th><td>Action</td></tr>
-  <tr><th>Range</th><td>Touch</td></tr>
-  <tr><th>Components</th><td>V, S, M (a piece of cured leather)</td></tr>
-  <tr><th>Duration</th><td>8 hours</td></tr>
-</table>
-<p>Until the spell ends, the target's base AC becomes 13 plus its Dexterity modifier.</p>`,
 
 'Shield': `
 <div class="sft-school">Level 1 Abjuration</div>
@@ -213,32 +169,7 @@ export const SPELL_FULL_TEXT = {
 <p>Each creature of your choice in a 5-foot-radius Sphere centered on a point within range must succeed on a Wisdom saving throw or have the Incapacitated condition until the end of its next turn, at which point it must repeat the save. If the target fails the second save, the target has the Unconscious condition for the duration. The spell ends on a target if it takes damage or someone within 5 feet of it takes an action to shake it out of the spell's effect.</p>
 <p>Creatures that don't sleep, such as elves, or that have Immunity to the Exhaustion condition automatically succeed on saves against this spell.</p>`,
 
-'Witch Bolt': `
-<div class="sft-school">Level 1 Evocation</div>
-<table class="sft-stats">
-  <tr><th>Casting Time</th><td>Action</td></tr>
-  <tr><th>Range</th><td>30 feet</td></tr>
-  <tr><th>Components</th><td>V, S, M (a twig struck by lightning)</td></tr>
-  <tr><th>Duration</th><td>Concentration, up to 1 minute</td></tr>
-</table>
-<p>A beam of crackling energy lances toward a creature within range, forming a sustained arc of lightning between you and the target. Make a ranged spell attack against that creature. On a hit, the target takes 1d12 Lightning damage.</p>
-<p>On each of your subsequent turns, you can take a Bonus Action to deal 1d12 Lightning damage to the target automatically. The spell ends if the target is ever outside the spell's range or if it has Total Cover from you.</p>
-<p class="sft-upcast"><strong>Using a Higher-Level Spell Slot.</strong> The initial damage increases by 1d12 for each spell slot level above 1.</p>`,
-
 // --- 2nd Level ----------------------------------------
-
-'Calm Emotions': `
-<div class="sft-school">Level 2 Abjuration</div>
-<div class="sft-sp-note">Can cast by expending 2 Sorcery Points without V, S components.</div>
-<table class="sft-stats">
-  <tr><th>Casting Time</th><td>Action</td></tr>
-  <tr><th>Range</th><td>60 feet</td></tr>
-  <tr><th>Components</th><td>V, S</td></tr>
-  <tr><th>Duration</th><td>Concentration, up to 1 minute</td></tr>
-</table>
-<p>Each Humanoid in a 20-foot-radius Sphere centered on a point you choose within range must succeed on a Charisma saving throw or be affected by one of the following effects (your choice):</p>
-<p>The spell suppresses any effect causing a target to have the Charmed or Frightened condition. When this spell ends, any suppressed effect resumes, provided that its duration has not expired in the meantime.</p>
-<p>Alternatively, you make a target Indifferent about creatures of your choice that it is Hostile toward. This indifference ends if the target is attacked or harmed by a spell or if it witnesses any of its allies being harmed. When the spell ends, the creature becomes Hostile again, unless the DM rules otherwise.</p>`,
 
 'Detect Thoughts': `
 <div class="sft-school">Level 2 Divination</div>
@@ -288,17 +219,6 @@ export const SPELL_FULL_TEXT = {
 <p>Three illusory duplicates of yourself appear in your space. Until the spell ends, the duplicates move with you and mimic your actions, shifting position so it's impossible to track which image is real.</p>
 <p>Each time a creature hits you with an attack roll during the spell's duration, roll a d6 for each of your remaining duplicates. If any of the d6s rolls a 3 or higher, one of the duplicates is hit instead of you, and the duplicate is destroyed. The duplicates otherwise ignore all other damage and effects. The spell ends when all three duplicates are destroyed.</p>
 <p>A creature is unaffected by this spell if it has the Blinded condition, Blindsight, or Truesight.</p>`,
-
-'Scorching Ray': `
-<div class="sft-school">Level 2 Evocation</div>
-<table class="sft-stats">
-  <tr><th>Casting Time</th><td>Action</td></tr>
-  <tr><th>Range</th><td>120 feet</td></tr>
-  <tr><th>Components</th><td>V, S</td></tr>
-  <tr><th>Duration</th><td>Instantaneous</td></tr>
-</table>
-<p>You hurl three fiery rays. You can hurl them at one target within range or at several. Make a ranged spell attack for each ray. On a hit, the target takes 2d6 Fire damage.</p>
-<p class="sft-upcast"><strong>Using a Higher-Level Spell Slot.</strong> You create one additional ray for each spell slot level above 2.</p>`,
 
 'Suggestion': `
 <div class="sft-school">Level 2 Enchantment</div>

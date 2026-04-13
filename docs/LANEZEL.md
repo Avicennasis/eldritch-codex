@@ -148,6 +148,7 @@
 ## Feats
 
 - **Lucky** — 4 Luck Points, spend to roll extra d20 on any d20 Test
+- **Shadow Touched** — 1/long rest free cast: Disguise Self, Invisibility (also castable with spell slots)
 - **Warcaster** — Advantage on CON saves for concentration, somatic with hands full
 
 ## Species Traits (Aasimar)
@@ -155,6 +156,7 @@
 - Darkvision 60 ft.
 - Necrotic Resistance
 - Radiant Resistance
+- Healing Hands (1/long rest, PB d4 healing on touch)
 - Celestial Revelation (1/long rest)
 
 ## Resistances
