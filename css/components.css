@@ -381,7 +381,7 @@
   font-size: 0.75rem;
   color: transparent;
   text-align: center;
-  line-height: 22px;
+  line-height: 20px;
 }
 
 .exhaustion-pip.active {
@@ -433,8 +433,10 @@
   cursor: pointer;
 }
 
-.conc-select:focus {
+.conc-select:focus:not(:focus-visible) {
   outline: none;
+}
+.conc-select:focus {
   border-color: var(--purple);
   box-shadow: 0 0 8px var(--purple-glow);
 }
@@ -1090,10 +1092,12 @@ body.madness-suppressed .reality-warped {
   min-width: 0;
 }
 
+.spell-search:focus:not(:focus-visible) {
+  outline: none;
+}
 .spell-search:focus {
   border-color: var(--cyan);
   box-shadow: 0 0 8px var(--cyan-glow);
-  outline: none;
 }
 
 .spell-sort {
@@ -1422,10 +1426,12 @@ body.madness-suppressed .reality-warped {
 /* Number input (SP, etc) */
 input[type="number"] {
   -moz-appearance: textfield;
+  appearance: textfield;
 }
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
+  appearance: none;
 }
 
 /* ═══════════════════════════════════════════════

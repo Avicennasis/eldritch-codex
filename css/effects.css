@@ -159,24 +159,6 @@
 }
 
 /* ═══════════════════════════════════════════════
-   DICE — eldritch energy burst
-   ═══════════════════════════════════════════════ */
-
-@keyframes flash-burst {
-  0% { box-shadow: 0 0 0 0 var(--slime-glow); }
-  20% {
-    box-shadow:
-      0 0 30px 10px var(--slime-glow),
-      0 0 60px 20px rgba(57, 255, 20, 0.1);
-  }
-  100% { box-shadow: 0 0 0 0 transparent; }
-}
-
-.dice-flash {
-  animation: flash-burst 0.7s ease-out;
-}
-
-/* ═══════════════════════════════════════════════
    LUCKY — psionic resonance
    ═══════════════════════════════════════════════ */
 
@@ -242,21 +224,6 @@
 }
 
 /* ═══════════════════════════════════════════════
-   HOVER GLOW — bioluminescent reaction
-   ═══════════════════════════════════════════════ */
-
-.glow-hover {
-  transition: box-shadow 0.2s, transform 0.15s;
-}
-.glow-hover:hover {
-  box-shadow: 0 0 15px var(--slime-glow);
-  transform: translateY(-1px);
-}
-.glow-hover:active {
-  transform: translateY(0);
-}
-
-/* ═══════════════════════════════════════════════
    HEADER — animated flowing border
    ═══════════════════════════════════════════════ */
 
@@ -318,32 +285,6 @@
 /* star-pulse keyframes and .inspiration-active animation
    are defined in components.css as header-star-pulse
    (higher specificity via .inspiration-star.inspiration-active) */
-
-/* ═══════════════════════════════════════════════
-   ELDRITCH GRADIENT BORDER
-   ═══════════════════════════════════════════════ */
-
-.eldritch-border {
-  position: relative;
-  border-radius: var(--radius-lg);
-  background: var(--panel);
-}
-.eldritch-border::before {
-  content: '';
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  background: linear-gradient(135deg, var(--slime-dim), var(--purple-dim));
-  z-index: -1;
-}
-
-/* Tentacle border image */
-.tentacle-header {
-  border-image-source: url('../img/tentacle-border.svg');
-  border-image-slice: 30 fill;
-  border-image-width: 12px;
-  border-image-repeat: round;
-}
 
 /* ═══════════════════════════════════════════════
    BACKGROUND TENTACLES — swaying from edges
