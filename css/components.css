@@ -875,8 +875,7 @@ body.madness-suppressed .panel:hover {
 
 body.madness-suppressed .tentacle-bg,
 body.madness-suppressed .beholder-eye,
-body.madness-suppressed .vignette-overlay,
-body.madness-suppressed .particle-canvas,
+body.madness-suppressed #particle-canvas,
 body.madness-suppressed .panel::before,
 body.madness-suppressed .panel::after {
   display: none !important;
@@ -891,7 +890,6 @@ body.madness-suppressed .main-grid {
 }
 
 /* Kill the vignette/hue-shift overlay on html */
-body.madness-suppressed ~ *,
 html:has(body.madness-suppressed)::after {
   filter: none !important;
   background: none !important;
@@ -1304,7 +1302,6 @@ body.madness-suppressed .reality-warped {
 }
 
 .inv-category-toggle:hover {
-  color: var(--purple-dim);
   color: #d8b4fe;
 }
 
@@ -1657,8 +1654,8 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .spirit-attack-btn {
-  border-color: var(--purple-dim) !important;
-  color: var(--purple-bright) !important;
+  border-color: var(--purple-dim);
+  color: var(--purple-bright);
   flex: 1;
   min-width: 80px;
 }
@@ -1706,8 +1703,8 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .xanthrid-attack-btn {
-  border-color: rgba(245, 158, 11, 0.35) !important;
-  color: #fbbf24 !important;
+  border-color: rgba(245, 158, 11, 0.35);
+  color: #fbbf24;
   flex: 1;
   min-width: 80px;
 }
@@ -1739,8 +1736,8 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .xanthrid-spell-btn {
-  border-color: rgba(245, 158, 11, 0.35) !important;
-  color: #fbbf24 !important;
+  border-color: rgba(245, 158, 11, 0.35);
+  color: #fbbf24;
   width: 100%;
   font-size: 0.85rem;
 }
@@ -1752,8 +1749,8 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .xanthrid-spell-btn.used {
   opacity: 0.35;
-  border-color: var(--border) !important;
-  color: var(--text-muted) !important;
+  border-color: var(--border);
+  color: var(--text-muted);
   cursor: not-allowed;
 }
 
@@ -1843,15 +1840,15 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .polymorph-thp-fill {
-  background: linear-gradient(90deg, #0284c7, #38bdf8) !important;
+  background: linear-gradient(90deg, #0284c7, #38bdf8);
   box-shadow: 0 0 8px rgba(56, 189, 248, 0.3);
   transition: width 0.3s;
 }
 
 /* Polymorph attack buttons */
 .polymorph-attack-btn {
-  border-color: rgba(56, 189, 248, 0.35) !important;
-  color: #7dd3fc !important;
+  border-color: rgba(56, 189, 248, 0.35);
+  color: #7dd3fc;
   flex: 1;
   min-width: 80px;
 }
@@ -1863,8 +1860,8 @@ input[type="number"]::-webkit-outer-spin-button {
 
 /* Special ability buttons */
 .polymorph-special-btn {
-  border-color: rgba(56, 189, 248, 0.35) !important;
-  color: #7dd3fc !important;
+  border-color: rgba(56, 189, 248, 0.35);
+  color: #7dd3fc;
   width: 100%;
   font-size: 0.85rem;
   margin-top: 4px;
@@ -2114,7 +2111,6 @@ input[type="number"]::-webkit-outer-spin-button {
   padding: 8px;
   resize: vertical;
   min-height: 80px;
-  box-sizing: border-box;
 }
 
 .notes-textarea:focus:not(:focus-visible) {

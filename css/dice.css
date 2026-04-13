@@ -35,12 +35,10 @@
 
 .dice-result.nat20 {
   color: var(--green);
-  text-shadow: 0 0 20px var(--green), 0 0 40px rgba(34, 197, 94, 0.3);
 }
 
 .dice-result.nat1 {
   color: var(--red);
-  text-shadow: 0 0 20px var(--red), 0 0 40px rgba(239, 68, 68, 0.3);
 }
 
 .dice-breakdown {

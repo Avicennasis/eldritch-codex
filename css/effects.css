@@ -193,7 +193,7 @@
 
 .lucky-winner {
   animation: lucky-glow 1s ease-in-out;
-  color: var(--cyan) !important;
+  color: var(--cyan);
 }
 
 .lucky-loser {
@@ -262,7 +262,7 @@
 
 .app-header {
   position: relative;
-  border-bottom: none !important;
+  border-bottom: none;
 }
 
 .app-header::after {
@@ -646,11 +646,11 @@
    ═══════════════════════════════════════════════ */
 
 .roll-btn:hover {
-  border-color: var(--slime-green) !important;
+  border-color: var(--slime-green);
   box-shadow:
     0 0 10px var(--slime-glow),
-    0 0 25px rgba(57, 255, 20, 0.08) !important;
-  color: var(--slime-green) !important;
+    0 0 25px rgba(57, 255, 20, 0.08);
+  color: var(--slime-green);
 }
 
 /* HP bar at full — subtle living pulse */

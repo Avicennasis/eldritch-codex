@@ -296,7 +296,7 @@ html::after {
     ellipse 70% 60% at 50% 50%,
     transparent 50%,
     rgba(5, 10, 5, var(--madness-vignette-opacity, 0.6)) 100%
-  ) !important;
+  );
   filter: hue-rotate(var(--madness-hue-shift, 0deg)) saturate(var(--madness-saturation, 1));
 }
 
