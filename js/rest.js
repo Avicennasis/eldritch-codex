@@ -1,7 +1,7 @@
 // Short Rest / Long Rest logic
-import { CHARACTER, TINKER_RECIPES } from './data.js?v=29';
-import { getState, update, updateNested } from './state.js?v=18';
-import { rollHitDie } from './dice.js?v=4';
+import { CHARACTER, TINKER_RECIPES } from './data.js?v=30';
+import { getState, update, updateNested } from './state.js?v=19';
+import { rollHitDie } from './dice.js?v=5';
 import { logRoll } from './log.js?v=5';
 import { fireMadnessEvent } from './madness.js?v=4';
 
@@ -61,6 +61,7 @@ export function longRest() {
     hitDiceRemaining: CHARACTER.hitDice.count,
     lucky: 4,
     innateSorcery: 2,
+    healingHands: 1,
     celestialRevelation: 1,
     sorcerousRestoration: 1,
     sapphireRecharge: 1,

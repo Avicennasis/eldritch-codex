@@ -350,6 +350,7 @@ export const POLYMORPH_FORMS = {
 export const RESOURCE_LIMITS = {
   lucky: 4,
   innateSorcery: 2,
+  healingHands: 1,
   celestialRevelation: 1,
   sorcerousRestoration: 1,  // 1 use per long rest
   sapphireRecharge: 1,
@@ -465,6 +466,7 @@ export const SKILL_DESCRIPTIONS = {
 export const RESOURCE_DESCRIPTIONS = {
   lucky: 'You have inexplicable luck. You have 4 Luck Points. Whenever you make a d20 Test, you can spend a Luck Point to roll an additional d20 and choose which one to use. You regain expended Luck Points when you finish a Long Rest.',
   innateSorcery: 'As a Bonus Action, you can unleash the sorcery within. For 1 minute, your spell save DC and spell attack bonus each increase by 1. You can use this feature twice, regaining all uses on a Long Rest.',
+  healingHands: 'As a Magic action, you touch a creature and roll a number of d4s equal to your Proficiency Bonus (+4 = 4d4). The creature regains Hit Points equal to the total rolled. Once per Long Rest.',
   celestialRevelation: 'As a Bonus Action, you gain one of: Inner Radiance (bright light 10 ft, dim 20 ft; once per turn deal extra Radiant damage equal to proficiency), Heavenly Wings (fly speed equal to walk speed), or Unearthly Visage (advantage on Charisma checks). Lasts 1 minute. Once per Long Rest.',
   sorcerousRestoration: 'During a Short Rest, you can regain expended Sorcery Points equal to half your Sorcerer level (rounded down). Once per Long Rest.',
   sapphireRecharge: 'Sapphire of Power. While this sapphire is on your person, you can speak its command word to regain one expended spell slot of 3rd level or lower. Once used, it can\'t be used again until the next dawn. Requires Attunement by a spellcaster.',

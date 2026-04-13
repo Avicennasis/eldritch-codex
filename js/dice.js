@@ -64,9 +64,9 @@ export function rollHitDie(conMod = 2) {
   return { die, modifier: conMod, total };
 }
 
-// Healing Hands: 3d4
-export function rollHealingHands() {
-  const dice = rollDice(3, 4);
+// Healing Hands: PB d4s (Aasimar racial)
+export function rollHealingHands(profBonus = 4) {
+  const dice = rollDice(profBonus, 4);
   const total = dice.reduce((a, b) => a + b, 0);
   return { dice, total };
 }

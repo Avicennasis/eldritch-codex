@@ -1,9 +1,9 @@
 // DOM rendering, event binding, panel updates
-import { CHARACTER, WEAPONS, SPELLS, CONDITIONS, SPELL_SLOT_COSTS, DAMAGE_TYPES, STORE_POTIONS, RESOURCE_LIMITS, INVENTORY, RESOURCE_DESCRIPTIONS, STAT_DESCRIPTIONS, SKILL_DESCRIPTIONS, PANEL_DESCRIPTIONS, LANGUAGE_DESCRIPTIONS, RESISTANCE_DESCRIPTIONS, CONDITION_DESCRIPTIONS, ABERRANT_SPIRIT, XANTHRID_COMPANION, POLYMORPH_FORMS, ABILITY_DETAILS, ATTUNEMENT, TINKER_RECIPES } from './data.js?v=29';
-import { getState, update, updateNested, resetAll } from './state.js?v=18';
-import * as dice from './dice.js?v=4';
+import { CHARACTER, WEAPONS, SPELLS, CONDITIONS, SPELL_SLOT_COSTS, DAMAGE_TYPES, STORE_POTIONS, RESOURCE_LIMITS, INVENTORY, RESOURCE_DESCRIPTIONS, STAT_DESCRIPTIONS, SKILL_DESCRIPTIONS, PANEL_DESCRIPTIONS, LANGUAGE_DESCRIPTIONS, RESISTANCE_DESCRIPTIONS, CONDITION_DESCRIPTIONS, ABERRANT_SPIRIT, XANTHRID_COMPANION, POLYMORPH_FORMS, ABILITY_DETAILS, ATTUNEMENT, TINKER_RECIPES } from './data.js?v=30';
+import { getState, update, updateNested, resetAll } from './state.js?v=19';
+import * as dice from './dice.js?v=5';
 import { logRoll, renderLog, doClearLog } from './log.js?v=5';
-import { shortRest, longRest } from './rest.js?v=13';
+import { shortRest, longRest } from './rest.js?v=14';
 import { SPELL_FULL_TEXT } from './spelltext.js?v=5';
 import { fireMadnessEvent, triggerScreenShake, triggerDamageFlash } from './madness.js?v=4';
 
@@ -51,6 +51,7 @@ function cacheElements() {
     hitDiceContainer: document.getElementById('hit-dice'),
     luckyContainer: document.getElementById('lucky-pips'),
     innateSorceryContainer: document.getElementById('innate-sorcery-pips'),
+    healingHandsPip: document.getElementById('healing-hands-pip'),
     celestialRevPip: document.getElementById('celestial-rev-pip'),
     sorcRestorationPip: document.getElementById('sorc-restoration-pip'),
     sapphirePip: document.getElementById('sapphire-pip'),
@@ -835,6 +836,7 @@ const expandedResources = new Set();
 const RESOURCE_KEY_MAP = {
   'lucky-pips': 'lucky',
   'innate-sorcery-pips': 'innateSorcery',
+  'healing-hands-pip': 'healingHands',
   'celestial-rev-pip': 'celestialRevelation',
   'sorc-restoration-pip': 'sorcerousRestoration',
   'sapphire-pip': 'sapphireRecharge',
@@ -948,6 +950,7 @@ function initStatDescriptions() {
 function renderResources() {
   renderPips(els.luckyContainer, 'lucky', RESOURCE_LIMITS.lucky);
   renderPips(els.innateSorceryContainer, 'innateSorcery', 2);
+  renderToggle(els.healingHandsPip, 'healingHands');
   renderToggle(els.celestialRevPip, 'celestialRevelation');
   renderToggle(els.sorcRestorationPip, 'sorcerousRestoration');
   renderToggle(els.sapphirePip, 'sapphireRecharge');
@@ -1262,7 +1265,11 @@ function renderInventory() {
 }
 
 async function rollHealingPotion(item) {
-  if (getState().physicalDice) return; // roll physical dice instead
+  if (getState().physicalDice) {
+    logRoll('resource', `${item.name}: Roll ${item.healing.count}d${item.healing.sides}+${item.healing.bonus} healing`);
+    renderLog(els.rollLog);
+    return;
+  }
   const { count, sides, bonus } = item.healing;
   const rolls = [];
   for (let i = 0; i < count; i++) {
@@ -1276,6 +1283,25 @@ async function rollHealingPotion(item) {
   els.diceBreakdown.textContent = `[${rolls.join(', ')}] + ${bonus}`;
   els.diceLabel.textContent = `${item.name}`;
   logRoll('healing', `${item.name}: [${rolls.join(',')}]+${bonus} = ${total}`);
+  renderLog(els.rollLog);
+}
+
+// ─── Healing Hands (Aasimar racial) ─────────────
+async function rollHealingHandsAction() {
+  if (getState().physicalDice) {
+    logRoll('healing', `Healing Hands: Roll ${CHARACTER.proficiencyBonus}d4 healing`);
+    renderLog(els.rollLog);
+    return;
+  }
+
+  clearDiceActions();
+  const result = dice.rollHealingHands(CHARACTER.proficiencyBonus);
+  const diceSpec = result.dice.map(v => ({ sides: 4, result: v }));
+  await dice.animateDice(els.diceStage, diceSpec);
+  await dice.animateRoll(els.diceResult, result.total, 4);
+  els.diceBreakdown.textContent = `[${result.dice.join(', ')}]`;
+  els.diceLabel.textContent = 'Healing Hands';
+  logRoll('healing', `Healing Hands: [${result.dice.join(',')}] = ${result.total}`);
   renderLog(els.rollLog);
 }
 
@@ -2868,6 +2894,17 @@ function bindEvents() {
     }
   });
 
+  // Healing Hands — custom handler: rolls 4d4 healing when consumed
+  document.getElementById('healing-hands-pip').addEventListener('click', () => {
+    const s = getState();
+    if (s.healingHands > 0) {
+      update('healingHands', 0);
+      rollHealingHandsAction();
+    } else {
+      update('healingHands', 1);
+    }
+  });
+
   const toggleMap = {
     'celestial-rev-pip': 'celestialRevelation',
     'sorc-restoration-pip': 'sorcerousRestoration',
@@ -3561,8 +3598,12 @@ function showShortRestModal() {
 
   const modal = document.createElement('div');
   modal.className = 'modal';
+  modal.setAttribute('role', 'dialog');
+  modal.setAttribute('aria-modal', 'true');
+  modal.setAttribute('aria-labelledby', 'modal-title-short-rest');
 
   const title = document.createElement('h2');
+  title.id = 'modal-title-short-rest';
   title.textContent = 'Short Rest';
 
   const info = document.createElement('p');
@@ -3635,10 +3676,15 @@ function showConfirmModal(title, message, onConfirm) {
   overlay.className = 'modal-overlay';
   const cleanup = trapFocus(overlay);
 
+  const modalId = 'modal-title-' + title.toLowerCase().replace(/\s+/g, '-');
   const modal = document.createElement('div');
   modal.className = 'modal';
+  modal.setAttribute('role', 'dialog');
+  modal.setAttribute('aria-modal', 'true');
+  modal.setAttribute('aria-labelledby', modalId);
 
   const h2 = document.createElement('h2');
+  h2.id = modalId;
   h2.textContent = title;
 
   const p = document.createElement('p');

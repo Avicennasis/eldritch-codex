@@ -1,5 +1,5 @@
 // Session state model with server + localStorage persistence
-import { CHARACTER, INVENTORY } from './data.js?v=29';
+import { CHARACTER, INVENTORY } from './data.js?v=30';
 
 const STORAGE_KEY = 'dnd-lanezel-session';
 const STATE_VERSION = 1;
@@ -15,6 +15,7 @@ function createDefaultState() {
     hitDiceRemaining: CHARACTER.hitDice.count,
     lucky: 4,
     innateSorcery: 2,
+    healingHands: 1,
     celestialRevelation: 1,
     sorcerousRestoration: 1,
     sapphireRecharge: 1,
@@ -78,6 +79,7 @@ function loadState() {
         if (parsed.rimesBindingIceFree === undefined) {
           parsed.rimesBindingIceFree = 1;
         }
+        if (parsed.healingHands === undefined) parsed.healingHands = 1;
         if (parsed.wandOfSecrets === undefined) parsed.wandOfSecrets = 3;
         if (parsed.wandOfMagicMissiles === undefined) parsed.wandOfMagicMissiles = 7;
         if (parsed.xanthrid === undefined) parsed.xanthrid = 1;
@@ -139,6 +141,7 @@ export async function initState() {
         if (data.rimesBindingIceFree === undefined) {
           data.rimesBindingIceFree = 1;
         }
+        if (data.healingHands === undefined) data.healingHands = 1;
         if (data.wandOfSecrets === undefined) data.wandOfSecrets = 3;
         if (data.wandOfMagicMissiles === undefined) data.wandOfMagicMissiles = 7;
         if (data.xanthrid === undefined) data.xanthrid = 1;
