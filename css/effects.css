@@ -1,0 +1,741 @@
+/* Eldritch effects: slime drips, tentacle pulses, organic horror, cosmic dread */
+
+/* ═══════════════════════════════════════════════
+   SLIME DRIP — oozes from panel top edges
+   ═══════════════════════════════════════════════ */
+
+.panel {
+  position: relative;
+  overflow: visible;
+}
+
+.panel::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 35px;
+  pointer-events: none;
+  z-index: 2;
+  background:
+    radial-gradient(ellipse 6px 14px at 12% 0%, var(--slime-drip), transparent 65%),
+    radial-gradient(ellipse 4px 20px at 38% 0%, var(--slime-drip), transparent 65%),
+    radial-gradient(ellipse 5px 12px at 62% 0%, var(--slime-drip), transparent 65%),
+    radial-gradient(ellipse 3px 17px at 85% 0%, var(--slime-drip), transparent 65%);
+  transform-origin: top center;
+  animation: drip-pulse 5s ease-in-out infinite;
+}
+
+/* Vary drip patterns per column */
+.column:nth-child(2) .panel::before {
+  background:
+    radial-gradient(ellipse 5px 16px at 18% 0%, var(--slime-drip), transparent 65%),
+    radial-gradient(ellipse 7px 11px at 48% 0%, var(--slime-drip), transparent 65%),
+    radial-gradient(ellipse 4px 19px at 72% 0%, var(--slime-drip), transparent 65%),
+    radial-gradient(ellipse 6px 13px at 92% 0%, var(--slime-drip), transparent 65%);
+  animation-delay: -1.8s;
+}
+
+.column:nth-child(3) .panel::before {
+  background:
+    radial-gradient(ellipse 4px 18px at 8% 0%, var(--slime-drip), transparent 65%),
+    radial-gradient(ellipse 6px 11px at 30% 0%, var(--slime-drip), transparent 65%),
+    radial-gradient(ellipse 5px 16px at 55% 0%, var(--slime-drip), transparent 65%),
+    radial-gradient(ellipse 3px 20px at 78% 0%, var(--slime-drip), transparent 65%);
+  animation-delay: -3.5s;
+}
+
+/* Spell section gets its own drip pattern */
+.spell-section {
+  position: relative;
+}
+.spell-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 5%;
+  right: 5%;
+  height: 40px;
+  pointer-events: none;
+  z-index: 2;
+  background:
+    radial-gradient(ellipse 5px 18px at 5% 0%, var(--slime-drip), transparent 65%),
+    radial-gradient(ellipse 4px 14px at 20% 0%, var(--slime-drip), transparent 65%),
+    radial-gradient(ellipse 6px 22px at 35% 0%, var(--slime-drip), transparent 65%),
+    radial-gradient(ellipse 3px 16px at 50% 0%, var(--slime-drip), transparent 65%),
+    radial-gradient(ellipse 5px 20px at 65% 0%, var(--slime-drip), transparent 65%),
+    radial-gradient(ellipse 4px 13px at 80% 0%, var(--slime-drip), transparent 65%),
+    radial-gradient(ellipse 6px 17px at 95% 0%, var(--slime-drip), transparent 65%);
+  transform-origin: top center;
+  animation: drip-pulse 7s ease-in-out infinite -2s;
+}
+
+@keyframes drip-pulse {
+  0%, 100% {
+    transform: scaleY(1);
+    opacity: 0.5;
+  }
+  40% {
+    transform: scaleY(2);
+    opacity: 0.9;
+  }
+  60% {
+    transform: scaleY(1.8);
+    opacity: 0.7;
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   ORGANIC PANEL GLOW — awakens on hover
+   ═══════════════════════════════════════════════ */
+
+.panel::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg,
+    rgba(57, 255, 20, 0.06),
+    transparent 40%,
+    transparent 60%,
+    rgba(155, 48, 255, 0.04));
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.6s;
+}
+
+.panel:hover::after {
+  opacity: 1;
+}
+
+.panel:hover {
+  border-color: rgba(57, 255, 20, 0.2);
+}
+
+/* ═══════════════════════════════════════════════
+   CONCENTRATION — psionic containment field
+   ═══════════════════════════════════════════════ */
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow:
+      0 0 10px rgba(155, 48, 255, 0.3),
+      inset 0 0 5px rgba(155, 48, 255, 0.1),
+      0 0 30px rgba(155, 48, 255, 0.1);
+  }
+  50% {
+    box-shadow:
+      0 0 20px rgba(155, 48, 255, 0.5),
+      inset 0 0 10px rgba(155, 48, 255, 0.15),
+      0 0 50px rgba(155, 48, 255, 0.2);
+  }
+}
+
+.concentrating {
+  animation: pulse-glow 2.5s ease-in-out infinite;
+}
+
+/* ═══════════════════════════════════════════════
+   CONDITIONS — infection spreading through tissue
+   ═══════════════════════════════════════════════ */
+
+@keyframes infection-pulse {
+  0%, 100% {
+    opacity: 0.85;
+    box-shadow: 0 0 4px rgba(245, 158, 11, 0.3);
+  }
+  50% {
+    opacity: 1;
+    box-shadow:
+      0 0 12px rgba(245, 158, 11, 0.6),
+      0 0 25px rgba(245, 158, 11, 0.15);
+  }
+}
+
+.condition-active {
+  animation: infection-pulse 2s ease-in-out infinite;
+}
+
+/* ═══════════════════════════════════════════════
+   DICE — eldritch energy burst
+   ═══════════════════════════════════════════════ */
+
+@keyframes flash-burst {
+  0% { box-shadow: 0 0 0 0 var(--slime-glow); }
+  20% {
+    box-shadow:
+      0 0 30px 10px var(--slime-glow),
+      0 0 60px 20px rgba(57, 255, 20, 0.1);
+  }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+
+.dice-flash {
+  animation: flash-burst 0.7s ease-out;
+}
+
+/* ═══════════════════════════════════════════════
+   LUCKY — psionic resonance
+   ═══════════════════════════════════════════════ */
+
+@keyframes lucky-glow {
+  0% { text-shadow: 0 0 5px var(--cyan); }
+  50% {
+    text-shadow:
+      0 0 20px var(--cyan),
+      0 0 40px var(--cyan-glow),
+      0 0 60px rgba(0, 229, 255, 0.15);
+  }
+  100% { text-shadow: 0 0 8px var(--cyan); }
+}
+
+.lucky-winner {
+  animation: lucky-glow 1s ease-in-out;
+  color: var(--cyan) !important;
+}
+
+.lucky-loser {
+  opacity: 0.3;
+  text-decoration: line-through;
+  transition: opacity 0.5s;
+}
+
+/* ═══════════════════════════════════════════════
+   HP BAR — living organism vitality
+   ═══════════════════════════════════════════════ */
+
+.hp-bar-fill {
+  transition: width 0.4s ease, background-color 0.4s ease;
+}
+
+.hp-bar-fill.hp-high {
+  background: linear-gradient(90deg, #22c55e, var(--slime-green));
+  box-shadow: inset 0 0 12px rgba(57, 255, 20, 0.3);
+}
+
+.hp-bar-fill.hp-mid {
+  background: linear-gradient(90deg, var(--amber), #e8a800);
+}
+
+.hp-bar-fill.hp-low {
+  background: linear-gradient(90deg, #cc2222, var(--red));
+}
+
+.hp-bar-fill.hp-critical {
+  background: var(--red);
+  animation: critical-bleed 0.8s ease-in-out infinite;
+}
+
+@keyframes critical-bleed {
+  0%, 100% {
+    opacity: 0.6;
+    box-shadow: inset 0 0 15px rgba(255, 0, 0, 0.5);
+  }
+  50% {
+    opacity: 1;
+    box-shadow:
+      inset 0 0 20px rgba(255, 0, 0, 0.8),
+      0 0 15px rgba(255, 0, 0, 0.3);
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   HOVER GLOW — bioluminescent reaction
+   ═══════════════════════════════════════════════ */
+
+.glow-hover {
+  transition: box-shadow 0.2s, transform 0.15s;
+}
+.glow-hover:hover {
+  box-shadow: 0 0 15px var(--slime-glow);
+  transform: translateY(-1px);
+}
+.glow-hover:active {
+  transform: translateY(0);
+}
+
+/* ═══════════════════════════════════════════════
+   HEADER — animated flowing border
+   ═══════════════════════════════════════════════ */
+
+.app-header {
+  position: relative;
+  border-bottom: none !important;
+}
+
+.app-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    var(--slime-green) 15%,
+    var(--purple) 35%,
+    var(--slime-green) 50%,
+    var(--purple) 65%,
+    var(--slime-green) 85%,
+    transparent 100%);
+  background-size: 200% 100%;
+  animation: gradient-flow 4s linear infinite;
+}
+
+@keyframes gradient-flow {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 200% 0%; }
+}
+
+/* ═══════════════════════════════════════════════
+   LOG ENTRIES — emerging from the void
+   ═══════════════════════════════════════════════ */
+
+@keyframes slide-in {
+  from { opacity: 0; transform: translateX(-10px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.log-entry {
+  animation: slide-in 0.3s ease-out;
+}
+
+/* ═══════════════════════════════════════════════
+   DEATH SAVES — soul energy
+   ═══════════════════════════════════════════════ */
+
+.death-success.active {
+  background: var(--green);
+  box-shadow: 0 0 10px var(--green), 0 0 20px rgba(34, 197, 94, 0.3);
+}
+.death-fail.active {
+  background: var(--red);
+  box-shadow: 0 0 10px var(--red), 0 0 20px rgba(255, 45, 45, 0.3);
+}
+
+/* star-pulse keyframes and .inspiration-active animation
+   are defined in components.css as header-star-pulse
+   (higher specificity via .inspiration-star.inspiration-active) */
+
+/* ═══════════════════════════════════════════════
+   ELDRITCH GRADIENT BORDER
+   ═══════════════════════════════════════════════ */
+
+.eldritch-border {
+  position: relative;
+  border-radius: var(--radius-lg);
+  background: var(--panel);
+}
+.eldritch-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, var(--slime-dim), var(--purple-dim));
+  z-index: -1;
+}
+
+/* Tentacle border image */
+.tentacle-header {
+  border-image-source: url('../img/tentacle-border.svg');
+  border-image-slice: 30 fill;
+  border-image-width: 12px;
+  border-image-repeat: round;
+}
+
+/* ═══════════════════════════════════════════════
+   BACKGROUND TENTACLES — swaying from edges
+   ═══════════════════════════════════════════════ */
+
+.tentacle-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.tentacle-svg {
+  position: absolute;
+  opacity: var(--tentacle-opacity, 0.15);
+  filter: blur(calc(0.3px - var(--madness, 0) * 0.3px));
+  transition: opacity 2s, filter 2s;
+}
+
+.tentacle-svg.left-top {
+  left: -80px;
+  top: 5%;
+  width: 250px;
+  height: 700px;
+  animation: tentacle-sway-left 14s ease-in-out infinite;
+}
+
+.tentacle-svg.right-mid {
+  right: -80px;
+  top: 25%;
+  width: 250px;
+  height: 700px;
+  transform: scaleX(-1);
+  animation: tentacle-sway-right 17s ease-in-out infinite;
+}
+
+.tentacle-svg.left-bottom {
+  left: -60px;
+  bottom: -5%;
+  width: 220px;
+  height: 600px;
+  animation: tentacle-sway-left 20s ease-in-out infinite -6s;
+}
+
+.tentacle-svg.right-bottom {
+  right: -60px;
+  bottom: 10%;
+  width: 220px;
+  height: 600px;
+  transform: scaleX(-1);
+  animation: tentacle-sway-right 15s ease-in-out infinite -4s;
+}
+
+.tentacle-svg.right-top {
+  right: -70px;
+  top: 3%;
+  width: 250px;
+  height: 700px;
+  transform: scaleX(-1);
+  animation: tentacle-sway-right 16s ease-in-out infinite -3s;
+}
+
+.tentacle-svg.left-mid {
+  left: -70px;
+  top: 35%;
+  width: 250px;
+  height: 700px;
+  animation: tentacle-sway-left 18s ease-in-out infinite -8s;
+}
+
+.tentacle-svg.bottom-center {
+  left: 50%;
+  bottom: -30px;
+  width: 200px;
+  height: 500px;
+  transform: translateX(-50%);
+  animation: tentacle-hang 14s ease-in-out infinite -5s;
+}
+
+/* 5th tentacle — hanging from top center */
+.tentacle-svg.top-center {
+  left: 50%;
+  top: -30px;
+  width: 180px;
+  height: 500px;
+  transform: translateX(-50%) rotate(180deg);
+  animation: tentacle-hang 12s ease-in-out infinite;
+}
+
+@keyframes tentacle-sway-left {
+  0%, 100% { transform: rotate(-5deg) translateX(-8px); }
+  30% { transform: rotate(4deg) translateX(6px); }
+  60% { transform: rotate(-3deg) translateX(-4px); }
+  80% { transform: rotate(6deg) translateX(10px); }
+}
+
+@keyframes tentacle-sway-right {
+  0%, 100% { transform: scaleX(-1) rotate(5deg) translateX(8px); }
+  30% { transform: scaleX(-1) rotate(-4deg) translateX(-6px); }
+  60% { transform: scaleX(-1) rotate(3deg) translateX(4px); }
+  80% { transform: scaleX(-1) rotate(-6deg) translateX(-10px); }
+}
+
+@keyframes tentacle-hang {
+  0%, 100% { transform: translateX(-50%) rotate(180deg) translateX(0) rotate(0deg); }
+  25% { transform: translateX(-50%) rotate(180deg) translateX(8px) rotate(3deg); }
+  50% { transform: translateX(-50%) rotate(180deg) translateX(-5px) rotate(-2deg); }
+  75% { transform: translateX(-50%) rotate(180deg) translateX(6px) rotate(2deg); }
+}
+
+/* ── Tentacle cursor-zone reactivity ── */
+.tentacle-svg.tentacle-reaching {
+  opacity: calc(var(--tentacle-opacity, 0.15) * 1.8) !important;
+  transition: transform 1.5s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 1.5s;
+}
+
+.tentacle-svg.left-top.tentacle-reaching {
+  transform: rotate(8deg) translateX(20px) !important;
+}
+.tentacle-svg.right-mid.tentacle-reaching {
+  transform: scaleX(-1) rotate(-8deg) translateX(-20px) !important;
+}
+.tentacle-svg.left-bottom.tentacle-reaching {
+  transform: rotate(6deg) translateX(15px) !important;
+}
+.tentacle-svg.right-bottom.tentacle-reaching {
+  transform: scaleX(-1) rotate(-6deg) translateX(-15px) !important;
+}
+.tentacle-svg.right-top.tentacle-reaching {
+  transform: scaleX(-1) rotate(-8deg) translateX(-18px) !important;
+}
+.tentacle-svg.left-mid.tentacle-reaching {
+  transform: rotate(7deg) translateX(18px) !important;
+}
+.tentacle-svg.top-center.tentacle-reaching {
+  transform: translateX(-50%) rotate(180deg) translateY(15px) !important;
+}
+.tentacle-svg.bottom-center.tentacle-reaching {
+  transform: translateX(-50%) translateY(-15px) !important;
+}
+
+/* ═══════════════════════════════════════════════
+   FLOATING SPORES — toxic particles drifting up
+   ═══════════════════════════════════════════════ */
+
+.spore-field {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.spore {
+  position: absolute;
+  bottom: -10px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--slime-green);
+  opacity: 0;
+  animation: spore-float linear infinite;
+}
+
+.spore:nth-child(odd) {
+  background: var(--purple-bright);
+}
+
+.spore:nth-child(3n) {
+  width: 3px;
+  height: 3px;
+}
+
+@keyframes spore-float {
+  0% {
+    opacity: 0;
+    transform: translateY(0) translateX(0) scale(0.5);
+  }
+  8% {
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateY(-50vh) translateX(20px) scale(0.8);
+  }
+  85% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-105vh) translateX(-15px) scale(1);
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   HEADER EYE — blinks occasionally
+   ═══════════════════════════════════════════════ */
+
+.header-eye {
+  display: inline-flex;
+  align-items: center;
+  animation: eye-glow 4s ease-in-out infinite;
+}
+
+.header-eye svg {
+  filter: drop-shadow(0 0 6px var(--slime-glow));
+}
+
+.header-eye .eye-lid {
+  animation: eye-blink 5s ease-in-out infinite;
+}
+
+@keyframes eye-blink {
+  0%, 40%, 50%, 100% { opacity: 0; }
+  44%, 46% { opacity: 1; }
+}
+
+@keyframes eye-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 4px rgba(57, 255, 20, 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 0 10px rgba(57, 255, 20, 0.6))
+            drop-shadow(0 0 20px rgba(155, 48, 255, 0.2));
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   BRAIN SLUG — decorative aberrant creature
+   ═══════════════════════════════════════════════ */
+
+.brain-slug {
+  display: inline-flex;
+  align-items: center;
+  animation: slug-pulse 6s ease-in-out infinite;
+}
+
+.brain-slug svg {
+  filter: drop-shadow(0 0 8px var(--purple-glow));
+}
+
+@keyframes slug-pulse {
+  0%, 100% {
+    transform: translateY(0);
+    filter: drop-shadow(0 0 6px rgba(155, 48, 255, 0.3));
+  }
+  50% {
+    transform: translateY(-3px);
+    filter: drop-shadow(0 0 12px rgba(155, 48, 255, 0.6))
+            drop-shadow(0 0 24px rgba(57, 255, 20, 0.2));
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   SPELL CARDS — aberrant energy on hover
+   ═══════════════════════════════════════════════ */
+
+.spell-card {
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.spell-card:hover {
+  border-color: rgba(57, 255, 20, 0.15);
+  box-shadow: 0 0 15px rgba(57, 255, 20, 0.05);
+}
+
+/* Source-specific hover glows */
+.spell-card[data-source="Aberrant"]:hover {
+  border-color: rgba(155, 48, 255, 0.2);
+  box-shadow: 0 0 15px rgba(155, 48, 255, 0.08);
+}
+.spell-card[data-source="Auril"]:hover {
+  border-color: rgba(0, 229, 255, 0.2);
+  box-shadow: 0 0 15px rgba(0, 229, 255, 0.08);
+}
+.spell-card[data-source="Aasimar"]:hover {
+  border-color: rgba(250, 204, 21, 0.2);
+  box-shadow: 0 0 15px rgba(250, 204, 21, 0.08);
+}
+.spell-card[data-source="Ythryn Goblet"]:hover {
+  border-color: rgba(0, 229, 255, 0.25);
+  box-shadow: 0 0 15px rgba(155, 48, 255, 0.06), 0 0 15px rgba(0, 229, 255, 0.06);
+}
+
+/* ═══════════════════════════════════════════════
+   GRAIN OVERLAY — organic tissue texture
+   ═══════════════════════════════════════════════ */
+
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  mix-blend-mode: soft-light;
+  opacity: 0.6;
+}
+
+/* ═══════════════════════════════════════════════
+   ROLL BUTTONS — intensified eldritch glow
+   ═══════════════════════════════════════════════ */
+
+.roll-btn:hover {
+  border-color: var(--slime-green) !important;
+  box-shadow:
+    0 0 10px var(--slime-glow),
+    0 0 25px rgba(57, 255, 20, 0.08) !important;
+  color: var(--slime-green) !important;
+}
+
+/* HP bar at full — subtle living pulse */
+.hp-bar-fill.hp-high {
+  animation: vitality-pulse 4s ease-in-out infinite;
+}
+
+@keyframes vitality-pulse {
+  0%, 100% {
+    box-shadow: inset 0 0 10px rgba(57, 255, 20, 0.25);
+    filter: brightness(1);
+  }
+  50% {
+    box-shadow: inset 0 0 18px rgba(57, 255, 20, 0.4);
+    filter: brightness(1.05);
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   REDUCED MOTION — respect user preference
+   ═══════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Keep opacity transitions for state changes — just make them instant */
+  .panel,
+  .spell-card,
+  .spell-full-text {
+    transition-duration: 0.01ms !important;
+  }
+
+  /* Preserve the effects visually but freeze them */
+  .tentacle-svg,
+  .spore,
+  .tentacle-bg,
+  .spore-field {
+    animation: none !important;
+  }
+
+  /* Dice still work — just skip the tumble */
+  .die-svg.tumbling {
+    animation: none !important;
+    opacity: 1;
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+
+  .dice-rolling {
+    animation: none !important;
+  }
+
+  /* Keep static glow states but remove pulsing */
+  .concentrating,
+  .condition-active,
+  .inspiration-active,
+  .brain-slug,
+  .header-eye,
+  .hp-bar-fill.hp-high,
+  .hp-bar-fill.hp-critical {
+    animation: none !important;
+  }
+
+  /* Eldritch overhaul — hide motion-dependent elements */
+  .beholder-eye,
+  .slime-drop,
+  #particle-canvas {
+    display: none !important;
+  }
+
+  .reality-warped {
+    filter: none !important;
+  }
+
+  body.screen-shake {
+    animation: none !important;
+  }
+
+  body.damage-flash::before {
+    animation: none !important;
+  }
+}

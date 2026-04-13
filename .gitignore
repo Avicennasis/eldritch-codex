@@ -1,0 +1,15 @@
+# Server-side game state (writable by www-data at runtime)
+data/*.json
+
+# Dev planning artifacts
+docs/superpowers/
+
+# Editor / OS
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Claude Code
+CLAUDE.md

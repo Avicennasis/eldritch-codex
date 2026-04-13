@@ -1,0 +1,226 @@
+/* Eldritch Codex — Aberrant Sorcerer Design System
+   Far Realm cosmic horror: toxic bioluminescence, living tissue, alien biology */
+
+/* Fonts: display=swap for fast FCP, latin subset for smaller payload */
+@import url('https://fonts.googleapis.com/css2?family=Uncial+Antiqua&family=IM+Fell+English+SC&family=Alegreya:ital,wght@0,400;0,500;0,700;1,400&family=Victor+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap&subset=latin');
+
+:root {
+  /* Backgrounds — the Void between realms */
+  --void: #050a05;
+  --panel: #0a120c;
+  --elevated: #111e14;
+  --surface: #192a1d;
+
+  /* Primary — Toxic Bioluminescent Green */
+  --slime-green: #39ff14;
+  --slime-bright: #7fff00;
+  --slime-dim: #0a2e0c;
+  --slime-glow: rgba(57, 255, 20, 0.35);
+  --slime: rgba(57, 255, 20, 0.5);
+  --slime-drip: rgba(57, 255, 20, 0.3);
+
+  /* Backward-compat aliases (components.css + inline styles reference --teal) */
+  --teal: var(--slime-green);
+  --teal-bright: var(--slime-bright);
+  --teal-dim: var(--slime-dim);
+  --teal-glow: var(--slime-glow);
+
+  /* Secondary — Far Realm Purple */
+  --purple: #9b30ff;
+  --purple-bright: #c77dff;
+  --purple-dim: #1f0a3d;
+  --purple-glow: rgba(155, 48, 255, 0.35);
+
+  /* Psionic Cyan */
+  --cyan: #00e5ff;
+  --cyan-glow: rgba(0, 229, 255, 0.4);
+  --cyan-flash: rgba(0, 229, 255, 0.8);
+
+  /* Functional */
+  --red: #ff2d2d;
+  --red-dim: #3d0a0a;
+  --green: #22c55e;
+  --green-dim: #0f3d1a;
+  --amber: #f59e0b;
+  --amber-dim: #3d2a08;
+  --blue: #3b82f6;
+  --blue-dim: #0f2444;
+
+  /* Text — greenish cast, like reading by bioluminescence */
+  --text-primary: #c8e6c9;
+  --text-secondary: #78a87c;
+  --text-muted: #3d6341;
+
+  /* Borders — organic, dark green */
+  --border: #14301a;
+  --border-glow: linear-gradient(135deg, var(--slime-green), var(--purple));
+
+  /* Fonts */
+  --font-display: 'Uncial Antiqua', cursive;
+  --font-heading: 'IM Fell English SC', serif;
+  --font-body: 'Alegreya', serif;
+  --font-mono: 'Victor Mono', monospace;
+
+  /* Sizing — scaled up for readability */
+  --radius: 8px;
+  --radius-lg: 14px;
+  --gap: 16px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior: none;
+}
+
+/* Vignette — darkness closing in from the edges */
+html::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background: radial-gradient(ellipse 70% 60% at 50% 50%, transparent 50%, rgba(5, 10, 5, 0.6) 100%);
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--void);
+  color: var(--text-primary);
+  min-height: 100vh;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+/* Vignette — darkness creeping from the edges */
+body > *:not(.tentacle-bg):not(.spore-field):not(.modal-overlay) {
+  position: relative;
+  z-index: 1;
+}
+
+/* === THE VOID — layered background === */
+
+/* Layer 1: toxic spore particles + deep organic veins */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(1.5px 1.5px at 8% 15%, rgba(57, 255, 20, 0.3), transparent),
+    radial-gradient(1px 1px at 22% 45%, rgba(155, 48, 255, 0.2), transparent),
+    radial-gradient(2px 2px at 35% 8%, rgba(57, 255, 20, 0.2), transparent),
+    radial-gradient(1px 1px at 48% 72%, rgba(0, 229, 255, 0.12), transparent),
+    radial-gradient(1.5px 1.5px at 62% 28%, rgba(57, 255, 20, 0.25), transparent),
+    radial-gradient(1px 1px at 75% 58%, rgba(155, 48, 255, 0.18), transparent),
+    radial-gradient(2px 2px at 88% 12%, rgba(57, 255, 20, 0.2), transparent),
+    radial-gradient(1px 1px at 95% 82%, rgba(57, 255, 20, 0.15), transparent),
+    radial-gradient(1.5px 1.5px at 42% 92%, rgba(155, 48, 255, 0.15), transparent),
+    radial-gradient(1px 1px at 5% 55%, rgba(57, 255, 20, 0.18), transparent),
+    /* Deep vein-like ambient gradients */
+    radial-gradient(ellipse 600px 200px at 20% 80%, rgba(57, 255, 20, 0.04), transparent),
+    radial-gradient(ellipse 400px 300px at 80% 20%, rgba(155, 48, 255, 0.04), transparent),
+    radial-gradient(ellipse 800px 400px at 50% 50%, rgba(57, 255, 20, 0.02), transparent);
+  pointer-events: none;
+  animation: void-breathe 8s ease-in-out infinite;
+}
+
+/* Layer 2: creeping tendrils from edges */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 150px 900px at 0% 50%, rgba(57, 255, 20, 0.06), transparent),
+    radial-gradient(ellipse 150px 900px at 100% 50%, rgba(155, 48, 255, 0.05), transparent),
+    radial-gradient(ellipse 900px 100px at 50% 0%, rgba(57, 255, 20, 0.05), transparent),
+    radial-gradient(ellipse 900px 100px at 50% 100%, rgba(155, 48, 255, 0.04), transparent);
+  pointer-events: none;
+  animation: void-breathe 12s ease-in-out infinite reverse;
+}
+
+@keyframes void-breathe {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* === Typography === */
+
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  color: var(--slime-bright);
+  letter-spacing: 0.04em;
+}
+
+h1 {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  color: var(--slime-green);
+  text-shadow:
+    0 0 10px var(--slime-glow),
+    0 0 30px rgba(57, 255, 20, 0.2),
+    0 0 60px rgba(57, 255, 20, 0.08);
+}
+
+h2 { font-size: 1.15rem; }
+h3 { font-size: 1rem; }
+
+a {
+  color: var(--cyan);
+  text-decoration: none;
+}
+
+/* === Slime scrollbar === */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--void);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--slime-dim);
+  border-radius: 5px;
+  border: 1px solid rgba(57, 255, 20, 0.12);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(57, 255, 20, 0.3);
+  box-shadow: 0 0 8px var(--slime-glow);
+}
+
+::selection {
+  background: rgba(57, 255, 20, 0.2);
+  color: var(--slime-green);
+}
+
+/* ═══════════════════════════════════════════════
+   FOCUS VISIBLE — eldritch containment ring
+   ═══════════════════════════════════════════════ */
+
+:focus-visible {
+  outline: 2px solid var(--slime-green);
+  outline-offset: 2px;
+  box-shadow: 0 0 8px var(--slime-glow);
+  border-radius: 3px;
+}
+
+/* Remove default focus ring — focus-visible handles it */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Tighter outline for small pip/toggle elements */
+.slot-check:focus-visible,
+.resource-pip:focus-visible,
+.resource-toggle:focus-visible,
+.death-save-pip:focus-visible,
+.hd-check:focus-visible,
+.exhaustion-pip:focus-visible {
+  outline-offset: 1px;
+}

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+  <defs>
+    <linearGradient id="tg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#39ff14" stop-opacity="0.5"/>
+      <stop offset="50%" stop-color="#9b30ff" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#39ff14" stop-opacity="0.5"/>
+    </linearGradient>
+  </defs>
+  <rect width="120" height="120" fill="#0a120c"/>
+  <path d="M0,8 Q8,0 18,6 T38,3 T58,9 T78,2 T98,7 T120,4" fill="none" stroke="url(#tg)" stroke-width="2.5" opacity="0.7"/>
+  <path d="M0,117 Q12,120 22,113 T48,118 T72,111 T92,117 T120,113" fill="none" stroke="url(#tg)" stroke-width="2.5" opacity="0.7"/>
+  <path d="M3,0 Q0,12 6,22 T2,48 T8,72 T3,92 T6,120" fill="none" stroke="url(#tg)" stroke-width="2.5" opacity="0.6"/>
+  <path d="M117,0 Q120,10 113,25 T119,52 T112,78 T118,98 T113,120" fill="none" stroke="url(#tg)" stroke-width="2.5" opacity="0.6"/>
+  <!-- Sucker dots along edges -->
+  <circle cx="18" cy="6" r="2" fill="rgba(57,255,20,0.2)"/>
+  <circle cx="58" cy="9" r="2.5" fill="rgba(155,48,255,0.15)"/>
+  <circle cx="98" cy="7" r="2" fill="rgba(57,255,20,0.2)"/>
+  <circle cx="3" cy="48" r="2" fill="rgba(155,48,255,0.15)"/>
+  <circle cx="6" cy="92" r="2.5" fill="rgba(57,255,20,0.18)"/>
+  <circle cx="117" cy="52" r="2" fill="rgba(57,255,20,0.15)"/>
+  <circle cx="113" cy="98" r="2.5" fill="rgba(155,48,255,0.12)"/>
+</svg>

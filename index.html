@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eldritch Codex — Lanezel Havenwood</title>
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/theme.css?v=4">
+  <link rel="stylesheet" href="css/layout.css?v=13">
+  <link rel="stylesheet" href="css/components.css?v=27">
+  <link rel="stylesheet" href="css/dice.css?v=2">
+  <link rel="stylesheet" href="css/effects.css?v=6">
+  <link rel="stylesheet" href="css/eldritch.css?v=6">
+  <script type="module" src="js/app.js?v=59"></script>
+</head>
+<body>
+
+<!-- Background Tentacles -->
+<div class="tentacle-bg" aria-hidden="true">
+  <svg class="tentacle-svg left-top" viewBox="0 0 250 700" fill="none">
+    <defs>
+      <linearGradient id="tg1" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#39ff14" stop-opacity="0.7"/>
+        <stop offset="50%" stop-color="#9b30ff" stop-opacity="0.4"/>
+        <stop offset="100%" stop-color="#39ff14" stop-opacity="0.1"/>
+      </linearGradient>
+    </defs>
+    <path d="M120,0 C150,60 70,120 130,200 C180,270 50,340 110,420 C170,500 40,560 100,640 C120,670 80,700 90,700" stroke="url(#tg1)" stroke-width="28" stroke-linecap="round"/>
+    <path d="M124,0 C154,60 74,120 134,200 C184,270 54,340 114,420 C174,500 44,560 104,640" stroke="rgba(57,255,20,0.2)" stroke-width="10" stroke-linecap="round" stroke-dasharray="4 8"/>
+    <circle cx="140" cy="100" r="7" fill="rgba(57,255,20,0.15)" stroke="rgba(57,255,20,0.2)" stroke-width="1.5"/>
+    <circle cx="85" cy="170" r="5.5" fill="rgba(155,48,255,0.12)" stroke="rgba(155,48,255,0.18)" stroke-width="1"/>
+    <circle cx="150" cy="260" r="8" fill="rgba(57,255,20,0.1)" stroke="rgba(57,255,20,0.15)" stroke-width="1.5"/>
+    <circle cx="70" cy="350" r="6" fill="rgba(155,48,255,0.08)" stroke="rgba(155,48,255,0.12)" stroke-width="1"/>
+    <circle cx="140" cy="440" r="7" fill="rgba(57,255,20,0.06)" stroke="rgba(57,255,20,0.1)" stroke-width="1"/>
+    <circle cx="65" cy="530" r="5" fill="rgba(155,48,255,0.05)" stroke="rgba(155,48,255,0.08)" stroke-width="1"/>
+  </svg>
+  <svg class="tentacle-svg right-mid" viewBox="0 0 250 700" fill="none">
+    <defs>
+      <linearGradient id="tg2" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#9b30ff" stop-opacity="0.6"/>
+        <stop offset="50%" stop-color="#39ff14" stop-opacity="0.3"/>
+        <stop offset="100%" stop-color="#9b30ff" stop-opacity="0.1"/>
+      </linearGradient>
+    </defs>
+    <path d="M130,0 C100,70 170,140 110,220 C60,290 180,370 120,450 C60,530 180,590 130,670 C110,700 150,700 140,700" stroke="url(#tg2)" stroke-width="26" stroke-linecap="round"/>
+    <path d="M126,0 C96,70 166,140 106,220 C56,290 176,370 116,450" stroke="rgba(155,48,255,0.18)" stroke-width="9" stroke-linecap="round" stroke-dasharray="3 10"/>
+    <circle cx="105" cy="90" r="6" fill="rgba(155,48,255,0.12)" stroke="rgba(155,48,255,0.18)" stroke-width="1"/>
+    <circle cx="155" cy="180" r="7.5" fill="rgba(57,255,20,0.1)" stroke="rgba(57,255,20,0.15)" stroke-width="1.5"/>
+    <circle cx="90" cy="300" r="6" fill="rgba(155,48,255,0.08)" stroke="rgba(155,48,255,0.12)" stroke-width="1"/>
+    <circle cx="160" cy="400" r="5" fill="rgba(57,255,20,0.06)" stroke="rgba(57,255,20,0.1)" stroke-width="1"/>
+    <circle cx="85" cy="500" r="7" fill="rgba(155,48,255,0.05)" stroke="rgba(155,48,255,0.08)" stroke-width="1"/>
+  </svg>
+  <svg class="tentacle-svg left-bottom" viewBox="0 0 220 600" fill="none">
+    <defs>
+      <linearGradient id="tg3" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#39ff14" stop-opacity="0.5"/>
+        <stop offset="100%" stop-color="#9b30ff" stop-opacity="0.15"/>
+      </linearGradient>
+    </defs>
+    <path d="M110,0 C140,50 60,100 120,170 C170,230 40,300 100,370 C150,430 50,490 90,560 C100,580 70,600 80,600" stroke="url(#tg3)" stroke-width="16" stroke-linecap="round"/>
+    <circle cx="130" cy="80" r="5" fill="rgba(57,255,20,0.1)"/>
+    <circle cx="75" cy="160" r="6.5" fill="rgba(155,48,255,0.08)"/>
+    <circle cx="140" cy="250" r="5.5" fill="rgba(57,255,20,0.06)"/>
+    <circle cx="65" cy="340" r="4.5" fill="rgba(155,48,255,0.05)"/>
+  </svg>
+  <svg class="tentacle-svg right-bottom" viewBox="0 0 220 600" fill="none">
+    <defs>
+      <linearGradient id="tg4" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#9b30ff" stop-opacity="0.5"/>
+        <stop offset="100%" stop-color="#39ff14" stop-opacity="0.15"/>
+      </linearGradient>
+    </defs>
+    <path d="M100,0 C70,60 150,120 90,200 C40,270 160,340 100,410 C50,470 150,530 110,580 C100,600 130,600 120,600" stroke="url(#tg4)" stroke-width="16" stroke-linecap="round"/>
+    <circle cx="80" cy="90" r="5.5" fill="rgba(155,48,255,0.1)"/>
+    <circle cx="140" cy="180" r="6" fill="rgba(57,255,20,0.07)"/>
+    <circle cx="60" cy="280" r="5" fill="rgba(155,48,255,0.06)"/>
+    <circle cx="130" cy="370" r="4" fill="rgba(57,255,20,0.04)"/>
+  </svg>
+  <!-- right-top tentacle — mirror of left-top -->
+  <svg class="tentacle-svg right-top" viewBox="0 0 250 700" fill="none">
+    <defs>
+      <linearGradient id="tg6" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#9b30ff" stop-opacity="0.6"/>
+        <stop offset="50%" stop-color="#39ff14" stop-opacity="0.35"/>
+        <stop offset="100%" stop-color="#9b30ff" stop-opacity="0.08"/>
+      </linearGradient>
+    </defs>
+    <path d="M130,0 C100,55 180,130 110,210 C50,280 170,350 100,440 C40,520 160,580 120,650 C100,680 140,700 130,700" stroke="url(#tg6)" stroke-width="24" stroke-linecap="round"/>
+    <path d="M126,0 C96,55 176,130 106,210 C46,280 166,350 96,440" stroke="rgba(155,48,255,0.15)" stroke-width="8" stroke-linecap="round" stroke-dasharray="5 10"/>
+    <circle cx="110" cy="120" r="6.5" fill="rgba(155,48,255,0.12)" stroke="rgba(155,48,255,0.16)" stroke-width="1"/>
+    <circle cx="160" cy="230" r="5" fill="rgba(57,255,20,0.1)" stroke="rgba(57,255,20,0.14)" stroke-width="1"/>
+    <circle cx="80" cy="360" r="7" fill="rgba(155,48,255,0.07)" stroke="rgba(155,48,255,0.1)" stroke-width="1"/>
+    <circle cx="150" cy="480" r="5.5" fill="rgba(57,255,20,0.05)"/>
+  </svg>
+  <!-- left-mid tentacle — mirror of right-mid -->
+  <svg class="tentacle-svg left-mid" viewBox="0 0 250 700" fill="none">
+    <defs>
+      <linearGradient id="tg7" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#39ff14" stop-opacity="0.55"/>
+        <stop offset="50%" stop-color="#9b30ff" stop-opacity="0.35"/>
+        <stop offset="100%" stop-color="#39ff14" stop-opacity="0.08"/>
+      </linearGradient>
+    </defs>
+    <path d="M120,0 C90,65 170,135 100,220 C40,300 160,370 90,460 C30,540 150,600 110,670 C130,690 80,700 95,700" stroke="url(#tg7)" stroke-width="20" stroke-linecap="round"/>
+    <path d="M116,0 C86,65 166,135 96,220 C36,300 156,370 86,460" stroke="rgba(57,255,20,0.14)" stroke-width="7" stroke-linecap="round" stroke-dasharray="4 9"/>
+    <circle cx="100" cy="100" r="5.5" fill="rgba(57,255,20,0.1)" stroke="rgba(57,255,20,0.14)" stroke-width="1"/>
+    <circle cx="145" cy="210" r="6" fill="rgba(155,48,255,0.08)" stroke="rgba(155,48,255,0.12)" stroke-width="1"/>
+    <circle cx="70" cy="340" r="5" fill="rgba(57,255,20,0.06)"/>
+    <circle cx="140" cy="450" r="6.5" fill="rgba(155,48,255,0.04)"/>
+  </svg>
+  <!-- 5th tentacle — hanging from top center -->
+  <svg class="tentacle-svg top-center" viewBox="0 0 180 500" fill="none">
+    <defs>
+      <linearGradient id="tg5" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#39ff14" stop-opacity="0.6"/>
+        <stop offset="40%" stop-color="#9b30ff" stop-opacity="0.4"/>
+        <stop offset="100%" stop-color="#39ff14" stop-opacity="0.05"/>
+      </linearGradient>
+    </defs>
+    <path d="M90,0 C60,50 120,100 80,170 C40,230 130,280 90,350 C50,410 120,460 100,500" stroke="url(#tg5)" stroke-width="22" stroke-linecap="round"/>
+    <path d="M94,0 C64,50 124,100 84,170 C44,230 134,280 94,350" stroke="rgba(57,255,20,0.15)" stroke-width="8" stroke-linecap="round" stroke-dasharray="5 12"/>
+    <circle cx="70" cy="80" r="6" fill="rgba(57,255,20,0.12)" stroke="rgba(57,255,20,0.18)" stroke-width="1"/>
+    <circle cx="110" cy="150" r="5" fill="rgba(155,48,255,0.1)" stroke="rgba(155,48,255,0.15)" stroke-width="1"/>
+    <circle cx="60" cy="240" r="7" fill="rgba(57,255,20,0.08)" stroke="rgba(57,255,20,0.12)" stroke-width="1"/>
+    <circle cx="120" cy="320" r="4.5" fill="rgba(155,48,255,0.06)"/>
+  </svg>
+  <!-- bottom-center tentacle — reaching up from below -->
+  <svg class="tentacle-svg bottom-center" viewBox="0 0 200 500" fill="none">
+    <defs>
+      <linearGradient id="tg8" x1="0" y1="1" x2="0" y2="0">
+        <stop offset="0%" stop-color="#9b30ff" stop-opacity="0.5"/>
+        <stop offset="40%" stop-color="#39ff14" stop-opacity="0.3"/>
+        <stop offset="100%" stop-color="#9b30ff" stop-opacity="0.05"/>
+      </linearGradient>
+    </defs>
+    <path d="M100,500 C70,440 130,380 90,310 C50,240 140,180 100,120 C65,60 120,20 105,0" stroke="url(#tg8)" stroke-width="20" stroke-linecap="round"/>
+    <path d="M96,500 C66,440 126,380 86,310 C46,240 136,180 96,120" stroke="rgba(155,48,255,0.12)" stroke-width="7" stroke-linecap="round" stroke-dasharray="4 11"/>
+    <circle cx="80" cy="400" r="5.5" fill="rgba(155,48,255,0.1)" stroke="rgba(155,48,255,0.14)" stroke-width="1"/>
+    <circle cx="125" cy="300" r="6" fill="rgba(57,255,20,0.08)" stroke="rgba(57,255,20,0.12)" stroke-width="1"/>
+    <circle cx="70" cy="200" r="5" fill="rgba(155,48,255,0.06)"/>
+    <circle cx="115" cy="100" r="4.5" fill="rgba(57,255,20,0.04)"/>
+  </svg>
+</div>
+
+<!-- Organic Grain Texture -->
+<svg class="grain-overlay" aria-hidden="true" width="100%" height="100%">
+  <filter id="grain-filter">
+    <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="4" stitchTiles="stitch"/>
+  </filter>
+  <rect width="100%" height="100%" filter="url(#grain-filter)" opacity="0.035"/>
+</svg>
+
+<!-- Particle Canvas -->
+<canvas id="particle-canvas" aria-hidden="true"></canvas>
+
+<!-- Reality Warp Filter -->
+<svg style="position:absolute;width:0;height:0" aria-hidden="true">
+  <filter id="warp-filter">
+    <feTurbulence type="turbulence" baseFrequency="0.015" numOctaves="2" result="warp" seed="0">
+      <animate attributeName="seed" from="0" to="100" dur="10s" repeatCount="indefinite"/>
+    </feTurbulence>
+    <feDisplacementMap id="warp-displacement" in="SourceGraphic" in2="warp" scale="0" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>
+
+<!-- Beholder Eye (constructed by JS) -->
+<div id="beholder-eye-container" aria-hidden="true"></div>
+
+<!-- Floating Spores -->
+<div class="spore-field" aria-hidden="true">
+  <div class="spore" style="left:3%;animation-duration:14s;animation-delay:0s"></div>
+  <div class="spore" style="left:11%;animation-duration:18s;animation-delay:-4s"></div>
+  <div class="spore" style="left:20%;animation-duration:12s;animation-delay:-7s"></div>
+  <div class="spore" style="left:30%;animation-duration:16s;animation-delay:-2s"></div>
+  <div class="spore" style="left:38%;animation-duration:20s;animation-delay:-10s"></div>
+  <div class="spore" style="left:47%;animation-duration:13s;animation-delay:-5s"></div>
+  <div class="spore" style="left:55%;animation-duration:17s;animation-delay:-12s"></div>
+  <div class="spore" style="left:63%;animation-duration:15s;animation-delay:-3s"></div>
+  <div class="spore" style="left:72%;animation-duration:19s;animation-delay:-8s"></div>
+  <div class="spore" style="left:80%;animation-duration:14s;animation-delay:-14s"></div>
+  <div class="spore" style="left:88%;animation-duration:16s;animation-delay:-6s"></div>
+  <div class="spore" style="left:95%;animation-duration:21s;animation-delay:-11s"></div>
+</div>
+
+<!-- Header -->
+<header class="app-header">
+  <div style="display:flex;align-items:center;gap:12px">
+    <div class="header-eye" aria-hidden="true">
+      <svg viewBox="0 0 64 64" width="38" height="38">
+        <defs>
+          <radialGradient id="eye-outer" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#39ff14"/>
+            <stop offset="60%" stop-color="#9b30ff"/>
+            <stop offset="100%" stop-color="#050a05"/>
+          </radialGradient>
+          <radialGradient id="eye-iris" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#050a05"/>
+            <stop offset="35%" stop-color="#050a05"/>
+            <stop offset="55%" stop-color="#39ff14"/>
+            <stop offset="100%" stop-color="#9b30ff"/>
+          </radialGradient>
+        </defs>
+        <ellipse cx="32" cy="32" rx="30" ry="20" fill="url(#eye-outer)" stroke="#39ff14" stroke-width="1.5" stroke-opacity="0.6"/>
+        <ellipse cx="32" cy="32" rx="12" ry="18" fill="url(#eye-iris)"/>
+        <ellipse cx="32" cy="32" rx="4" ry="16" fill="#050a05"/>
+        <ellipse cx="29" cy="25" rx="3" ry="2" fill="rgba(57,255,20,0.35)" transform="rotate(-15 29 25)"/>
+        <!-- Blink lid -->
+        <ellipse class="eye-lid" cx="32" cy="32" rx="30" ry="20" fill="#050a05" opacity="0"/>
+      </svg>
+    </div>
+    <div>
+      <h1>Eldritch Codex</h1>
+      <span class="char-info">Lanezel Havenwood — Lvl 9 Aasimar Aberrant Sorcerer</span>
+    </div>
+  </div>
+  <div class="header-actions">
+    <div class="header-toggles">
+      <button class="inspiration-star header-star" id="inspiration-star" title="Heroic Inspiration"></button>
+      <button class="header-star xanthrid-toggle" id="btn-xanthrid-toggle" title="Summon/Dismiss Xanthrid"></button>
+      <button class="header-star aberrant-toggle" id="btn-aberrant-toggle" title="Summon/Dismiss Aberrant Spirit"></button>
+      <button class="header-star polymorph-toggle" id="btn-polymorph-toggle" title="Activate/End Polymorph"></button>
+      <button class="header-star madness-toggle" id="btn-madness-toggle" title="Toggle madness effects"></button>
+      <button class="header-star dice-toggle" id="btn-dice-mode" title="Toggle digital/physical dice"></button>
+      <button class="header-star store-toggle" id="btn-store-toggle" title="Toggle Store"></button>
+    </div>
+    <div class="header-buttons">
+      <button class="btn" id="btn-short-rest">Short Rest</button>
+      <button class="btn" id="btn-long-rest">Long Rest</button>
+      <button class="btn btn-danger btn-small" id="btn-reset">Reset</button>
+    </div>
+  </div>
+</header>
+
+<!-- Main 3-column Grid -->
+<main class="main-grid">
+
+  <!-- LEFT COLUMN: Combat & Status -->
+  <div class="column">
+
+    <!-- HP -->
+    <section class="panel panel-critical">
+      <div class="panel-header">
+        <h2><i class="fa-solid fa-heart-pulse"></i> Hit Points</h2>
+      </div>
+      <div class="hp-bar-container">
+        <div class="hp-bar-fill hp-high" id="hp-fill"></div>
+        <div class="hp-bar-temp" id="hp-temp-bar" style="display:none"></div>
+        <div class="hp-bar-text" id="hp-text">50/50</div>
+      </div>
+      <div class="hp-controls">
+        <input type="number" class="hp-input" id="hp-input" placeholder="Amount" min="0">
+        <select class="dmg-type-select" id="hp-dmg-type">
+          <option value="">Untyped</option>
+        </select>
+        <button class="btn btn-small btn-danger" id="btn-damage">Damage</button>
+        <button class="btn btn-small" id="btn-heal" style="border-color:var(--green-dim);color:var(--green)">Heal</button>
+      </div>
+      <div class="hp-controls">
+        <input type="number" class="hp-input" id="temp-hp-input" placeholder="Temp HP" min="0">
+        <button class="btn btn-small" id="btn-temp-hp" style="border-color:var(--blue-dim);color:var(--blue)">Set Temp</button>
+      </div>
+    </section>
+
+    <!-- AC / Speed / Init -->
+    <section class="panel">
+      <div class="panel-header"><h2><i class="fa-solid fa-shield-halved"></i> Combat Stats</h2></div>
+      <div class="stat-row">
+        <span class="stat-label">Armor Class</span>
+        <span class="stat-value" id="ac-value">18</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Speed</span>
+        <span class="stat-value" id="speed-value">30 ft.</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Initiative</span>
+        <span class="stat-value" id="init-value">+2</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Proficiency</span>
+        <span class="stat-value">+4</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Spell Save DC</span>
+        <span class="stat-value">16</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Spell Attack</span>
+        <span class="stat-value">+8</span>
+      </div>
+    </section>
+
+    <!-- Ability Scores -->
+    <section class="panel">
+      <div class="panel-header"><h2><i class="fa-solid fa-dna"></i> Ability Scores</h2></div>
+      <div id="ability-scores"></div>
+    </section>
+
+    <!-- Attunement -->
+    <section class="panel">
+      <div class="panel-header"><h2><i class="fa-solid fa-link"></i> Attunement</h2></div>
+      <div id="attunement-slots"></div>
+    </section>
+
+    <!-- Skills -->
+    <section class="panel">
+      <div class="panel-header"><h2><i class="fa-solid fa-clipboard-list"></i> Skills</h2></div>
+      <div id="skills-list"></div>
+    </section>
+
+    <!-- Languages -->
+    <section class="panel">
+      <div class="panel-header"><h2><i class="fa-solid fa-language"></i> Languages</h2></div>
+      <div class="chip-list" id="languages-list"></div>
+    </section>
+
+    <!-- Concentration -->
+    <section class="panel">
+      <div class="panel-header"><h2><i class="fa-solid fa-brain"></i> Concentration</h2></div>
+      <select class="conc-select" id="conc-select"></select>
+    </section>
+
+    <!-- Exhaustion -->
+    <section class="panel">
+      <div class="panel-header"><h2><i class="fa-solid fa-face-tired"></i> Exhaustion</h2></div>
+      <div class="exhaustion-track" id="exhaustion-track"></div>
+    </section>
+
+    <!-- Death Saves -->
+    <section class="panel">
+      <div class="panel-header"><h2><i class="fa-solid fa-skull-crossbones"></i> Death Saves</h2></div>
+      <div class="death-saves">
+        <div class="death-save-group">
+          <span style="color:var(--green)">Succ</span>
+          <div id="death-successes"></div>
+        </div>
+        <div class="death-save-group">
+          <span style="color:var(--red)">Fail</span>
+          <div id="death-failures"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Saving Throws -->
+    <section class="panel">
+      <div class="panel-header"><h2><i class="fa-solid fa-shield"></i> Saving Throws</h2></div>
+      <div class="roll-btn-grid" id="save-buttons"></div>
+      <div style="margin-top:6px">
+        <button class="roll-btn" id="btn-conc-check" style="width:100%;border-color:var(--purple-dim);color:var(--purple-bright)">Concentration Check (CON +7 Adv)</button>
+      </div>
+    </section>
+
+    <!-- Attacks -->
+    <section class="panel">
+      <div class="panel-header"><h2><i class="fa-solid fa-hand-fist"></i> Attack Rolls</h2></div>
+      <div class="roll-btn-grid" id="attack-buttons"></div>
+    </section>
+
+    <!-- Damage -->
+    <section class="panel">
+      <div class="panel-header"><h2><i class="fa-solid fa-fire"></i> Damage Rolls</h2></div>
+      <div class="roll-btn-grid" id="damage-buttons"></div>
+    </section>
+  </div>
+
+  <!-- CENTER COLUMN: Magic -->
+  <div class="column">
+
+    <!-- Spell Slots -->
+    <section class="panel">
+      <div class="panel-header"><h2><i class="fa-solid fa-hat-wizard"></i> Spell Slots</h2></div>
+      <div id="spell-slots"></div>
+    </section>
+
+    <!-- Sorcery Points -->
+    <section class="panel">
+      <div class="panel-header"><h2><i class="fa-solid fa-atom"></i> Sorcery Points</h2></div>
+      <div class="sp-counter">
+        <button class="btn btn-icon" id="sp-minus">-</button>
+        <span class="sp-display" id="sp-display">9</span>
+        <button class="btn btn-icon" id="sp-plus">+</button>
+        <span style="font-size:0.75rem;color:var(--text-muted);margin-left:4px">/ 9</span>
+      </div>
+      <div class="sp-conversion" id="sp-conversion"></div>
+    </section>
+
+    <!-- Hit Dice -->
+    <section class="panel">
+      <div class="panel-header"><h2><i class="fa-solid fa-dice-d6"></i> Hit Dice (d6)</h2></div>
+      <div class="hit-dice-row" id="hit-dice"></div>
+    </section>
+
+    <!-- Aberrant Spirit Companion -->
+    <section class="panel panel-aberrant" id="aberrant-spirit-panel" style="display:none">
+      <div class="panel-header">
+        <h2><i class="fa-solid fa-ghost"></i> Aberrant Spirit</h2>
+        <button class="btn btn-small btn-danger" id="btn-dismiss-spirit" title="Dismiss spirit">X</button>
+      </div>
+      <div class="spirit-form-selector" id="spirit-form-selector"></div>
+      <div class="spirit-stats" id="spirit-stats"></div>
+      <div class="hp-bar-container spirit-hp-bar">
+        <div class="hp-bar-fill hp-high" id="spirit-hp-fill"></div>
+        <div class="hp-bar-temp" id="spirit-hp-temp-bar" style="display:none"></div>
+        <div class="hp-bar-text" id="spirit-hp-text">40/40</div>
+      </div>
+      <div class="hp-controls">
+        <input type="number" class="hp-input" id="spirit-hp-input" placeholder="Amount" min="0">
+        <select class="dmg-type-select" id="spirit-dmg-type"><option value="">Untyped</option></select>
+        <button class="btn btn-small btn-danger" id="btn-spirit-damage">Damage</button>
+        <button class="btn btn-small" id="btn-spirit-heal" style="border-color:var(--green-dim);color:var(--green)">Heal</button>
+      </div>
+      <div class="hp-controls">
+        <input type="number" class="hp-input" id="spirit-temp-hp-input" placeholder="Temp HP" min="0">
+        <button class="btn btn-small" id="btn-spirit-temp-hp" style="border-color:var(--blue-dim);color:var(--blue)">Set Temp</button>
+      </div>
+      <div id="spirit-regen-row" style="display:none;margin-top:8px">
+        <button class="btn btn-small" id="btn-spirit-regen" style="width:100%;border-color:var(--green-dim);color:var(--green)">Regenerate +5 HP</button>
+      </div>
+      <div class="spirit-attacks" id="spirit-attacks"></div>
+      <div id="spirit-aura-row" style="display:none;margin-top:4px">
+        <button class="btn btn-small" id="btn-spirit-aura" style="width:100%;border-color:var(--purple-dim);color:var(--purple-bright)">Whispering Aura (2d6 Psychic, DC 16 WIS)</button>
+      </div>
+      <div class="spirit-traits" id="spirit-traits"></div>
+    </section>
+
+    <!-- Xanthrid Companion -->
+    <section class="panel panel-celestial" id="xanthrid-panel" style="display:none">
+      <div class="panel-header">
+        <h2><i class="fa-solid fa-sun"></i> Xanthrid</h2>
+        <button class="btn btn-small btn-danger" id="btn-dismiss-xanthrid" title="Dismiss Xanthrid">X</button>
+      </div>
+      <div class="spirit-stats" id="xanthrid-stats"></div>
+      <div class="hp-bar-container spirit-hp-bar">
+        <div class="hp-bar-fill hp-high" id="xanthrid-hp-fill"></div>
+        <div class="hp-bar-temp" id="xanthrid-hp-temp-bar" style="display:none"></div>
+        <div class="hp-bar-text" id="xanthrid-hp-text">19/19</div>
+      </div>
+      <div class="hp-controls">
+        <input type="number" class="hp-input" id="xanthrid-hp-input" placeholder="Amount" min="0">
+        <select class="dmg-type-select" id="xanthrid-dmg-type"><option value="">Untyped</option></select>
+        <button class="btn btn-small btn-danger" id="btn-xanthrid-damage">Damage</button>
+        <button class="btn btn-small" id="btn-xanthrid-heal" style="border-color:var(--green-dim);color:var(--green)">Heal</button>
+      </div>
+      <div class="hp-controls">
+        <input type="number" class="hp-input" id="xanthrid-temp-hp-input" placeholder="Temp HP" min="0">
+        <button class="btn btn-small" id="btn-xanthrid-temp-hp" style="border-color:var(--blue-dim);color:var(--blue)">Set Temp</button>
+      </div>
+      <div class="spirit-attacks" id="xanthrid-attacks"></div>
+      <div class="xanthrid-spells" id="xanthrid-spells"></div>
+      <div class="spirit-traits" id="xanthrid-traits"></div>
+    </section>
+
+    <!-- Polymorph Companion -->
+    <section class="panel panel-polymorph" id="polymorph-panel" style="display:none">
+      <div class="panel-header">
+        <h2><i class="fa-solid fa-paw"></i> Polymorph</h2>
+        <button class="btn btn-small btn-danger" id="btn-dismiss-polymorph" title="End Polymorph">X</button>
+      </div>
+      <div class="spirit-form-selector" id="polymorph-form-selector"></div>
+      <div class="spirit-stats" id="polymorph-stats"></div>
+      <div class="polymorph-abilities" id="polymorph-abilities"></div>
+      <div class="hp-bar-container spirit-hp-bar polymorph-thp-bar">
+        <div class="hp-bar-fill polymorph-thp-fill" id="polymorph-thp-fill"></div>
+        <div class="hp-bar-text" id="polymorph-thp-text">0/0 THP</div>
+      </div>
+      <div class="hp-controls">
+        <input type="number" class="hp-input" id="polymorph-dmg-input" placeholder="Damage" min="0">
+        <select class="dmg-type-select" id="polymorph-dmg-type"><option value="">Untyped</option></select>
+        <button class="btn btn-small btn-danger" id="btn-polymorph-damage">Damage</button>
+      </div>
+      <div class="spirit-attacks" id="polymorph-attacks"></div>
+      <div id="polymorph-specials"></div>
+      <div id="polymorph-bonus-actions"></div>
+      <div class="spirit-traits" id="polymorph-traits"></div>
+    </section>
+
+  </div>
+
+  <!-- RIGHT COLUMN: Defenses, Resources, Inventory, Dice & Log -->
+  <div class="column">
+
+    <!-- Resistances -->
+    <section class="panel">
+      <div class="panel-header"><h2><i class="fa-solid fa-shield-virus"></i> Resistances</h2></div>
+      <div class="chip-list" id="resistances-list"></div>
+    </section>
+
+    <!-- Conditions -->
+    <section class="panel">
+      <div class="panel-header"><h2><i class="fa-solid fa-biohazard"></i> Conditions</h2></div>
+      <div class="condition-grid" id="condition-grid"></div>
+    </section>
+
+    <!-- Resources -->
+    <section class="panel">
+      <div class="panel-header"><h2><i class="fa-solid fa-gem"></i> Resources</h2></div>
+
+      <div class="resource-row">
+        <span class="resource-name">Lucky</span>
+        <div class="resource-counter" id="lucky-pips"></div>
+      </div>
+
+      <div class="resource-row">
+        <span class="resource-name">Innate Sorcery</span>
+        <div class="resource-counter" id="innate-sorcery-pips"></div>
+      </div>
+
+      <div class="resource-row">
+        <span class="resource-name">Celestial Revelation</span>
+        <button class="resource-toggle" id="celestial-rev-pip"></button>
+      </div>
+
+      <div class="resource-row">
+        <span class="resource-name">Sorcerous Restoration</span>
+        <button class="resource-toggle" id="sorc-restoration-pip"></button>
+      </div>
+
+      <div class="resource-row">
+        <span class="resource-name">Sapphire of Power</span>
+        <button class="resource-toggle" id="sapphire-pip"></button>
+      </div>
+
+      <div class="resource-row">
+        <span class="resource-name">Auril's Binding Ice (free)</span>
+        <button class="resource-toggle" id="rimes-free-pip"></button>
+      </div>
+
+      <div class="resource-row">
+        <span class="resource-name">Wand of Secrets</span>
+        <div class="resource-counter" id="wand-secrets-pips"></div>
+      </div>
+
+      <div class="resource-row">
+        <span class="resource-name">Wand of Magic Missiles</span>
+        <div class="resource-counter" id="wand-mm-pips"></div>
+      </div>
+
+      <div class="resource-row">
+        <span class="resource-name">Xanthrid</span>
+        <button class="resource-toggle" id="xanthrid-pip"></button>
+      </div>
+
+      <div class="resource-row">
+        <span class="resource-name">Auril's Abode</span>
+        <button class="resource-toggle" id="aurils-abode-pip"></button>
+      </div>
+    </section>
+
+    <!-- Tinker's Tools -->
+    <section class="panel">
+      <div class="panel-header"><h2><i class="fa-solid fa-screwdriver-wrench"></i> Tinker's Tools</h2></div>
+      <div class="tinker-hours" id="tinker-hours"></div>
+      <div class="tinker-projects" id="tinker-projects"></div>
+      <div class="tinker-new">
+        <select class="dmg-type-select" id="tinker-recipe-select" style="max-width:none;flex:1">
+          <option value="">Start new project...</option>
+        </select>
+        <button class="btn btn-small store-add-btn" id="btn-tinker-start">Start</button>
+      </div>
+    </section>
+
+    <!-- Inventory -->
+    <section class="panel">
+      <div class="panel-header"><h2><i class="fa-solid fa-sack-xmark"></i> Inventory</h2></div>
+      <div id="inventory-container"></div>
+    </section>
+
+    <!-- Store -->
+    <section class="panel panel-store" id="store-panel" style="display:none">
+      <div class="panel-header">
+        <h2><i class="fa-solid fa-shop"></i> Store</h2>
+      </div>
+
+      <div class="inv-category">Potions</div>
+      <div class="store-row">
+        <select class="dmg-type-select" id="store-potion-select" style="max-width:none;flex:1">
+          <option value="">Choose potion...</option>
+        </select>
+        <input type="number" class="store-qty" id="store-potion-qty" value="1" min="1" max="99">
+        <button class="btn btn-small store-add-btn" id="btn-add-potion">Add</button>
+      </div>
+
+      <div class="inv-category">Spell Scrolls</div>
+      <div class="store-row">
+        <select class="dmg-type-select" id="store-scroll-select" style="max-width:none;flex:1">
+          <option value="">Choose spell...</option>
+        </select>
+        <input type="number" class="store-qty" id="store-scroll-qty" value="1" min="1" max="99">
+        <button class="btn btn-small store-add-btn" id="btn-add-scroll">Add</button>
+      </div>
+
+      <div class="inv-category">Custom Item</div>
+      <div class="store-custom">
+        <div class="store-row">
+          <input type="text" class="store-custom-input" id="store-custom-name" placeholder="Item name...">
+          <input type="number" class="store-qty" id="store-custom-qty" value="1" min="1" max="99">
+        </div>
+        <div class="store-row">
+          <select class="dmg-type-select" id="store-custom-category" style="max-width:none;flex:1">
+            <option value="Armor">Armor</option>
+            <option value="Clothing">Clothing</option>
+            <option value="Gear">Gear</option>
+            <option value="Magic Items">Magic Items</option>
+            <option value="Miscellaneous">Miscellaneous</option>
+            <option value="Potions">Potions</option>
+            <option value="Scrolls">Scrolls</option>
+            <option value="Tools">Tools</option>
+            <option value="Weapons">Weapons</option>
+          </select>
+          <button class="btn btn-small store-add-btn" id="btn-add-custom">Add</button>
+        </div>
+        <div class="store-row">
+          <input type="text" class="store-custom-input" id="store-custom-desc" placeholder="Description (optional)">
+        </div>
+      </div>
+    </section>
+
+    <!-- Dice Display -->
+    <section class="panel">
+      <div class="panel-header"><h2><i class="fa-solid fa-dice-d20"></i> Dice</h2></div>
+      <div class="dice-stage" id="dice-stage"></div>
+      <div class="dice-result-area">
+        <div class="dice-display" id="dice-display">
+          <div class="dice-label" id="dice-label">Roll a save or attack</div>
+          <div class="dice-result" id="dice-result">--</div>
+          <div class="dice-breakdown" id="dice-breakdown"></div>
+        </div>
+        <div class="lucky-display" id="lucky-display">
+          <div class="lucky-die" id="lucky-die-1">--</div>
+          <div class="lucky-die" id="lucky-die-2">--</div>
+        </div>
+      </div>
+      <div class="dice-actions" id="dice-actions"></div>
+      <div style="text-align:center;margin-top:4px">
+        <button class="btn btn-lucky" id="btn-lucky-roll" style="width:100%">Lucky Roll (2d20)</button>
+      </div>
+    </section>
+
+    <!-- Roll Log -->
+    <section class="panel">
+      <div class="panel-header">
+        <h2><i class="fa-solid fa-scroll"></i> Roll Log</h2>
+        <button class="btn btn-small" id="btn-clear-log">Clear</button>
+      </div>
+      <div class="roll-log" id="roll-log"></div>
+    </section>
+
+    <!-- Notes -->
+    <section class="panel">
+      <div class="panel-header"><h2><i class="fa-solid fa-note-sticky"></i> Notes</h2></div>
+      <textarea class="notes-textarea" id="notes-textarea" placeholder="Session notes..." rows="6"></textarea>
+    </section>
+  </div>
+
+</main>
+
+<!-- Spell Section (full width) -->
+<section class="spell-section">
+  <div class="panel-header">
+    <h2><i class="fa-solid fa-book-skull"></i> Spells</h2>
+    <div class="spell-global-actions">
+      <button class="btn btn-small btn-spell-global" id="btn-expand-all" title="Expand full text on all spells">Expand All</button>
+    </div>
+  </div>
+  <div class="spell-filter-bar" id="spell-filter-bar">
+    <div class="spell-search-row">
+      <input type="text" class="spell-search" id="spell-search" placeholder="Search spells...">
+      <select class="spell-sort" id="spell-sort">
+        <option value="level">Sort: Level</option>
+        <option value="name">Sort: Name</option>
+        <option value="castTime">Sort: Cast Time</option>
+      </select>
+      <button class="btn btn-small spell-filter-toggle" id="btn-spell-filters">Filters</button>
+    </div>
+    <div class="spell-filters" id="spell-filters" style="display:none">
+      <div class="filter-group">
+        <span class="filter-label">Level</span>
+        <div class="filter-pills" data-filter="level">
+          <button class="filter-pill" data-value="0">C</button>
+          <button class="filter-pill" data-value="1">1</button>
+          <button class="filter-pill" data-value="2">2</button>
+          <button class="filter-pill" data-value="3">3</button>
+          <button class="filter-pill" data-value="4">4</button>
+          <button class="filter-pill" data-value="5">5</button>
+        </div>
+      </div>
+      <div class="filter-group">
+        <span class="filter-label">Action</span>
+        <div class="filter-pills" data-filter="castTime">
+          <button class="filter-pill" data-value="Action">Action</button>
+          <button class="filter-pill" data-value="Reaction">Reaction</button>
+          <button class="filter-pill" data-value="1 min">1 min</button>
+        </div>
+      </div>
+      <div class="filter-group">
+        <span class="filter-label">Target</span>
+        <div class="filter-pills" data-filter="target">
+          <button class="filter-pill" data-value="self">Self</button>
+          <button class="filter-pill" data-value="ally">Ally</button>
+          <button class="filter-pill" data-value="single">Enemy</button>
+          <button class="filter-pill" data-value="area">Area</button>
+          <button class="filter-pill" data-value="utility">Utility</button>
+        </div>
+      </div>
+      <div class="filter-group">
+        <span class="filter-label">Type</span>
+        <div class="filter-pills" data-filter="flags">
+          <button class="filter-pill" data-value="conc">Conc</button>
+          <button class="filter-pill" data-value="psionic">Psionic</button>
+          <button class="filter-pill" data-value="damage">Damage</button>
+          <button class="filter-pill" data-value="nodamage">No Dmg</button>
+        </div>
+      </div>
+      <div class="filter-group">
+        <span class="filter-label">School</span>
+        <div class="filter-pills" data-filter="school">
+          <button class="filter-pill" data-value="Abjuration">Abj</button>
+          <button class="filter-pill" data-value="Conjuration">Conj</button>
+          <button class="filter-pill" data-value="Divination">Div</button>
+          <button class="filter-pill" data-value="Enchantment">Ench</button>
+          <button class="filter-pill" data-value="Evocation">Evo</button>
+          <button class="filter-pill" data-value="Illusion">Ill</button>
+          <button class="filter-pill" data-value="Transmutation">Trans</button>
+        </div>
+      </div>
+      <div class="filter-group">
+        <span class="filter-label">Source</span>
+        <div class="filter-pills" data-filter="source">
+          <button class="filter-pill" data-value="Sorcerer">Sorcerer</button>
+          <button class="filter-pill" data-value="Aberrant">Aberrant</button>
+          <button class="filter-pill" data-value="Auril">Auril</button>
+          <button class="filter-pill" data-value="Aasimar">Aasimar</button>
+          <button class="filter-pill" data-value="Ythryn Goblet">Ythryn</button>
+        </div>
+      </div>
+      <div class="filter-group">
+        <span class="filter-label">Damage</span>
+        <div class="filter-pills" data-filter="damageType">
+          <button class="filter-pill" data-value="Acid">Acid</button>
+          <button class="filter-pill" data-value="Bludgeoning">Bludg</button>
+          <button class="filter-pill" data-value="Cold">Cold</button>
+          <button class="filter-pill" data-value="Fire">Fire</button>
+          <button class="filter-pill" data-value="Force">Force</button>
+          <button class="filter-pill" data-value="Lightning">Lightn</button>
+          <button class="filter-pill" data-value="Poison">Poison</button>
+          <button class="filter-pill" data-value="Psychic">Psychic</button>
+          <button class="filter-pill" data-value="Thunder">Thunder</button>
+        </div>
+      </div>
+      <button class="btn btn-small spell-clear-filters" id="btn-clear-filters">Clear All</button>
+    </div>
+  </div>
+  <div class="spell-count" id="spell-count"></div>
+  <div class="spell-grid" id="spell-grid"></div>
+</section>
+
+</body>
+</html>
