@@ -78,7 +78,7 @@ function loadState() {
         if (parsed.rimesBindingIceFree === undefined) {
           parsed.rimesBindingIceFree = 1;
         }
-        if (parsed.wandOfSecrets === undefined) parsed.wandOfSecrets = 1;
+        if (parsed.wandOfSecrets === undefined) parsed.wandOfSecrets = 3;
         if (parsed.wandOfMagicMissiles === undefined) parsed.wandOfMagicMissiles = 7;
         if (parsed.xanthrid === undefined) parsed.xanthrid = 1;
         if (parsed.aurilsAbode === undefined) parsed.aurilsAbode = 1;
@@ -139,7 +139,7 @@ export async function initState() {
         if (data.rimesBindingIceFree === undefined) {
           data.rimesBindingIceFree = 1;
         }
-        if (data.wandOfSecrets === undefined) data.wandOfSecrets = 1;
+        if (data.wandOfSecrets === undefined) data.wandOfSecrets = 3;
         if (data.wandOfMagicMissiles === undefined) data.wandOfMagicMissiles = 7;
         if (data.xanthrid === undefined) data.xanthrid = 1;
         if (data.aurilsAbode === undefined) data.aurilsAbode = 1;

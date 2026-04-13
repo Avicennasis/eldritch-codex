@@ -1,6 +1,6 @@
 // Entry point — wires all modules together
-import { initUI, renderAll } from './ui.js?v=36';
-import { getState, update, initState } from './state.js?v=17';
+import { initUI, renderAll } from './ui.js?v=37';
+import { getState, update, initState } from './state.js?v=18';
 import { initMadness, onMadnessChange, getMadness, refreshMadnessCSS } from './madness.js?v=4';
 import { initEye, updateEye } from './eldritch-eye.js?v=9';
 import { initParticles, updateParticles, spawnPortal } from './particles.js?v=6';
@@ -36,8 +36,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   // State change callback re-renders UI + syncs madness
   window._onStateChange = () => { renderAll(); syncMadnessDOM(); };
 
-  // Initialize systems — fetch server state before rendering
-  await Promise.all([initState(), initMadness()]);
+  // Initialize systems — state must load before madness so suppression class is set
+  await initState();
+  syncMadnessDOM();
+  await initMadness();
   initUI();
   initEye();
   initParticles();

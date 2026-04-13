@@ -1,9 +1,9 @@
 // DOM rendering, event binding, panel updates
 import { CHARACTER, WEAPONS, SPELLS, CONDITIONS, SPELL_SLOT_COSTS, DAMAGE_TYPES, STORE_POTIONS, RESOURCE_LIMITS, INVENTORY, RESOURCE_DESCRIPTIONS, STAT_DESCRIPTIONS, SKILL_DESCRIPTIONS, PANEL_DESCRIPTIONS, LANGUAGE_DESCRIPTIONS, RESISTANCE_DESCRIPTIONS, CONDITION_DESCRIPTIONS, ABERRANT_SPIRIT, XANTHRID_COMPANION, POLYMORPH_FORMS, ABILITY_DETAILS, ATTUNEMENT, TINKER_RECIPES } from './data.js?v=29';
-import { getState, update, updateNested, resetAll } from './state.js?v=17';
+import { getState, update, updateNested, resetAll } from './state.js?v=18';
 import * as dice from './dice.js?v=4';
 import { logRoll, renderLog, doClearLog } from './log.js?v=5';
-import { shortRest, longRest } from './rest.js?v=12';
+import { shortRest, longRest } from './rest.js?v=13';
 import { SPELL_FULL_TEXT } from './spelltext.js?v=5';
 import { fireMadnessEvent, triggerScreenShake, triggerDamageFlash } from './madness.js?v=4';
 
@@ -2060,8 +2060,8 @@ function renderAberrantSpirit() {
 
   // Bind events once
   if (!spiritEventsbound) {
-    spiritEventsbound = true;
     bindSpiritEvents();
+    spiritEventsbound = true;
   }
 }
 
@@ -2331,8 +2331,8 @@ function renderXanthridCompanion() {
 
   // Bind events once
   if (!xanthridEventsBound) {
-    xanthridEventsBound = true;
     bindXanthridEvents();
+    xanthridEventsBound = true;
   }
 }
 
@@ -2594,8 +2594,8 @@ function renderPolymorphForm() {
 
   // Bind events once
   if (!polymorphEventsBound) {
-    polymorphEventsBound = true;
     bindPolymorphEvents();
+    polymorphEventsBound = true;
   }
 }
 
@@ -2761,7 +2761,8 @@ function renderDiceMode() {
   document.querySelectorAll('.panel').forEach(panel => {
     const h2 = panel.querySelector('h2');
     if (!h2) return;
-    const name = h2.textContent.replace(/\+$/, '').trim();
+    const nameNode = [...h2.childNodes].find(n => n.nodeType === Node.TEXT_NODE);
+    const name = nameNode ? nameNode.textContent.trim() : '';
     if (DICE_PANEL_NAMES.includes(name)) {
       panel.style.display = physical ? 'none' : '';
     }
