@@ -108,3 +108,7 @@ All JS uses ES modules with `?v=N` cache-bust params. When editing a JS file, bu
 ## License
 
 [MIT](LICENSE) — Léon "Avic" Simmons
+
+## Asset Credits
+
+- `assets/beholder.glb` is the "Beholder" model by [Captain LowPoly](https://sketchfab.com/captainlowpoly), from [Sketchfab](https://sketchfab.com/3d-models/beholder-64f359c99c7a40b590683fb52101ee87), used under a CC Attribution (Creative Commons) license.

@@ -4,13 +4,14 @@ import { CHARACTER, INVENTORY } from './data.js?v=30';
 const STORAGE_KEY = 'dnd-lanezel-session';
 const STATE_VERSION = 1;
 const API_URL = 'api.php';
+const SERVER_SAVE_DELAY_MS = 150;
 
 function createDefaultState() {
   return {
     version: STATE_VERSION,
     hp: CHARACTER.maxHp,
     tempHp: 0,
-    spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 1 },
+    spellSlots: { ...CHARACTER.spellSlots },
     sorceryPoints: CHARACTER.sorceryPoints,
     hitDiceRemaining: CHARACTER.hitDice.count,
     lucky: 4,
@@ -65,6 +66,9 @@ function createDefaultState() {
 }
 
 let state = loadState();
+let saveTimer = null;
+let saveInFlight = false;
+let queuedSnapshot = null;
 
 function loadState() {
   try {
@@ -120,12 +124,38 @@ function saveState() {
   } catch (e) {
     console.warn('Failed to save state', e);
   }
-  // Fire-and-forget server save
-  fetch(`${API_URL}?key=state`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(state),
-  }).catch(() => {});
+  scheduleServerSave();
+}
+
+function scheduleServerSave() {
+  queuedSnapshot = JSON.stringify(state);
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => {
+    flushServerSave();
+  }, SERVER_SAVE_DELAY_MS);
+}
+
+async function flushServerSave() {
+  if (saveInFlight || queuedSnapshot === null) return;
+
+  const snapshot = queuedSnapshot;
+  queuedSnapshot = null;
+  saveInFlight = true;
+
+  try {
+    await fetch(`${API_URL}?key=state`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: snapshot,
+    });
+  } catch (_) {
+    // Ignore transient persistence failures; later state changes will retry.
+  } finally {
+    saveInFlight = false;
+    if (queuedSnapshot !== null) {
+      flushServerSave();
+    }
+  }
 }
 
 // Async server load — call once at startup, merges server state over localStorage

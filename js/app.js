@@ -1,8 +1,7 @@
 // Entry point — wires all modules together
-import { initUI, renderAll } from './ui.js?v=38';
+import { initUI, renderAll } from './ui.js?v=39';
 import { getState, update, initState } from './state.js?v=19';
 import { initMadness, onMadnessChange, getMadness, setMadness, refreshMadnessCSS } from './madness.js?v=6';
-import { initBeholder, updateBeholder } from './beholder-3d.js?v=1';
 import { initParticles, updateParticles, spawnPortal } from './particles.js?v=6';
 
 // Hook dice stage for portal particles
@@ -32,7 +31,26 @@ function syncMadnessDOM() {
   if (btn) btn.classList.toggle('madness-off', suppressed);
 }
 
+function createNoopBeholder() {
+  return {
+    initBeholder() {},
+    updateBeholder() {},
+  };
+}
+
+async function loadBeholderModule() {
+  try {
+    return await import('./beholder-3d.js?v=1');
+  } catch (e) {
+    console.warn('Beholder module failed to load; continuing without 3D eye', e);
+    return createNoopBeholder();
+  }
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
+  let updateBeholderFrame = () => {};
+  const beholderModulePromise = loadBeholderModule();
+
   // State change callback re-renders UI + syncs madness
   window._onStateChange = () => { renderAll(); syncMadnessDOM(); };
 
@@ -62,6 +80,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   let pressTimer = null;
   let didLongPress = false;
+  let cleanupMadnessMenu = null;
 
   const MADNESS_TIERS = [
     { name: 'Calm', max: 15, set: 0 },
@@ -72,35 +91,38 @@ document.addEventListener('DOMContentLoaded', async () => {
   ];
 
   function showMadnessMenu() {
-    // Remove existing menu if any
-    const existing = document.getElementById('madness-menu');
-    if (existing) existing.remove();
+    closeMadnessMenu();
+
+    const previousFocus = document.activeElement;
+    const overlay = document.createElement('div');
+    overlay.id = 'madness-menu-overlay';
+    overlay.className = 'modal-overlay';
 
     const menu = document.createElement('div');
     menu.id = 'madness-menu';
-    menu.style.cssText = `
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: var(--panel, #1a1a1a);
-      border: 1px solid var(--slime-dim, #39ff14);
-      border-radius: 8px;
-      padding: 12px;
-      z-index: 9999;
-      min-width: 180px;
-      box-shadow: 0 0 20px rgba(57, 255, 20, 0.3);
-    `;
+    menu.className = 'modal';
+    menu.setAttribute('role', 'dialog');
+    menu.setAttribute('aria-modal', 'true');
+    menu.setAttribute('aria-labelledby', 'madness-menu-title');
+
+    const closeMenu = () => {
+      cleanupMadnessMenu?.();
+      overlay.remove();
+      previousFocus?.focus?.();
+    };
 
     const title = document.createElement('div');
+    title.id = 'madness-menu-title';
     title.textContent = 'Set Madness Level';
     title.style.cssText = 'color: #39ff14; font-weight: bold; margin-bottom: 10px; text-align: center;';
     menu.appendChild(title);
 
     const current = getMadness();
+    const buttons = [];
 
     MADNESS_TIERS.forEach(tier => {
       const btn = document.createElement('button');
+      btn.className = 'btn';
       btn.textContent = `${tier.name} (${tier.set}%)`;
       btn.style.cssText = `
         display: block;
@@ -116,7 +138,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       `;
       btn.addEventListener('click', () => {
         setMadness(tier.set);
-        menu.remove();
+        closeMenu();
       });
       btn.addEventListener('mouseenter', () => {
         btn.style.background = 'rgba(57, 255, 20, 0.3)';
@@ -125,9 +147,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         btn.style.background = current.tierName === tier.name.toLowerCase() ? 'rgba(57, 255, 20, 0.2)' : 'transparent';
       });
       menu.appendChild(btn);
+      buttons.push(btn);
     });
 
     const closeBtn = document.createElement('button');
+    closeBtn.className = 'btn';
     closeBtn.textContent = 'Cancel';
     closeBtn.style.cssText = `
       display: block;
@@ -140,32 +164,66 @@ document.addEventListener('DOMContentLoaded', async () => {
       color: #ff6b6b;
       cursor: pointer;
     `;
-    closeBtn.addEventListener('click', () => menu.remove());
+    closeBtn.addEventListener('click', closeMenu);
     menu.appendChild(closeBtn);
+    buttons.push(closeBtn);
 
-    document.body.appendChild(menu);
-
-    // Close on click outside
-    setTimeout(() => {
-      document.addEventListener('click', function closeMenu(e) {
-        if (!menu.contains(e.target) && e.target !== madnessBtn) {
-          menu.remove();
-          document.removeEventListener('click', closeMenu);
+    function onKeyDown(e) {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        closeMenu();
+        return;
+      }
+      if (e.key === 'Tab') {
+        const first = buttons[0];
+        const last = buttons[buttons.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
         }
-      });
-    }, 100);
+      }
+    }
+
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) closeMenu();
+    });
+    overlay.addEventListener('keydown', onKeyDown);
+    overlay.appendChild(menu);
+    document.body.appendChild(overlay);
+
+    cleanupMadnessMenu = () => {
+      overlay.removeEventListener('keydown', onKeyDown);
+      cleanupMadnessMenu = null;
+    };
+
+    buttons[0]?.focus();
   }
 
-  madnessBtn.addEventListener('mousedown', () => {
+  function closeMadnessMenu() {
+    cleanupMadnessMenu?.();
+    document.getElementById('madness-menu-overlay')?.remove();
+  }
+
+  function cancelMadnessPress() {
+    clearTimeout(pressTimer);
+    pressTimer = null;
+  }
+
+  madnessBtn.addEventListener('pointerdown', (e) => {
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
     didLongPress = false;
+    cancelMadnessPress();
     pressTimer = setTimeout(() => {
       didLongPress = true;
       showMadnessMenu();
     }, 500); // 500ms hold = long press
   });
 
-  madnessBtn.addEventListener('mouseup', () => {
-    clearTimeout(pressTimer);
+  madnessBtn.addEventListener('pointerup', () => {
+    cancelMadnessPress();
     if (!didLongPress) {
       // Normal click - toggle suppression
       update('madnessSuppressed', !getState().madnessSuppressed);
@@ -174,9 +232,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   });
 
-  madnessBtn.addEventListener('mouseleave', () => {
-    clearTimeout(pressTimer);
-  });
+  madnessBtn.addEventListener('pointerleave', cancelMadnessPress);
+  madnessBtn.addEventListener('pointercancel', cancelMadnessPress);
 
   // Tentacle cursor-zone reactivity
   initTentacleZones();
@@ -189,44 +246,69 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   function tick(timestamp) {
     if (!reducedMotion && document.visibilityState !== 'hidden') {
-      updateBeholder(timestamp);
+      updateBeholderFrame(timestamp);
       updateParticles(timestamp);
     }
     requestAnimationFrame(tick);
   }
   requestAnimationFrame(tick);
 
-  // ── Mobile collapsible panels ──
-  // Restore collapsed state from server
-  const collapsed = getState().collapsedPanels || [];
-  document.querySelectorAll('.panel:not(.panel-critical)').forEach(panel => {
-    const h2 = panel.querySelector('h2');
-    if (!h2) return;
-    const name = h2.textContent.trim();
-    if (collapsed.includes(name)) {
-      panel.classList.add('collapsed');
-      panel.querySelector('.panel-header')?.setAttribute('aria-expanded', 'false');
-    }
-  });
+  initCollapsiblePanels();
 
-  document.addEventListener('click', (e) => {
-    if (!window.matchMedia('(max-width: 900px)').matches) return;
-    const header = e.target.closest('.panel-header');
-    if (!header) return;
-    const panel = header.closest('.panel');
-    if (!panel || panel.classList.contains('panel-critical')) return;
-    panel.classList.toggle('collapsed');
-    header.setAttribute('aria-expanded', String(!panel.classList.contains('collapsed')));
-
-    // Save collapsed state
-    const current = [];
-    document.querySelectorAll('.panel.collapsed').forEach(p => {
-      const h2 = p.querySelector('h2');
-      if (h2) current.push(h2.textContent.trim());
-    });
-    update('collapsedPanels', current);
+  beholderModulePromise.then(({ initBeholder, updateBeholder }) => {
+    initBeholder();
+    updateBeholderFrame = updateBeholder;
   });
 });
+
+function initCollapsiblePanels() {
+  const collapsed = new Set(getState().collapsedPanels || []);
+
+  document.querySelectorAll('.panel:not(.panel-critical)').forEach((panel, index) => {
+    const header = panel.querySelector(':scope > .panel-header');
+    const heading = header?.querySelector(':scope > h2');
+    if (!header || !heading) return;
+
+    let toggle = header.querySelector(':scope > .panel-toggle');
+    const panelKey = panel.dataset.panelKey || `panel-${index}`;
+    panel.dataset.panelKey = panelKey;
+    if (!toggle) {
+      toggle = document.createElement('button');
+      toggle.type = 'button';
+      toggle.className = 'panel-toggle';
+      toggle.setAttribute('aria-expanded', 'true');
+
+      const regionId = panel.id || `panel-section-${index}`;
+      if (!panel.id) panel.id = regionId;
+      toggle.setAttribute('aria-controls', regionId);
+
+      toggle.appendChild(heading);
+      header.prepend(toggle);
+    }
+
+    const isCollapsed = collapsed.has(panelKey);
+    panel.classList.toggle('collapsed', isCollapsed);
+    toggle.setAttribute('aria-expanded', String(!isCollapsed));
+
+    if (toggle.dataset.bound === 'true') return;
+    toggle.dataset.bound = 'true';
+    toggle.addEventListener('click', () => {
+      if (!window.matchMedia('(max-width: 900px)').matches) return;
+      panel.classList.toggle('collapsed');
+      toggle.setAttribute('aria-expanded', String(!panel.classList.contains('collapsed')));
+      saveCollapsedPanels();
+    });
+  });
+}
+
+function saveCollapsedPanels() {
+  const current = [];
+  document.querySelectorAll('.panel.collapsed').forEach((panel) => {
+    const key = panel.dataset.panelKey;
+    if (key) current.push(key);
+  });
+  update('collapsedPanels', current);
+}
 
 // ── Tentacle cursor-zone reactivity ──
 function initTentacleZones() {

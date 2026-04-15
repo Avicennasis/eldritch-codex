@@ -1438,15 +1438,35 @@ input[type="number"]::-webkit-outer-spin-button {
    COLLAPSIBLE PANELS — mobile only (JS toggles .collapsed)
    ═══════════════════════════════════════════════ */
 
+.panel-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+}
+
+.panel-toggle h2 {
+  width: 100%;
+}
+
 @media (max-width: 900px) {
   .panel-header {
-    cursor: pointer;
-    user-select: none;
     position: relative;
-    padding-right: 28px;
   }
 
-  .panel-header::after {
+  .panel-toggle {
+    padding: 0 28px 10px 0;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .panel-toggle::after {
     content: '';
     position: absolute;
     right: 4px;
@@ -1459,15 +1479,7 @@ input[type="number"]::-webkit-outer-spin-button {
     transition: transform 0.2s;
   }
 
-  .spell-section .panel-header {
-    cursor: default;
-    padding-right: 0;
-  }
-  .spell-section .panel-header::after {
-    display: none;
-  }
-
-  .panel.collapsed .panel-header::after {
+  .panel.collapsed .panel-toggle::after {
     transform: translateY(-35%) rotate(-45deg);
   }
 
@@ -1485,12 +1497,6 @@ input[type="number"]::-webkit-outer-spin-button {
   /* HP panel stays open — too critical to collapse */
   .panel.panel-critical {
     /* never collapsed */
-  }
-  .panel.panel-critical .panel-header {
-    cursor: default;
-  }
-  .panel.panel-critical .panel-header::after {
-    display: none;
   }
 }
 

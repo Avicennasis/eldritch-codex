@@ -1019,6 +1019,65 @@ function buildScrollConfirm(spellName, spell) {
   return `${header}\n${spell.description}`;
 }
 
+function consumeInventoryItem(name, amount = 1) {
+  const cur = getState().inventory[name] ?? 0;
+  if (cur < amount) return false;
+  const inv = { ...getState().inventory, [name]: cur - amount };
+  update('inventory', inv);
+  return true;
+}
+
+function resolveSpellCast(spell, castLevel, options = {}) {
+  const slotLevel = castLevel || spell.level;
+  const source = options.source || 'slot';
+  const s = getState();
+
+  if (source === 'scroll') {
+    fireMadnessEvent('spellCast', { slotLevel });
+    return { ok: true, note: ' (scroll)' };
+  }
+
+  if (spell.level === 0) {
+    fireMadnessEvent('spellCast', { slotLevel: 0 });
+    return { ok: true, note: '' };
+  }
+
+  const canUseFreeCast = source === 'slot'
+    && spell.freeCast
+    && slotLevel === spell.level
+    && (s.rimesBindingIceFree || 0) > 0;
+
+  if (canUseFreeCast) {
+    update('rimesBindingIceFree', Math.max(0, (s.rimesBindingIceFree || 0) - 1));
+    fireMadnessEvent('spellCast', { slotLevel });
+    return { ok: true, note: ' (free cast)' };
+  }
+
+  const available = s.spellSlots[slotLevel] || 0;
+  if (available <= 0) return { ok: false, note: '' };
+  updateNested(`spellSlots.${slotLevel}`, available - 1);
+  fireMadnessEvent('spellCast', { slotLevel });
+  return { ok: true, note: '' };
+}
+
+async function castSpellFromScroll(scrollName, spell) {
+  if (!spell) {
+    if (!consumeInventoryItem(scrollName)) return;
+    logRoll('cast', `${scrollName} removed`);
+    renderLog(els.rollLog);
+    return;
+  }
+
+  if (!checkAndSetConcentration(spell)) return;
+  if (!consumeInventoryItem(scrollName)) return;
+
+  if (spell.damage) {
+    await rollSpellDice(spell, spell.level, { source: 'scroll', skipConcentrationCheck: true });
+  } else {
+    castNoDamageSpell(spell, spell.level, { source: 'scroll', skipConcentrationCheck: true });
+  }
+}
+
 function renderInventory() {
   const container = els.inventoryContainer;
   if (!container) return;
@@ -1124,36 +1183,9 @@ function renderInventory() {
       minus.setAttribute('aria-label', `Decrease ${item.name}`);
       minus.disabled = qty <= 0;
       minus.addEventListener('click', () => {
-        const cur = getState().inventory[item.name] ?? 0;
-        if (cur > 0) {
-          if (healing) {
-            if (confirm(`Use ${item.name}? Roll ${healing.count}d${healing.sides}+${healing.bonus} healing?`)) {
-              const inv = { ...getState().inventory, [item.name]: cur - 1 };
-              update('inventory', inv);
-              rollHealingPotion({ healing, name: item.name });
-            }
-          } else {
-            // Resistance potions: add temp resistance
-            const resistMatch = item.name.match(/^Potion of (\w+) Resistance$/);
-            if (resistMatch) {
-              const resType = resistMatch[1];
-              if (confirm(`Drink ${item.name}? Gain ${resType} resistance for 1 hour.`)) {
-                const inv = { ...getState().inventory, [item.name]: cur - 1 };
-                update('inventory', inv);
-                const tempRes = [...(getState().tempResistances || [])];
-                if (!tempRes.includes(resType) && !CHARACTER.resistances.includes(resType)) {
-                  tempRes.push(resType);
-                  update('tempResistances', tempRes);
-                }
-                logRoll('resource', `Drank ${item.name} — ${resType} resistance (1 hr)`);
-                renderLog(els.rollLog);
-              }
-            } else {
-              const inv = { ...getState().inventory, [item.name]: cur - 1 };
-              update('inventory', inv);
-            }
-          }
-        }
+        if (!consumeInventoryItem(item.name)) return;
+        logRoll('resource', `Removed ${item.name} from inventory`);
+        renderLog(els.rollLog);
       });
 
       const qtyEl = document.createElement('span');
@@ -1228,16 +1260,19 @@ function renderInventory() {
       const minus = document.createElement('button');
       minus.className = 'btn btn-icon inv-btn';
       minus.textContent = '\u2212';
-      minus.addEventListener('click', () => {
+      minus.addEventListener('click', async () => {
         const cur = getState().inventory[scrollName] ?? 0;
         if (cur <= 0) return;
-        const confirmText = buildScrollConfirm(spellName, spell);
-        if (confirm(confirmText)) {
-          const inv = { ...getState().inventory, [scrollName]: cur - 1 };
-          update('inventory', inv);
-          logRoll('cast', `${scrollName} (cast)`);
+        const shouldCast = confirm(`${buildScrollConfirm(spellName, spell)}\n\nPress OK to cast from the scroll. Press Cancel to remove the scroll without casting.`);
+        if (shouldCast) {
+          await castSpellFromScroll(scrollName, spell);
           renderLog(els.rollLog);
+          return;
         }
+
+        if (!consumeInventoryItem(scrollName)) return;
+        logRoll('resource', `Removed ${scrollName} from inventory`);
+        renderLog(els.rollLog);
       });
 
       const qtyEl = document.createElement('span');
@@ -1392,6 +1427,7 @@ function parseSpellDice(damageStr) {
 function canCastSpell(spell) {
   const s = getState();
   if (spell.level === 0) return true;
+  if (spell.freeCast && (s.rimesBindingIceFree || 0) > 0) return true;
   // Can cast via spell slot
   const maxSlotLevel = Math.max(...Object.keys(CHARACTER.spellSlots).map(Number));
   for (let lvl = spell.level; lvl <= maxSlotLevel; lvl++) {
@@ -1592,7 +1628,8 @@ function renderSpellCards() {
           opt.value = lvl;
           opt.textContent = lvl === spell.level ? `${lvl}` : `${lvl}\u2191`;
           const slotsAvail = s.spellSlots[lvl] || 0;
-          if (slotsAvail <= 0) opt.disabled = true;
+          const hasFreeCast = spell.freeCast && lvl === spell.level && (s.rimesBindingIceFree || 0) > 0;
+          if (slotsAvail <= 0 && !hasFreeCast) opt.disabled = true;
           upcastSelect.appendChild(opt);
         }
         upcastSelect.addEventListener('click', (e) => e.stopPropagation());
@@ -1727,22 +1764,14 @@ function checkAndSetConcentration(spell) {
 }
 
 // ─── Spell Die Rolling ──────────────────────────
-async function rollSpellDice(spell, castLevel) {
-  const s = getState();
+async function rollSpellDice(spell, castLevel, options = {}) {
   const slotLevel = castLevel || spell.level;
 
   // Concentration guard — ask before replacing
-  if (!checkAndSetConcentration(spell)) return;
+  if (!options.skipConcentrationCheck && !checkAndSetConcentration(spell)) return;
 
-  // Consume resource
-  if (spell.level > 0) {
-    const available = s.spellSlots[slotLevel] || 0;
-    if (available <= 0) return;
-    updateNested(`spellSlots.${slotLevel}`, available - 1);
-    fireMadnessEvent('spellCast', { slotLevel });
-  } else {
-    fireMadnessEvent('spellCast', { slotLevel: 0 });
-  }
+  const resource = resolveSpellCast(spell, slotLevel, options);
+  if (!resource.ok) return;
 
   // Physical dice mode — slot consumed, skip animation
   if (getState().physicalDice) return;
@@ -1826,9 +1855,10 @@ async function rollSpellDice(spell, castLevel) {
 
   const isHealing = spell.damage.includes('Healing');
   const logType = isHealing ? 'healing' : 'damage';
-  const slotNote = spell.level > 0 ? ` (${slotLevel}${getSuffix(slotLevel)} slot)` : '';
+  const slotNote = spell.level > 0 && options.source !== 'scroll' ? ` (${slotLevel}${getSuffix(slotLevel)} slot)` : '';
+  const sourceNote = resource.note || '';
   const resourceNote = slotNote;
-  logRoll(logType, `${spell.name}: [${result.dice.join(',')}] = ${result.total}${resourceNote}${leapTag}`);
+  logRoll(logType, `${spell.name}: [${result.dice.join(',')}] = ${result.total}${resourceNote}${sourceNote}${leapTag}`);
 
   // Show leap alert in actions area
   if (hasDoubles) showLeapAlert(slotLevel);
@@ -1843,16 +1873,13 @@ async function rollSpellDice(spell, castLevel) {
 }
 
 // Cast a non-damage spell (just consume slot + log)
-function castNoDamageSpell(spell, castLevel) {
-  if (!checkAndSetConcentration(spell)) return;
-  const s = getState();
+function castNoDamageSpell(spell, castLevel, options = {}) {
+  if (!options.skipConcentrationCheck && !checkAndSetConcentration(spell)) return;
   const slotLevel = castLevel || spell.level;
-  const available = s.spellSlots[slotLevel] || 0;
-  if (available <= 0) return;
-  updateNested(`spellSlots.${slotLevel}`, available - 1);
-  fireMadnessEvent('spellCast', { slotLevel });
-  const upcastTag = slotLevel > spell.level ? ` (${slotLevel}${getSuffix(slotLevel)} slot)` : '';
-  logRoll('cast', `${spell.name}${upcastTag}`);
+  const resource = resolveSpellCast(spell, slotLevel, options);
+  if (!resource.ok) return;
+  const upcastTag = slotLevel > spell.level && options.source !== 'scroll' ? ` (${slotLevel}${getSuffix(slotLevel)} slot)` : '';
+  logRoll('cast', `${spell.name}${upcastTag}${resource.note || ''}`);
 
   // Summon Aberration — activate the Aberrant Spirit companion
   if (spell.name === 'Summon Aberration') {
@@ -3554,7 +3581,7 @@ async function rollConcentrationCheck() {
 
 // ─── Rest Modals ─────────────────────────────────
 
-function trapFocus(overlay) {
+function trapFocus(overlay, onDismiss) {
   const modal = overlay.querySelector('.modal');
   function getFocusable() {
     return [...modal.querySelectorAll('button, input, select, textarea, [tabindex]:not([tabindex="-1"])')];
@@ -3562,7 +3589,7 @@ function trapFocus(overlay) {
   function onKeyDown(e) {
     if (e.key === 'Escape') {
       e.preventDefault();
-      overlay.remove();
+      onDismiss();
       return;
     }
     if (e.key === 'Tab') {
@@ -3594,7 +3621,12 @@ function showShortRestModal() {
   const s = getState();
   const overlay = document.createElement('div');
   overlay.className = 'modal-overlay';
-  const cleanup = trapFocus(overlay);
+  let cleanup = () => {};
+  const closeModal = () => {
+    cleanup();
+    overlay.remove();
+    previousFocus?.focus?.();
+  };
 
   const modal = document.createElement('div');
   modal.className = 'modal';
@@ -3634,7 +3666,7 @@ function showShortRestModal() {
   const cancelBtn = document.createElement('button');
   cancelBtn.className = 'btn';
   cancelBtn.textContent = 'Cancel';
-  cancelBtn.addEventListener('click', () => { cleanup(); overlay.remove(); previousFocus.focus(); });
+  cancelBtn.addEventListener('click', closeModal);
 
   const restBtn = document.createElement('button');
   restBtn.className = 'btn btn-primary';
@@ -3642,9 +3674,7 @@ function showShortRestModal() {
   restBtn.addEventListener('click', () => {
     const dice = Math.max(0, Math.min(s.hitDiceRemaining, parseInt(input.value) || 0));
     shortRest(dice);
-    cleanup();
-    overlay.remove();
-    previousFocus.focus();
+    closeModal();
   });
 
   actions.appendChild(cancelBtn);
@@ -3656,11 +3686,12 @@ function showShortRestModal() {
   modal.appendChild(actions);
   overlay.appendChild(modal);
   document.body.appendChild(overlay);
+  cleanup = trapFocus(overlay, closeModal);
 
   cancelBtn.focus();
 
   overlay.addEventListener('click', e => {
-    if (e.target === overlay) { cleanup(); overlay.remove(); previousFocus.focus(); }
+    if (e.target === overlay) closeModal();
   });
 }
 
@@ -3674,7 +3705,12 @@ function showConfirmModal(title, message, onConfirm) {
   const previousFocus = document.activeElement;
   const overlay = document.createElement('div');
   overlay.className = 'modal-overlay';
-  const cleanup = trapFocus(overlay);
+  let cleanup = () => {};
+  const closeModal = () => {
+    cleanup();
+    overlay.remove();
+    previousFocus?.focus?.();
+  };
 
   const modalId = 'modal-title-' + title.toLowerCase().replace(/\s+/g, '-');
   const modal = document.createElement('div');
@@ -3697,16 +3733,14 @@ function showConfirmModal(title, message, onConfirm) {
   const cancelBtn = document.createElement('button');
   cancelBtn.className = 'btn';
   cancelBtn.textContent = 'Cancel';
-  cancelBtn.addEventListener('click', () => { cleanup(); overlay.remove(); previousFocus.focus(); });
+  cancelBtn.addEventListener('click', closeModal);
 
   const confirmBtn = document.createElement('button');
   confirmBtn.className = 'btn btn-primary';
   confirmBtn.textContent = 'Confirm';
   confirmBtn.addEventListener('click', () => {
     onConfirm();
-    cleanup();
-    overlay.remove();
-    previousFocus.focus();
+    closeModal();
   });
 
   actions.appendChild(cancelBtn);
@@ -3716,10 +3750,11 @@ function showConfirmModal(title, message, onConfirm) {
   modal.appendChild(actions);
   overlay.appendChild(modal);
   document.body.appendChild(overlay);
+  cleanup = trapFocus(overlay, closeModal);
 
   cancelBtn.focus();
 
   overlay.addEventListener('click', e => {
-    if (e.target === overlay) { cleanup(); overlay.remove(); previousFocus.focus(); }
+    if (e.target === overlay) closeModal();
   });
 }
