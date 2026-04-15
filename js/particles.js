@@ -1,7 +1,7 @@
 // Canvas particle system — spores, sparks, runes, portal fx, wisps
 // Object pool, additive blending, shared rAF, zero GC
 
-import { onMadnessChange, getMadness } from './madness.js?v=4';
+import { onMadnessChange, getMadness } from './madness.js?v=6';
 
 const MAX_PARTICLES = 200;
 const RUNE_CHARS = ['᛭', 'ᚱ', 'ᛟ', 'ᚨ', 'ᛞ', 'ᛉ', 'ᚲ', 'ᛏ', '☍', '⍟', '⎊', '◬', '⏣', '⌬'];

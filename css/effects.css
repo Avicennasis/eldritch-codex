@@ -293,16 +293,18 @@
 .tentacle-bg {
   position: fixed;
   inset: 0;
-  z-index: -1;
+  z-index: 0;
   pointer-events: none;
   overflow: hidden;
 }
 
 .tentacle-svg {
   position: absolute;
-  opacity: var(--tentacle-opacity, 0.15);
-  filter: blur(calc(0.3px - var(--madness, 0) * 0.3px));
+  opacity: var(--tentacle-opacity, 0.25);
+  filter: blur(calc(0.5px - var(--madness, 0) * 0.5px));
   transition: opacity 2s, filter 2s;
+  /* Ensure visible above body background layers */
+  z-index: 1;
 }
 
 .tentacle-svg.left-top {

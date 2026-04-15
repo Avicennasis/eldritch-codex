@@ -23,7 +23,7 @@ Built for an Aasimar Aberrant Mind Sorcerer running *Icewind Dale: Rime of the F
 - **Roll Log** — timestamped history of all rolls (capped at 100)
 - **Notes** — free-text textarea, persisted server-side
 - **Madness Engine** — 5-tier horror escalation system with visual effects (reality warping, screen shake, hue shift, chromatic aberration)
-- **Beholder Eye** — cursor-tracking SVG eye with pupil dilation, blink cycle, and slime trail
+- **3D Beholder** — WebGL cursor-tracking beholder model (Three.js) that scales with madness, with squish-blink animation and slime trail
 - **Particle System** — canvas-based spore/rune/wisp/portal particles, time-based spawning
 - **Session Persistence** — all state saved to localStorage + optional PHP server backend
 - **Mobile Responsive** — single-column layout at 900px, collapsible panels, touch-friendly targets
@@ -42,7 +42,7 @@ Far Realm cosmic horror aesthetic:
 - Floating spore particle field with madness-scaled runes and wisps
 - feTurbulence grain overlay with soft-light blending
 - Slime drip animations on panel edges
-- Animated beholder eye that tracks the cursor
+- 3D WebGL beholder that tracks the cursor, scales with madness intensity
 - Fonts: Uncial Antiqua / IM Fell English SC / Alegreya / Victor Mono
 
 ## Setup
@@ -95,7 +95,8 @@ dnd/
 │   ├── spelltext.js    # Full spell description HTML
 │   ├── madness.js      # Horror escalation engine
 │   ├── particles.js    # Canvas particle system
-│   └── eldritch-eye.js # Animated beholder eye
+│   ├── beholder-3d.js  # WebGL 3D beholder (Three.js)
+│   └── eldritch-eye.js # Legacy 2D SVG eye (replaced by beholder-3d)
 ├── img/
 │   ├── favicon.svg
 │   └── tentacle-border.svg

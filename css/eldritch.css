@@ -70,10 +70,12 @@ body.damage-flash::before {
 
 @keyframes membrane-breathe {
   0%, 100% {
-    box-shadow: inset 0 0 15px rgba(57, 255, 20, 0.02);
+    box-shadow: inset 0 0 20px rgba(57, 255, 20, 0.05);
+    transform: scale(1);
   }
   50% {
-    box-shadow: inset 0 0 30px rgba(57, 255, 20, calc(0.03 + var(--madness, 0) * 0.08));
+    box-shadow: inset 0 0 40px rgba(57, 255, 20, calc(0.08 + var(--madness, 0) * 0.15));
+    transform: scale(calc(1 + var(--madness, 0) * 0.008));
   }
 }
 
@@ -81,8 +83,11 @@ body.damage-flash::before {
 .panel:hover {
   border-color: rgba(57, 255, 20, calc(0.15 + var(--madness, 0) * 0.2));
   text-shadow:
-    calc(var(--madness-aberration, 0px) * -1) 0 rgba(255, 0, 0, 0.12),
-    var(--madness-aberration, 0px) 0 rgba(0, 255, 100, 0.12);
+    calc(var(--madness-aberration, 0px) * -1.5) 0 rgba(255, 0, 0, 0.25),
+    calc(var(--madness-aberration, 0px) * 1.5) 0 rgba(0, 255, 100, 0.25);
+  /* Visual chromatic shift on the panel itself */
+  filter: drop-shadow(calc(var(--madness-aberration, 0px) * -0.5) 0 0 rgba(255, 0, 100, 0.08))
+          drop-shadow(calc(var(--madness-aberration, 0px) * 0.5) 0 0 rgba(0, 255, 100, 0.08));
 }
 
 /* ═══════════════════════════════════════════════
@@ -134,18 +139,18 @@ body.damage-flash::before {
 .spell-card::before {
   content: '';
   position: absolute;
-  inset: -1px;
+  inset: -3px;
   border-radius: inherit;
   background: linear-gradient(
     var(--vein-angle, 135deg),
-    rgba(57, 255, 20, calc(0.1 + var(--madness, 0) * 0.2)),
-    transparent 30%,
-    transparent 70%,
-    rgba(155, 48, 255, calc(0.08 + var(--madness, 0) * 0.15))
+    rgba(57, 255, 20, calc(0.2 + var(--madness, 0) * 0.4)),
+    transparent 25%,
+    transparent 75%,
+    rgba(155, 48, 255, calc(0.15 + var(--madness, 0) * 0.3))
   );
   z-index: -1;
   animation: vein-crawl 8s linear infinite;
-  opacity: calc(0.3 + var(--madness, 0) * 0.7);
+  opacity: calc(0.4 + var(--madness, 0) * 0.6);
 }
 
 @keyframes vein-crawl {
@@ -173,7 +178,7 @@ body.damage-flash::before {
   box-shadow:
     inset 0 0 10px rgba(0, 0, 0, 0.5),
     inset 0 2px 4px rgba(255, 0, 0, calc(0.05 + var(--madness, 0) * 0.1));
-  overflow: visible; /* allows blood-drip ::after to render below container */
+  overflow: visible !important; /* allows blood-drip ::after to render below container */
   position: relative;
 }
 
@@ -181,18 +186,19 @@ body.damage-flash::before {
 .hp-bar-container::after {
   content: '';
   position: absolute;
-  bottom: -10px;
+  bottom: -12px;
   left: 0;
   width: 100%;
-  height: 14px;
+  height: 18px;
   background:
-    radial-gradient(ellipse 4px 8px at 12% 0%, rgba(255, 0, 0, 0.35), transparent),
-    radial-gradient(ellipse 3px 10px at 38% 0%, rgba(255, 0, 0, 0.25), transparent),
-    radial-gradient(ellipse 5px 7px at 65% 0%, rgba(255, 0, 0, 0.3), transparent),
-    radial-gradient(ellipse 3px 9px at 88% 0%, rgba(255, 0, 0, 0.2), transparent);
+    radial-gradient(ellipse 6px 12px at 12% 0%, rgba(180, 0, 0, 0.7), transparent),
+    radial-gradient(ellipse 4px 14px at 38% 0%, rgba(200, 0, 0, 0.6), transparent),
+    radial-gradient(ellipse 7px 10px at 65% 0%, rgba(160, 0, 0, 0.65), transparent),
+    radial-gradient(ellipse 5px 13px at 88% 0%, rgba(140, 0, 0, 0.55), transparent);
   animation: blood-drip 4s ease-in-out infinite;
   pointer-events: none;
-  opacity: calc(0.3 + var(--madness, 0) * 0.7);
+  opacity: calc(0.5 + var(--madness, 0) * 0.5);
+  z-index: 10;
 }
 
 @keyframes blood-drip {
@@ -300,9 +306,9 @@ body.damage-flash::before {
 
 html::after {
   background: radial-gradient(
-    ellipse 70% 60% at 50% 50%,
-    transparent 50%,
-    rgba(5, 10, 5, var(--madness-vignette-opacity, 0.6)) 100%
+    ellipse 55% 45% at 50% 50%,
+    transparent 25%,
+    rgba(5, 10, 5, var(--madness-vignette-opacity, 0.75)) 100%
   );
   filter: hue-rotate(var(--madness-hue-shift, 0deg)) saturate(var(--madness-saturation, 1));
 }

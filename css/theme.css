@@ -86,7 +86,7 @@ html::after {
   inset: 0;
   z-index: 9999;
   pointer-events: none;
-  background: radial-gradient(ellipse 70% 60% at 50% 50%, transparent 50%, rgba(5, 10, 5, 0.6) 100%);
+  background: radial-gradient(ellipse 60% 50% at 50% 50%, transparent 30%, rgba(5, 10, 5, 0.85) 100%);
 }
 
 body {

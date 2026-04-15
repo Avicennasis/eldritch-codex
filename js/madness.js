@@ -62,8 +62,8 @@ function updateCSS() {
   root.style.setProperty('--madness-hue-shift', (m * 25).toFixed(1) + 'deg');
   root.style.setProperty('--madness-saturation', (1 + m * 0.4).toFixed(2));
   root.style.setProperty('--madness-aberration', (m * 3).toFixed(1) + 'px');
-  root.style.setProperty('--madness-vignette-opacity', (0.6 + m * 0.35).toFixed(2));
-  root.style.setProperty('--tentacle-opacity', (0.15 + m * 0.55).toFixed(2));
+  root.style.setProperty('--madness-vignette-opacity', (0.75 + m * 0.25).toFixed(2));
+  root.style.setProperty('--tentacle-opacity', (0.25 + m * 0.6).toFixed(2));
   root.style.setProperty('--vein-opacity', (m * 0.4).toFixed(2));
   root.style.setProperty('--spore-intensity', (1 + m * 3).toFixed(1));
   root.style.setProperty('--membrane-speed', Math.max(2, 6 - m * 4).toFixed(1) + 's');
@@ -144,6 +144,18 @@ export function onMadnessChange(callback) {
 
 export function getMadness() {
   return { intensity, tier, tierName: TIERS[tier].name };
+}
+
+export function setMadness(newIntensity) {
+  const oldTier = tier;
+  intensity = Math.max(0, Math.min(100, newIntensity));
+  tier = calcTier(intensity);
+  save();
+  updateCSS();
+  notify('manual', intensity);
+  if (tier !== oldTier) {
+    console.log(`[Madness] Set to ${TIERS[tier].label} (${intensity.toFixed(1)}%)`);
+  }
 }
 
 export function refreshMadnessCSS() {
