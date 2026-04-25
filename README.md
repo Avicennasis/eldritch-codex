@@ -4,7 +4,10 @@ A D&D 5e (2024) digital character sheet and session tracker with a Far Realm cos
 
 Built for an Aasimar Aberrant Mind Sorcerer running *Icewind Dale: Rime of the Frostmaiden*, but the architecture is adaptable to other characters with some data editing.
 
-![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/Avicennasis/eldritch-codex/badge)](https://scorecard.dev/viewer/?uri=github.com/Avicennasis/eldritch-codex)
+[![Release](https://img.shields.io/github/v/release/Avicennasis/eldritch-codex?display_name=tag)](https://github.com/Avicennasis/eldritch-codex/releases)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
 ## Features
 
