@@ -118,6 +118,13 @@ export function fireMadnessEvent(type, payload = {}) {
       }
       break;
     }
+    case 'heal': {
+      const maxHp = payload.maxHp || 50;
+      const amount = payload.amount || 0;
+      const delta = -(amount / maxHp) * 30;
+      shift(delta, 'heal');
+      break;
+    }
     case 'spellCast': {
       const level = payload.slotLevel || 0;
       const delta = level === 0 ? 1 : level * 2.5;

@@ -239,7 +239,11 @@ function applyDamage(rawAmount, dmgType) {
 function applyHealing(amount) {
   const s = getState();
   const newHp = Math.min(CHARACTER.maxHp, s.hp + amount);
+  const healed = newHp - s.hp;
   update({ hp: newHp });
+  if (healed > 0) {
+    fireMadnessEvent('heal', { amount: healed, maxHp: CHARACTER.maxHp });
+  }
 }
 
 // ─── Stats ───────────────────────────────────────
