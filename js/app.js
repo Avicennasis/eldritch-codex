@@ -59,7 +59,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   syncMadnessDOM();
   await initMadness();
   initUI();
-  initBeholder();
   initParticles();
   hookDicePortal();
 
@@ -80,6 +79,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   let pressTimer = null;
   let didLongPress = false;
+  let pressAborted = false;
   let cleanupMadnessMenu = null;
 
   const MADNESS_TIERS = [
@@ -212,9 +212,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     pressTimer = null;
   }
 
+  function abortMadnessPress() {
+    cancelMadnessPress();
+    pressAborted = true;
+  }
+
   madnessBtn.addEventListener('pointerdown', (e) => {
     if (e.pointerType === 'mouse' && e.button !== 0) return;
     didLongPress = false;
+    pressAborted = false;
     cancelMadnessPress();
     pressTimer = setTimeout(() => {
       didLongPress = true;
@@ -224,6 +230,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   madnessBtn.addEventListener('pointerup', () => {
     cancelMadnessPress();
+    if (pressAborted) {
+      pressAborted = false;
+      return;
+    }
     if (!didLongPress) {
       // Normal click - toggle suppression
       update('madnessSuppressed', !getState().madnessSuppressed);
@@ -232,8 +242,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   });
 
-  madnessBtn.addEventListener('pointerleave', cancelMadnessPress);
-  madnessBtn.addEventListener('pointercancel', cancelMadnessPress);
+  madnessBtn.addEventListener('pointerleave', abortMadnessPress);
+  madnessBtn.addEventListener('pointercancel', abortMadnessPress);
 
   // Tentacle cursor-zone reactivity
   initTentacleZones();

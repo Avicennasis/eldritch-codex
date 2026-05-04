@@ -2975,10 +2975,10 @@ function bindEvents() {
   document.getElementById('btn-xanthrid-toggle').addEventListener('click', () => {
     const s = getState();
     if (s.xanthridCompanion.active) {
-      // Dismiss
-      update('xanthridCompanion', { active: false, hp: 19, maxHp: 19, tempHp: 0, clairvoyanceUsed: false });
+      // Dismiss — preserve clairvoyanceUsed so dismiss/re-summon can't reset the once-per-summon limit
+      update('xanthridCompanion', { active: false, hp: 19, maxHp: 19, tempHp: 0, clairvoyanceUsed: !!s.xanthridCompanion.clairvoyanceUsed });
     } else {
-      // Summon — consume resource if available
+      // Summon — consume resource if available; fresh summon gets a fresh clairvoyance charge
       if (s.xanthrid > 0) update('xanthrid', 0);
       update('xanthridCompanion', { active: true, hp: 19, maxHp: 19, tempHp: 0, clairvoyanceUsed: false });
     }
