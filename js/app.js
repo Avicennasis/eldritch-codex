@@ -1,8 +1,8 @@
 // Entry point — wires all modules together
-import { initUI, renderAll } from './ui.js?v=39';
+import { initUI, renderAll } from './ui.js?v=41';
 import { getState, update, initState } from './state.js?v=19';
-import { initMadness, onMadnessChange, getMadness, setMadness, refreshMadnessCSS } from './madness.js?v=6';
-import { initParticles, updateParticles, spawnPortal } from './particles.js?v=6';
+import { initMadness, onMadnessChange, getMadness, setMadness, refreshMadnessCSS } from './madness.js?v=8';
+import { initParticles, updateParticles, spawnPortal } from './particles.js?v=7';
 
 // Hook dice stage for portal particles
 // Observe the dice stage — when children are added (dice appear), spawn portal
@@ -40,7 +40,7 @@ function createNoopBeholder() {
 
 async function loadBeholderModule() {
   try {
-    return await import('./beholder-3d.js?v=1');
+    return await import('./beholder-3d.js?v=2');
   } catch (e) {
     console.warn('Beholder module failed to load; continuing without 3D eye', e);
     return createNoopBeholder();
@@ -59,7 +59,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   syncMadnessDOM();
   await initMadness();
   initUI();
-  initBeholder();
   initParticles();
   hookDicePortal();
 
@@ -80,6 +79,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   let pressTimer = null;
   let didLongPress = false;
+  let pressAborted = false;
   let cleanupMadnessMenu = null;
 
   const MADNESS_TIERS = [
@@ -212,9 +212,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     pressTimer = null;
   }
 
+  function abortMadnessPress() {
+    cancelMadnessPress();
+    pressAborted = true;
+  }
+
   madnessBtn.addEventListener('pointerdown', (e) => {
     if (e.pointerType === 'mouse' && e.button !== 0) return;
     didLongPress = false;
+    pressAborted = false;
     cancelMadnessPress();
     pressTimer = setTimeout(() => {
       didLongPress = true;
@@ -224,6 +230,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   madnessBtn.addEventListener('pointerup', () => {
     cancelMadnessPress();
+    if (pressAborted) {
+      pressAborted = false;
+      return;
+    }
     if (!didLongPress) {
       // Normal click - toggle suppression
       update('madnessSuppressed', !getState().madnessSuppressed);
@@ -232,8 +242,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   });
 
-  madnessBtn.addEventListener('pointerleave', cancelMadnessPress);
-  madnessBtn.addEventListener('pointercancel', cancelMadnessPress);
+  madnessBtn.addEventListener('pointerleave', abortMadnessPress);
+  madnessBtn.addEventListener('pointercancel', abortMadnessPress);
 
   // Tentacle cursor-zone reactivity
   initTentacleZones();

@@ -3,7 +3,7 @@ import { CHARACTER, TINKER_RECIPES } from './data.js?v=30';
 import { getState, update } from './state.js?v=19';
 import { rollHitDie } from './dice.js?v=5';
 import { logRoll } from './log.js?v=5';
-import { fireMadnessEvent } from './madness.js?v=4';
+import { fireMadnessEvent } from './madness.js?v=8';
 
 export function shortRest(hitDiceToSpend) {
   const s = getState();

@@ -5,7 +5,7 @@ import * as dice from './dice.js?v=5';
 import { logRoll, renderLog, doClearLog } from './log.js?v=5';
 import { shortRest, longRest } from './rest.js?v=14';
 import { SPELL_FULL_TEXT } from './spelltext.js?v=6';
-import { fireMadnessEvent, triggerScreenShake, triggerDamageFlash } from './madness.js?v=4';
+import { fireMadnessEvent, triggerScreenShake, triggerDamageFlash } from './madness.js?v=8';
 
 // Cache DOM refs
 let els = {};
@@ -231,7 +231,7 @@ function applyDamage(rawAmount, dmgType) {
   update({ hp: newHp, tempHp: newTemp });
   logRoll('damage', `Takes ${amount} damage${tag} (${newHp} HP remaining)`);
   renderLog(els.rollLog);
-  fireMadnessEvent('damage', { amount, maxHp: CHARACTER.maxHp });
+  fireMadnessEvent('damage', { amount, maxHp: CHARACTER.maxHp, hp: newHp });
   triggerDamageFlash();
   if (amount >= CHARACTER.maxHp * 0.3) triggerScreenShake();
 }
@@ -239,7 +239,11 @@ function applyDamage(rawAmount, dmgType) {
 function applyHealing(amount) {
   const s = getState();
   const newHp = Math.min(CHARACTER.maxHp, s.hp + amount);
+  const healed = newHp - s.hp;
   update({ hp: newHp });
+  if (healed > 0) {
+    fireMadnessEvent('heal', { amount: healed, maxHp: CHARACTER.maxHp });
+  }
 }
 
 // ─── Stats ───────────────────────────────────────
@@ -2975,10 +2979,10 @@ function bindEvents() {
   document.getElementById('btn-xanthrid-toggle').addEventListener('click', () => {
     const s = getState();
     if (s.xanthridCompanion.active) {
-      // Dismiss
-      update('xanthridCompanion', { active: false, hp: 19, maxHp: 19, tempHp: 0, clairvoyanceUsed: false });
+      // Dismiss — preserve clairvoyanceUsed so dismiss/re-summon can't reset the once-per-summon limit
+      update('xanthridCompanion', { active: false, hp: 19, maxHp: 19, tempHp: 0, clairvoyanceUsed: !!s.xanthridCompanion.clairvoyanceUsed });
     } else {
-      // Summon — consume resource if available
+      // Summon — consume resource if available; fresh summon gets a fresh clairvoyance charge
       if (s.xanthrid > 0) update('xanthrid', 0);
       update('xanthridCompanion', { active: true, hp: 19, maxHp: 19, tempHp: 0, clairvoyanceUsed: false });
     }
