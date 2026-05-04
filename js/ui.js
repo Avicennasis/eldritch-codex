@@ -5,7 +5,7 @@ import * as dice from './dice.js?v=5';
 import { logRoll, renderLog, doClearLog } from './log.js?v=5';
 import { shortRest, longRest } from './rest.js?v=14';
 import { SPELL_FULL_TEXT } from './spelltext.js?v=6';
-import { fireMadnessEvent, triggerScreenShake, triggerDamageFlash } from './madness.js?v=4';
+import { fireMadnessEvent, triggerScreenShake, triggerDamageFlash } from './madness.js?v=8';
 
 // Cache DOM refs
 let els = {};

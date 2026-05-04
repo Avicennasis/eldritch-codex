@@ -1,7 +1,7 @@
 // Beholder 3D — WebGL cursor-tracking beholder with madness scaling
 // Replaces 2D SVG eye with 3D model, retains behavioral quirks
 
-import { onMadnessChange, getMadness } from './madness.js?v=6';
+import { onMadnessChange, getMadness } from './madness.js?v=8';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
