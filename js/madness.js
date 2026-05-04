@@ -108,8 +108,14 @@ export function fireMadnessEvent(type, payload = {}) {
     case 'damage': {
       const maxHp = payload.maxHp || 50;
       const amount = payload.amount || 0;
-      const delta = (amount / maxHp) * 40;
+      const delta = (amount / maxHp) * 100;
       shift(delta, 'damage');
+      if (typeof payload.hp === 'number') {
+        const floor = Math.max(0, Math.min(100, (1 - payload.hp / maxHp) * 100));
+        if (intensity < floor) {
+          shift(floor - intensity, 'hpFloor');
+        }
+      }
       break;
     }
     case 'spellCast': {

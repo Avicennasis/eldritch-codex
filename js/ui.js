@@ -231,7 +231,7 @@ function applyDamage(rawAmount, dmgType) {
   update({ hp: newHp, tempHp: newTemp });
   logRoll('damage', `Takes ${amount} damage${tag} (${newHp} HP remaining)`);
   renderLog(els.rollLog);
-  fireMadnessEvent('damage', { amount, maxHp: CHARACTER.maxHp });
+  fireMadnessEvent('damage', { amount, maxHp: CHARACTER.maxHp, hp: newHp });
   triggerDamageFlash();
   if (amount >= CHARACTER.maxHp * 0.3) triggerScreenShake();
 }
