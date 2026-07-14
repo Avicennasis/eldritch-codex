@@ -199,8 +199,6 @@ An imperceptible barrier of magical force protects you. Until the start of your 
 ## Sleep
 **Level 1 Enchantment**
 
-> **Sorcery Points:** Can cast by expending 1 Sorcery Point without V, S components.
-
 | | |
 |---|---|
 | **Casting Time** | Action |

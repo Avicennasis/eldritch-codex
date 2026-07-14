@@ -11,11 +11,13 @@
 | **Campaign** | Icewind Dale: Rime of the Frostmaiden |
 | **Ruleset** | D&D 5e (2024 Revised) |
 
+> **Background — custom variant (DM-approved):** This is a homebrew variant of the Merchant background. Its origin feat is **Lucky** (instead of the standard Skilled), and it grants additional skill proficiencies. This accounts for the 3 feats (Lucky + Shadow Touched + Warcaster) against only 2 ASI slots (levels 4 & 8), and the 6 skill proficiencies versus the standard 4. Ability scores are rolled (not standard point-buy) and the full custom build is DM-approved.
+
 ## Core Combat Stats
 
 | | |
 |---|---|
-| **Armor Class** | 18 (Fine Mithril Armour 17 + Cloak of Protection +1) |
+| **Armor Class** | 18 (Aegis of the First Forge 17 + Cloak of Protection +1) |
 | **Hit Points** | 56 Max |
 | **Hit Dice** | 9d6 |
 | **Initiative** | +2 |
@@ -90,7 +92,8 @@
 | | |
 |---|---|
 | **Sorcery Points** | 9 |
-| **Innate Sorcery** | 2/long rest — +1 spell DC and attack for 1 min |
+| **Innate Sorcery** | 2/long rest — +1 spell DC and Advantage on Sorcerer spell attacks for 1 min |
+| **Sorcery Incarnate** | Spend 2 SP to use Innate Sorcery with no uses left; while active, up to 2 Metamagic/spell |
 | **Sorcerous Restoration** | Regain floor(level/2) = 4 SP on short rest, 1/long rest |
 | **Careful Spell** | Metamagic |
 | **Empowered Spell** | Metamagic |
@@ -120,7 +123,7 @@
 | 1st | Chromatic Orb | Sorcerer | 90 ft., 3d8, leaps on doubles |
 | 1st | Dissonant Whispers | Aberrant | 60 ft., 3d6 Psychic; Ψ1 SP |
 | 1st | Shield | Sorcerer | Reaction, +5 AC |
-| 1st | Sleep | Aberrant | 60 ft., Concentration; Ψ1 SP |
+| 1st | Sleep | Sorcerer | 60 ft., Concentration |
 | 2nd | Auril's Binding Ice | Auril | Self (30-ft cone), 3d8 Cold; Free 1/day |
 | 2nd | Detect Thoughts | Aberrant | Self, Concentration; Ψ2 SP |
 | 2nd | Invisibility | Sorcerer | Touch, Concentration |
@@ -144,10 +147,14 @@
 | 5th | Telepathic Bond | Aberrant | 30 ft., 1 hour (Ritual) |
 
 > **Psionic Sorcery:** Spells marked Ψ can be cast using Sorcery Points without V/S components.
+>
+> **Free spells (don't count against the 14 prepared):** Auril's Binding Ice (Auril's gift), Friends (Ythryn Goblet), and Light (Aasimar Light Bearer). Cantrips never count against the limit; Auril's Binding Ice is both a free daily cast and a free known spell.
+>
+> **Psionic spell swap (DM-approved):** Arms of Hadar (1st) and Calm Emotions (2nd) from the Aberrant Psionic Spells list were swapped out by the DM for other spells (replacements not recorded). They are intentionally absent — not missing.
 
 ## Feats
 
-- **Lucky** — 4 Luck Points, spend to roll extra d20 on any d20 Test
+- **Lucky** — 4 Luck Points (= Proficiency Bonus); spend 1 for Advantage on a d20 Test or to impose Disadvantage on an attack against you. Regain on Long Rest.
 - **Shadow Touched** — 1/long rest free cast: Disguise Self, Invisibility (also castable with spell slots)
 - **Warcaster** — Advantage on CON saves for concentration, somatic with hands full
 
@@ -166,7 +173,7 @@
 | Necrotic | Aasimar |
 | Radiant | Aasimar |
 | Psychic | Aberrant Mind (Psychic Defenses) |
-| Cold | Ring of Cold Resistance |
+| Cold | Reforged Ring of Cold Resistance (Ythryn — attunement removed) |
 | Force | Brooch of Shielding |
 
 ## Languages
@@ -191,7 +198,7 @@
 - Sling
 
 ### Armor & Clothing
-- Fine Mithril Armour (AC 17)
+- Aegis of the First Forge (AC 17; masterwork half plate — Flawless Articulation lets you cast without Armor Training)
 - Cloak of Protection (+1 AC, +1 all saves; attunement)
 - Traveler's Clothes
 - Parka
@@ -199,7 +206,7 @@
 
 ### Magic Items
 - Wand of Secrets (3/day — detects secret doors/traps within 30 ft)
-- Ring of Cold Resistance (attunement — not attuned, passive)
+- Reforged Ring of Cold Resistance (reforged on the Anvil of Disjunction in Ythryn — attunement requirement removed by sacrificing another magic item; now works passively without attunement)
 - Wand of Magic Missiles (7 charges — Magic Missile up to 3rd level)
 - Brooch of Shielding (Resist Force, immune to Magic Missile; attunement)
 - Sapphire of Power (regain 1 spell slot 3rd or lower, 1/dawn; attunement)

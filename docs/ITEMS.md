@@ -2,6 +2,25 @@
 
 ---
 
+## Aegis of the First Forge
+*Armor (Half Plate), Masterwork (Non-Magical)*
+
+| | |
+|---|---|
+| **Armor Class** | 15 + Dexterity modifier (max 2) |
+| **Weight** | 10 lbs. |
+| **Requires Attunement** | No |
+
+Crafted millennia ago by the greatest dwarven artisans of the First Age as a gift of peace for an elven prince, this suit of fine mithral armor is an unparalleled metallurgical marvel. It contains no enchantments; its exceptional qualities are solely the result of perfect geometry, impossibly thin metal folding, and legendary craftsmanship. The interlocking rings and contoured plates are balanced so flawlessly that the metal flows with the physical grace of silk.
+
+**Flawless Articulation.** Due to its impossibly light and frictionless construction, the armor mimics natural movement perfectly. You can wear this armor and cast spells freely without requiring Armor Training, as it presents absolutely no physical resistance or restriction to your somatic gestures.
+
+**Mithral Forged.** The extreme lightness of the dwarven-forged mithral means this armor does not impose disadvantage on Dexterity (Stealth) checks or restrict agility.
+
+**Elven Contours.** Forged to slide under silk and velvet, the armor is extraordinarily thin and can be worn comfortably under normal adventuring gear or noble attire without drawing attention.
+
+---
+
 ## Auril's Abode
 *Uncommon*
 
@@ -28,14 +47,16 @@ While wearing this cloak, you gain a +1 bonus to AC and saving throws.
 
 ---
 
-## Ring of Cold Resistance
-*Rare (Requires Attunement)*
+## Reforged Ring of Cold Resistance
+*Rare (Reforged — no longer requires attunement)*
 
 | | |
 |---|---|
-| **Requires Attunement** | Yes |
+| **Requires Attunement** | No (removed via reforging) |
 
 While wearing this ring, you have Resistance to Cold damage.
+
+**Reforged.** This ring was reforged on the Anvil of Disjunction in Ythryn, sacrificing another magic item to strip away its attunement requirement. It now grants its Resistance passively — without attunement — and does not count against the 3 attuned-item limit.
 
 ---
 

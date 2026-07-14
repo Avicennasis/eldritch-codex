@@ -13,7 +13,7 @@ export const CHARACTER = {
   proficiencyBonus: 4,
   passivePerception: 15,
 
-  ac: 18,         // Fine Mithril 17 + Cloak +1
+  ac: 18,         // Aegis of the First Forge 17 (15+DEX) + Cloak +1
   maxHp: 56,
   hitDice: { count: 9, die: 6 },
   initiative: 2,  // DEX mod
@@ -115,7 +115,7 @@ export const SPELLS = [
   { level: 1, name: 'Chromatic Orb',        source: 'Sorcerer',  school: 'Evocation',    target: 'single', damageType: ['Acid','Cold','Fire','Lightning','Poison','Thunder'], castTime: 'Action', range: '90 ft.', damage: '3d8', concentration: false, description: 'Choose damage type. Ranged spell attack. Leaps on doubles.', upcast: { dieSides: 8, perLevel: 1 } },
   { level: 1, name: 'Dissonant Whispers',   source: 'Aberrant',  school: 'Enchantment',  target: 'single', damageType: ['Psychic'], castTime: 'Action', range: '60 ft.', damage: '3d6 Psychic', concentration: false, spCast: 1, description: 'WIS save. Target flees on fail. 1 SP psionic cast.', upcast: { dieSides: 6, perLevel: 1 } },
   { level: 1, name: 'Shield',               source: 'Sorcerer',  school: 'Abjuration',   target: 'self',   damageType: null, castTime: 'Reaction', range: 'Self', damage: null, concentration: false, description: '+5 AC until start of next turn. Blocks Magic Missile.' },
-  { level: 1, name: 'Sleep',                source: 'Aberrant',  school: 'Enchantment',  target: 'area',   damageType: null, castTime: 'Action', range: '60 ft.', damage: null, concentration: true, spCast: 1, description: '5-ft sphere. WIS save or Incapacitated/Unconscious.' },
+  { level: 1, name: 'Sleep',                source: 'Sorcerer',  school: 'Enchantment',  target: 'area',   damageType: null, castTime: 'Action', range: '60 ft.', damage: null, concentration: true, description: '5-ft sphere. WIS save or Incapacitated/Unconscious.' },
 
   // 2nd Level
   { level: 2, name: "Auril's Binding Ice", source: 'Auril',  school: 'Evocation',    target: 'area',   damageType: ['Cold'], castTime: 'Action', range: 'Self (30-ft cone)', damage: '3d8 Cold', concentration: false, freeCast: true, description: 'CON save. Half dmg on success. Fail: speed 0 for 1 min. Free 1/day.', upcast: { dieSides: 8, perLevel: 1 } },
@@ -258,6 +258,8 @@ export const XANTHRID_COMPANION = {
   },
 };
 
+// Polymorph forms — DM-granted, campaign-specific (Icewind Dale). Non-Beast types;
+// the RAW Polymorph Beast restriction is waived for this character by DM ruling.
 export const POLYMORPH_FORMS = {
   greatYeti: {
     label: 'Great Yeti',
@@ -423,8 +425,8 @@ export const LANGUAGE_DESCRIPTIONS = {
 export const RESISTANCE_DESCRIPTIONS = {
   Necrotic: 'You take half damage from Necrotic sources. From Celestial heritage (Aasimar).',
   Radiant: 'You take half damage from Radiant sources. From Celestial heritage (Aasimar).',
-  Psychic: 'You take half damage from Psychic sources. From Aberrant Mind Sorcerer subclass (Psionic Resilience).',
-  Cold: 'You take half damage from Cold sources. From Ring of Cold Resistance (requires Attunement).',
+  Psychic: 'You take half damage from Psychic sources, and you have Advantage on saving throws to avoid or end the Charmed or Frightened condition. From the Aberrant Sorcery feature Psychic Defenses (level 6).',
+  Cold: 'You take half damage from Cold sources. From the Reforged Ring of Cold Resistance — reforged on the Anvil of Disjunction in Ythryn to remove its attunement requirement (at the cost of another magic item), so it now grants resistance passively without attunement.',
   Force: 'You take half damage from Force sources. From Brooch of Shielding (requires Attunement). Also grants immunity to damage from the Magic Missile spell.',
 };
 
@@ -446,7 +448,7 @@ export const CONDITION_DESCRIPTIONS = {
 };
 
 export const STAT_DESCRIPTIONS = {
-  'Armor Class': 'How hard you are to hit. 17 base (Fine Mithril) + 1 (Cloak of Protection) = 18.',
+  'Armor Class': 'How hard you are to hit. 17 base (Aegis of the First Forge: 15 + DEX 2) + 1 (Cloak of Protection) = 18.',
   'Speed': 'Distance you can move on your turn.',
   'Initiative': 'Added to a d20 roll to determine turn order. Based on DEX modifier (+2).',
   'Proficiency': 'Bonus added to attacks, saves, and skills you are proficient in. Based on character level.',
@@ -464,8 +466,8 @@ export const SKILL_DESCRIPTIONS = {
 };
 
 export const RESOURCE_DESCRIPTIONS = {
-  lucky: 'You have inexplicable luck. You have 4 Luck Points. Whenever you make a d20 Test, you can spend a Luck Point to roll an additional d20 and choose which one to use. You regain expended Luck Points when you finish a Long Rest.',
-  innateSorcery: 'As a Bonus Action, you can unleash the sorcery within. For 1 minute, your spell save DC and spell attack bonus each increase by 1. You can use this feature twice, regaining all uses on a Long Rest.',
+  lucky: 'You have inexplicable luck. You have 4 Luck Points (equal to your Proficiency Bonus). Whenever you make a d20 Test, you can spend 1 Luck Point to gain Advantage on the roll — or, when a creature makes an attack roll against you, you can spend 1 Luck Point to impose Disadvantage on it. You regain expended Luck Points when you finish a Long Rest.',
+  innateSorcery: 'As a Bonus Action, you can unleash the sorcery within. For 1 minute, the spell save DC of your Sorcerer spells increases by 1, and you have Advantage on the attack rolls of Sorcerer spells you cast. You can use this feature twice, regaining all uses on a Long Rest. Sorcery Incarnate (level 7): if you have no uses left, you can spend 2 Sorcery Points to activate it; and while it is active, you can use up to two Metamagic options on each spell you cast.',
   healingHands: 'As a Magic action, you touch a creature and roll a number of d4s equal to your Proficiency Bonus (+4 = 4d4). The creature regains Hit Points equal to the total rolled. Once per Long Rest.',
   celestialRevelation: 'As a Bonus Action, you gain one of: Inner Radiance (bright light 10 ft, dim 20 ft; once per turn deal extra Radiant damage equal to proficiency), Heavenly Wings (fly speed equal to walk speed), or Unearthly Visage (advantage on Charisma checks). Lasts 1 minute. Once per Long Rest.',
   sorcerousRestoration: 'During a Short Rest, you can regain expended Sorcery Points equal to half your Sorcerer level (rounded down). Once per Long Rest.',
@@ -482,7 +484,7 @@ export const INVENTORY = [
   { name: 'Greater Healing Potion',     category: 'Potions',     qty: 1, notes: '4d4+4 HP', description: 'A character who drinks the magical red fluid in this vial regains 4d4+4 Hit Points. Drinking or administering a potion takes a Bonus Action.', healing: { count: 4, sides: 4, bonus: 4 } },
   { name: 'Potion of Cold Resistance',  category: 'Potions',     qty: 1, notes: 'Resist Cold, 1 hr', description: 'When you drink this potion, you gain Resistance to Cold damage for 1 hour.' },
   { name: 'Wand of Secrets',            category: 'Magic Items', qty: 1, notes: '3/day — detects secret doors/traps within 30 ft', description: 'While holding this wand, you can take a Magic action to expend 1 charge. If a secret door or trap is within 30 feet of you, the wand pulses and points to the closest one. The wand has 3 charges and regains all expended charges daily at dawn.' },
-  { name: 'Ring of Cold Resistance',    category: 'Magic Items', qty: 1, notes: 'Resist Cold (attune)', description: 'While wearing this ring, you have Resistance to Cold damage. Requires Attunement.' },
+  { name: 'Reforged Ring of Cold Resistance', category: 'Magic Items', qty: 1, notes: 'Resist Cold (reforged — no attunement)', description: 'While wearing this ring, you have Resistance to Cold damage. Reforged on the Anvil of Disjunction in Ythryn to remove its attunement requirement (sacrificing another magic item), so it no longer requires attunement.' },
   { name: 'Cloak of Protection',       category: 'Magic Items', qty: 1, notes: '+1 AC, +1 saves (attune)', description: 'While wearing this cloak, you gain a +1 bonus to AC and saving throws. Requires Attunement.' },
   { name: 'Wand of Magic Missiles',    category: 'Magic Items', qty: 1, notes: '7 charges — Magic Missile up to 3rd level', description: 'This wand has 7 charges. Expend 1-3 charges to cast Magic Missile at 1st-3rd level (3-5 darts, 1d4+1 Force each). Regains 1d6+1 charges at dawn. If last charge spent, roll d20 — on a 1 the wand is destroyed.' },
   { name: 'Brooch of Shielding',       category: 'Magic Items', qty: 1, notes: 'Resist Force, immune to Magic Missile (attune)', description: 'While wearing this brooch, you have Resistance to Force damage, and you are immune to damage from the Magic Missile spell. Requires Attunement.' },
@@ -501,7 +503,7 @@ export const INVENTORY = [
   { name: 'Manacles',                   category: 'Gear',        qty: 1, description: 'Metal restraints that can bind a Small or Medium creature. Escaping requires a DC 20 DEX check. Breaking requires a DC 26 STR check.' },
   { name: 'Tent',                       category: 'Gear',        qty: 1, description: 'A simple two-person canvas shelter.' },
   { name: 'Dice Gaming Set',            category: 'Tools',       qty: 1, description: 'A set of polyhedral dice for games of chance. Proficiency allows adding proficiency bonus to ability checks using this set.' },
-  { name: 'Fine Mithril Armour',        category: 'Armor',       qty: 1, notes: 'AC 17', description: 'Lightweight mithril armor providing AC 17. No Stealth disadvantage. No Strength requirement.' },
+  { name: 'Aegis of the First Forge', category: 'Armor', qty: 1, notes: 'AC 17 (15+DEX)', description: 'Masterwork non-magical mithral half plate. AC 15 + DEX (max 2). Flawless Articulation: wear and cast spells freely without Armor Training. Mithral Forged: no Stealth disadvantage. Elven Contours: worn under normal attire. A gift of peace from dwarven artisans of the First Age to an elven prince.' },
   { name: "Tinker's Tools",             category: 'Tools',       qty: 1, notes: 'DEX, 2 hrs/long rest crafting', description: "Tinker's Tools (DEX). Utilize: Assemble a Tiny scrap item that falls apart in 1 minute (DC 20). Craft (2 hrs/long rest): Bell, Bullseye Lantern, Flask, Hooded Lantern, Hunting Trap, Lock, Manacles, Mirror, Shovel, Signal Whistle, Tinderbox." },
   { name: "Traveler's Clothes",         category: 'Clothing',    qty: 1, description: 'Boots, a pair of trousers or a skirt, a tunic, and a cloak.' },
   { name: 'Parka',                      category: 'Clothing',    qty: 1, description: 'Heavy winter coat for extreme cold environments.' },

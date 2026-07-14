@@ -1,5 +1,5 @@
 // Short Rest / Long Rest logic
-import { CHARACTER, TINKER_RECIPES } from './data.js?v=30';
+import { CHARACTER, TINKER_RECIPES } from './data.js?v=31';
 import { getState, update } from './state.js?v=19';
 import { rollHitDie } from './dice.js?v=5';
 import { logRoll } from './log.js?v=5';

@@ -128,6 +128,8 @@
 
 # Polymorph Forms
 
+> **DM-approved (campaign-specific):** These forms are non-Beast types (monstrosities, giants, etc.) granted by the DM for the Icewind Dale campaign. The RAW Polymorph restriction to Beasts is waived for this character.
+
 ---
 
 ## Great Yeti
