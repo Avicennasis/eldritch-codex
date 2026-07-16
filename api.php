@@ -20,6 +20,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $body = file_get_contents('php://input');
+    // Distinguish an empty body from malformed JSON so the caller gets an
+    // actionable error. We deliberately do NOT treat empty as {} — that would
+    // silently overwrite saved character state with an empty object.
+    if (trim($body) === '') {
+        http_response_code(400);
+        echo json_encode(['error' => 'Empty request body']);
+        exit;
+    }
     if (json_decode($body) === null && trim($body) !== 'null') {
         http_response_code(400);
         echo json_encode(['error' => 'Invalid JSON']);

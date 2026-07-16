@@ -1,5 +1,5 @@
 // Roll log management
-import { getState, addLogEntry, clearLog } from './state.js?v=19';
+import { getState, addLogEntry, clearLog } from './state.js?v=20';
 
 export function logRoll(type, text) {
   addLogEntry({ type, text });
