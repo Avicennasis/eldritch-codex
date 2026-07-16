@@ -1,6 +1,23 @@
 // Dice engine: roll logic, Lucky, animation
 
+// Uniform integer in [1, sides]. Uses crypto.getRandomValues with rejection
+// sampling so the result is unbiased — a plain `getRandomValues() % sides`
+// would reintroduce modulo bias (2^32 is not divisible by 20, 6, etc.), which
+// defeats the point of switching off Math.random(). Falls back to Math.random
+// only if the Web Crypto API is unavailable.
 export function rollDie(sides) {
+  const c = globalThis.crypto;
+  if (c && typeof c.getRandomValues === 'function') {
+    const RANGE = 2 ** 32; // number of distinct Uint32 values
+    const limit = RANGE - (RANGE % sides); // largest exact multiple of `sides`
+    const buf = new Uint32Array(1);
+    let x;
+    do {
+      c.getRandomValues(buf);
+      x = buf[0];
+    } while (x >= limit); // reject the biased tail (probability < sides/2^32)
+    return (x % sides) + 1;
+  }
   return Math.floor(Math.random() * sides) + 1;
 }
 

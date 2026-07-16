@@ -5,6 +5,12 @@ const STORAGE_KEY = 'dnd-lanezel-session';
 const STATE_VERSION = 1;
 const API_URL = 'api.php';
 const SERVER_SAVE_DELAY_MS = 150;
+// Persistent-failure backoff for flushServerSave. Bounds the retry loop so a
+// server outage during rapid edits can't spin the network hot or grow an
+// unbounded async chain; localStorage still holds the data, and the next real
+// state change re-arms the flush.
+const SERVER_SAVE_MAX_RETRIES = 5;
+const SERVER_SAVE_RETRY_BASE_MS = 500;
 
 function createDefaultState() {
   return {
@@ -137,24 +143,37 @@ function scheduleServerSave() {
 
 async function flushServerSave() {
   if (saveInFlight || queuedSnapshot === null) return;
-
-  const snapshot = queuedSnapshot;
-  queuedSnapshot = null;
   saveInFlight = true;
 
+  let failures = 0;
   try {
-    await fetch(`${API_URL}?key=state`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: snapshot,
-    });
-  } catch (_) {
-    // Ignore transient persistence failures; later state changes will retry.
+    // Drain the queue in a loop rather than re-calling ourselves in `finally`
+    // (the old recursion could chain unbounded under a persistent outage).
+    while (queuedSnapshot !== null && failures < SERVER_SAVE_MAX_RETRIES) {
+      const snapshot = queuedSnapshot;
+      queuedSnapshot = null;
+      try {
+        const res = await fetch(`${API_URL}?key=state`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: snapshot,
+        });
+        if (!res.ok) throw new Error(`server save failed: ${res.status}`);
+        failures = 0; // success resets the backoff
+      } catch (_) {
+        // Persistent failure: keep the snapshot (unless a newer one arrived)
+        // and back off exponentially instead of hot-looping the network.
+        failures += 1;
+        if (queuedSnapshot === null) queuedSnapshot = snapshot;
+        if (failures < SERVER_SAVE_MAX_RETRIES) {
+          await new Promise(r => setTimeout(r, SERVER_SAVE_RETRY_BASE_MS * 2 ** (failures - 1)));
+        }
+      }
+    }
+    // Gave up after MAX_RETRIES: localStorage still holds the data, and the
+    // next state change re-arms flushServerSave via scheduleServerSave.
   } finally {
     saveInFlight = false;
-    if (queuedSnapshot !== null) {
-      flushServerSave();
-    }
   }
 }
 
@@ -224,6 +243,11 @@ export function updateNested(path, value) {
   const keys = path.split('.');
   let obj = state;
   for (let i = 0; i < keys.length - 1; i++) {
+    // Auto-create missing intermediate objects instead of dereferencing
+    // undefined (which threw a TypeError and could break UI updates).
+    if (obj[keys[i]] === undefined || obj[keys[i]] === null) {
+      obj[keys[i]] = {};
+    }
     obj = obj[keys[i]];
   }
   obj[keys[keys.length - 1]] = value;
