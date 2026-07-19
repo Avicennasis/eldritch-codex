@@ -1,11 +1,11 @@
-// Lanezel Havenwood — Level 9 Aasimar Aberrant Sorcerer
+// Lanezel Havenwood — Level 10 Aasimar Aberrant Sorcerer
 // Hardcoded character data from LANEZEL.md, SORCERER.md, SPECIES.md, SPELLS.md, CREATURES.md
 
 export const CHARACTER = {
   name: 'Lanezel Havenwood',
   class: 'Sorcerer',
   subclass: 'Aberrant Sorcery',
-  level: 9,
+  level: 10,
   background: 'Merchant',
   species: 'Aasimar',
   size: 'Medium',
@@ -14,8 +14,8 @@ export const CHARACTER = {
   passivePerception: 15,
 
   ac: 18,         // Aegis of the First Forge 17 (15+DEX) + Cloak +1
-  maxHp: 56,
-  hitDice: { count: 9, die: 6 },
+  maxHp: 62,
+  hitDice: { count: 10, die: 6 },
   initiative: 2,  // DEX mod
 
   abilities: {
@@ -47,12 +47,12 @@ export const CHARACTER = {
     2: 3,
     3: 3,
     4: 3,
-    5: 1,
+    5: 2,
   },
 
-  sorceryPoints: 9,
+  sorceryPoints: 10,
 
-  metamagic: ['Careful Spell', 'Empowered Spell'],
+  metamagic: ['Careful Spell', 'Empowered Spell', 'Quickened Spell', 'Seeking Spell'],
 
   feats: ['Lucky', 'Shadow Touched', 'Warcaster'],
 
@@ -102,6 +102,7 @@ export const WEAPONS = [
 
 export const SPELLS = [
   // Cantrips
+  { level: 0, name: 'Acid Splash',       source: 'Sorcerer',      school: 'Conjuration',  target: 'area',   damageType: ['Acid'], castTime: 'Action', range: '60 ft.', damage: '2d6 Acid', concentration: false, description: 'DEX save. 1 or 2 creatures within 5 ft of each other.' },
   { level: 0, name: 'Friends',           source: 'Ythryn Goblet', school: 'Enchantment', target: 'single', damageType: null, castTime: 'Action', range: '10 ft.', damage: null, concentration: true, description: 'Advantage on CHA checks vs one creature. 1 minute. Target knows afterward.' },
   { level: 0, name: 'Light',            source: 'Aasimar',   school: 'Evocation',    target: 'utility', damageType: null, castTime: 'Action', range: 'Touch',  damage: null, concentration: false, description: 'Object sheds bright light 20 ft, dim 20 ft more. 1 hour.' },
   { level: 0, name: 'Mage Hand',        source: 'Sorcerer',  school: 'Conjuration',  target: 'utility', damageType: null, castTime: 'Action', range: '30 ft.', damage: null, concentration: false, description: 'Spectral hand manipulates objects. 1 minute.' },
@@ -143,6 +144,7 @@ export const SPELLS = [
 
   // 5th Level
   { level: 5, name: "Bigby's Hand",         source: 'Sorcerer',  school: 'Evocation',    target: 'single', damageType: ['Force','Bludgeoning'], castTime: 'Action', range: '120 ft.', damage: '4d8 Force', concentration: true, description: 'Large spectral hand (AC 20, HP = your max). Bonus action: Fist (4d8 Force attack), Push (STR contest), Grapple (2d6+4 crush), or Interpose (half cover).', upcast: { dieSides: 8, perLevel: 2, note: 'Fist +2d8, Crush +2d6 per level' } },
+  { level: 5, name: 'Wall of Stone',        source: 'Sorcerer',  school: 'Evocation',    target: 'area',   damageType: null, castTime: 'Action', range: '120 ft.', damage: null, concentration: true, description: 'Stone panels (10×10×6 in). DEX save to dodge. Permanent if concentration held full duration.' },
   { level: 5, name: 'Telekinesis',          source: 'Aberrant',  school: 'Transmutation', target: 'single', damageType: null, castTime: 'Action', range: '60 ft.', damage: null, concentration: true, description: 'Move creature (STR contest) or object up to 1000 lbs. Bonus action sustain.' },
   { level: 5, name: 'Telepathic Bond',      source: 'Aberrant',  school: 'Divination',   target: 'ally',  damageType: null, castTime: 'Action', range: '30 ft.', damage: null, concentration: false, description: 'Up to 8 willing creatures share telepathic link. 1 hour.' },
 ];
@@ -400,6 +402,13 @@ export const DAMAGE_TYPES = [
   'Necrotic', 'Piercing', 'Poison', 'Psychic', 'Radiant', 'Slashing', 'Thunder',
 ];
 
+export const METAMAGIC_DESCRIPTIONS = {
+  'Careful Spell': { cost: '1 SP', description: 'When you cast a spell that forces other creatures to make a saving throw, you can protect some of those creatures from the spell\'s full force. To do so, spend 1 Sorcery Point and choose a number of those creatures up to your Charisma modifier (minimum of one creature). A chosen creature automatically succeeds on its saving throw against the spell, and it takes no damage if it would normally take half damage on a successful save.' },
+  'Empowered Spell': { cost: '1 SP', description: 'When you roll damage for a spell, you can spend 1 Sorcery Point to reroll a number of the damage dice up to your Charisma modifier (minimum of one), and you must use the new rolls. You can use Empowered Spell even if you\'ve already used a different Metamagic option during the casting of the spell.' },
+  'Quickened Spell': { cost: '2 SP', description: 'When you cast a spell that has a casting time of an action, you can spend 2 Sorcery Points to change the casting time to a Bonus Action for this casting. You can\'t modify a spell in this way if you\'ve already cast a level 1+ spell on the current turn, nor can you cast a level 1+ spell on this turn after modifying a spell in this way.' },
+  'Seeking Spell': { cost: '1 SP', description: 'If you make an attack roll for a spell and miss, you can spend 1 Sorcery Point to reroll the d20, and you must use the new roll. You can use Seeking Spell even if you\'ve already used a different Metamagic option during the casting of the spell.' },
+};
+
 export const SPELL_SLOT_COSTS = {
   1: 2, 2: 3, 3: 5, 4: 6, 5: 7,
 };
@@ -410,8 +419,8 @@ export const PANEL_DESCRIPTIONS = {
   'Concentration': 'Some spells require Concentration to maintain. You can only concentrate on one spell at a time. Taking damage forces a CON save (DC = 10 or half damage, whichever is higher) to maintain it. Being Incapacitated or killed ends Concentration automatically.',
   'Death Saves': 'At 0 HP, roll a d20 at the start of each turn. 10+ = success, 9 or lower = failure. 3 successes = stabilize at 0 HP. 3 failures = death. Natural 20 = regain 1 HP. Natural 1 = 2 failures. Taking damage at 0 HP = automatic failure (crit = 2 failures).',
   'Spell Slots': 'Spell slots are expended to cast leveled spells. You can cast a lower-level spell using a higher-level slot (upcasting), often with increased effect. All slots restore on a Long Rest.',
-  'Sorcery Points': 'Sorcery Points fuel Metamagic and Psionic Sorcery. Font of Magic (Bonus Action): spend SP to create a spell slot, or expend a slot to gain SP equal to its level. Created slots are temporary — they can exceed your base maximum but vanish on Long Rest. Costs: 1st=2 SP, 2nd=3 SP, 3rd=5 SP, 4th=6 SP, 5th=7 SP. Max 9 SP, restored on Long Rest.',
-  'Hit Dice (d6)': 'During a Short Rest, you can spend Hit Dice to heal. Roll 1d6 + CON modifier (+2) per die spent. You have 9 total (one per level). All are restored on a Long Rest.',
+  'Sorcery Points': 'Sorcery Points fuel Metamagic and Psionic Sorcery. Font of Magic (Bonus Action): spend SP to create a spell slot, or expend a slot to gain SP equal to its level. Created slots are temporary — they can exceed your base maximum but vanish on Long Rest. Costs: 1st=2 SP, 2nd=3 SP, 3rd=5 SP, 4th=6 SP, 5th=7 SP. Max 10 SP, restored on Long Rest.',
+  'Hit Dice (d6)': 'During a Short Rest, you can spend Hit Dice to heal. Roll 1d6 + CON modifier (+2) per die spent. You have 10 total (one per level). All are restored on a Long Rest.',
 };
 
 export const LANGUAGE_DESCRIPTIONS = {
@@ -468,9 +477,9 @@ export const SKILL_DESCRIPTIONS = {
 export const RESOURCE_DESCRIPTIONS = {
   lucky: 'You have inexplicable luck. You have 4 Luck Points (equal to your Proficiency Bonus). Whenever you make a d20 Test, you can spend 1 Luck Point to gain Advantage on the roll — or, when a creature makes an attack roll against you, you can spend 1 Luck Point to impose Disadvantage on it. You regain expended Luck Points when you finish a Long Rest.',
   innateSorcery: 'As a Bonus Action, you can unleash the sorcery within. For 1 minute, the spell save DC of your Sorcerer spells increases by 1, and you have Advantage on the attack rolls of Sorcerer spells you cast. You can use this feature twice, regaining all uses on a Long Rest. Sorcery Incarnate (level 7): if you have no uses left, you can spend 2 Sorcery Points to activate it; and while it is active, you can use up to two Metamagic options on each spell you cast.',
+  sorcerousRestoration: 'During a Short Rest, you can regain expended Sorcery Points equal to half your Sorcerer level (rounded down) = 5 SP. Once per Long Rest.',
   healingHands: 'As a Magic action, you touch a creature and roll a number of d4s equal to your Proficiency Bonus (+4 = 4d4). The creature regains Hit Points equal to the total rolled. Once per Long Rest.',
   celestialRevelation: 'As a Bonus Action, you gain one of: Inner Radiance (bright light 10 ft, dim 20 ft; once per turn deal extra Radiant damage equal to proficiency), Heavenly Wings (fly speed equal to walk speed), or Unearthly Visage (advantage on Charisma checks). Lasts 1 minute. Once per Long Rest.',
-  sorcerousRestoration: 'During a Short Rest, you can regain expended Sorcery Points equal to half your Sorcerer level (rounded down). Once per Long Rest.',
   sapphireRecharge: 'Sapphire of Power. While this sapphire is on your person, you can speak its command word to regain one expended spell slot of 3rd level or lower. Once used, it can\'t be used again until the next dawn. Requires Attunement by a spellcaster.',
   rimesBindingIceFree: 'You can cast Auril\'s Binding Ice once without using a spell slot. Recharges on a Long Rest.',
   wandOfSecrets: 'While holding this wand, you can take a Magic action to expend 1 charge. If a secret door or trap is within 30 feet of you, the wand pulses and points to the closest one. 3 charges, regains all daily at dawn.',

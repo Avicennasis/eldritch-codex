@@ -5,6 +5,16 @@ export const SPELL_FULL_TEXT = {
 
 // --- Cantrips -----------------------------------------
 
+'Acid Splash': `
+<div class="sft-school">Conjuration Cantrip</div>
+<table class="sft-stats">
+  <tr><th>Casting Time</th><td>Action</td></tr>
+  <tr><th>Range</th><td>60 feet</td></tr>
+  <tr><th>Components</th><td>V, S</td></tr>
+  <tr><th>Duration</th><td>Instantaneous</td></tr>
+</table>
+<p>You create a bubble of acid and hurl it at a point within range, where it explodes in a 5-foot-radius Sphere. Each creature in that Sphere must succeed on a Dexterity saving throw or take 2d6 Acid damage.</p>`,
+
 'Friends': `
 <div class="sft-school">Enchantment Cantrip</div>
 <div class="sft-sp-note">Source: Ythryn Magic Goblet</div>
@@ -416,6 +426,21 @@ export const SPELL_FULL_TEXT = {
 <p>You gain the ability to move or manipulate creatures or objects by thought. When you cast the spell, and as a Magic action on each of your turns thereafter, you can exert your will on one creature or object that you can see within range, causing the appropriate effect below.</p>
 <p><strong>Creature.</strong> You can try to move a Huge or smaller creature. Make an ability check with your spellcasting ability contested by the creature's Strength check. If you win the contest, you move the creature up to 30 feet in any direction, including upward but not beyond the range of this spell. Until the end of your next turn, the creature is Restrained in your telekinetic grip. A creature lifted upward is suspended in mid-air. On subsequent rounds, you can use your action to attempt to maintain your telekinetic grip on the creature by repeating the contest.</p>
 <p><strong>Object.</strong> You can try to move an object that weighs up to 1,000 pounds. If the object isn't being worn or carried, you automatically move it up to 30 feet in any direction, but not beyond the range of this spell. If the object is worn or carried by a creature, you must make an ability check with your spellcasting ability contested by that creature's Strength check. If you succeed, you pull the object away from that creature and can move it up to 30 feet in any direction but not beyond the range of this spell. You can exert fine control on objects with your telekinetic grip, such as manipulating a simple tool, opening a door or a container, stowing or retrieving an item from an open container, or pouring the contents from a vial.</p>`,
+
+'Wall of Stone': `
+<div class="sft-school">Level 5 Evocation</div>
+<table class="sft-stats">
+  <tr><th>Casting Time</th><td>Action</td></tr>
+  <tr><th>Range</th><td>120 feet</td></tr>
+  <tr><th>Components</th><td>V, S, M (a small block of granite)</td></tr>
+  <tr><th>Duration</th><td>Concentration, up to 10 minutes</td></tr>
+</table>
+<p>A nonmagical wall of solid stone springs into existence at a point you choose within range. The wall is 6 inches thick and is composed of ten 10-foot-by-10-foot panels. Each panel must be contiguous with at least one other panel. Alternatively, you can create 10-foot-by-20-foot panels that are only 3 inches thick.</p>
+<p>If the wall cuts through a creature's space when it appears, the creature is pushed to one side of the wall (your choice which side). If a creature would be surrounded on all sides by the wall (or the wall and another solid surface), that creature can make a Dexterity saving throw. On a success, it can use its Reaction to move up to its Speed so that it is no longer enclosed by the wall.</p>
+<p>The wall can have any shape you desire, though it can't occupy the same space as a creature or object. The wall doesn't need to be vertical or rest on any firm foundation, but it must merge with and be solidly supported by existing stone. Thus, you can use this spell to bridge a chasm or create a ramp.</p>
+<p>If you create a span greater than 20 feet in length, you must halve the size of each panel to create supports. You can crudely shape the wall to create battlements, crenellations, and so on.</p>
+<p>The wall is an object made of stone that can be damaged and thus breached. Each panel has AC 15 and 30 Hit Points per inch of thickness, and it is immune to Poison and Psychic damage. Reducing a panel to 0 Hit Points destroys it and might cause connected panels to collapse at the DM's discretion.</p>
+<p>If you maintain your Concentration on this spell for its whole duration, the wall becomes permanent and can't be dispelled. Otherwise, the wall disappears when the spell ends.</p>`,
 
 'Telepathic Bond': `
 <div class="sft-school">5th-level Divination (Ritual)</div>

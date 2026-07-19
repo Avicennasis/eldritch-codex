@@ -1,5 +1,5 @@
 // Session state model with server + localStorage persistence
-import { CHARACTER, INVENTORY } from './data.js?v=31';
+import { CHARACTER, INVENTORY } from './data.js?v=32';
 
 const STORAGE_KEY = 'dnd-lanezel-session';
 const STATE_VERSION = 1;

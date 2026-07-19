@@ -461,6 +461,72 @@
   text-align: center;
 }
 
+/* Metamagic */
+.metamagic-section {
+  margin-top: 12px;
+  border-top: 1px solid var(--border);
+  padding-top: 10px;
+}
+
+.metamagic-header {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--purple-bright);
+  cursor: pointer;
+  padding: 4px 0;
+  user-select: none;
+}
+
+.metamagic-header i {
+  margin-right: 4px;
+}
+
+.metamagic-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.metamagic-list.collapsed {
+  display: none;
+}
+
+.metamagic-item {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 8px 10px;
+  background: var(--elevated);
+}
+
+.metamagic-name {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.metamagic-cost {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--purple-bright);
+  background: var(--purple-dim);
+  padding: 1px 6px;
+  border-radius: 4px;
+  margin-left: auto;
+}
+
+.metamagic-desc {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  margin-top: 6px;
+  line-height: 1.4;
+}
+
 /* Hit dice checkboxes */
 .hit-dice-row {
   display: flex;

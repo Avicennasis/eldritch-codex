@@ -1,10 +1,10 @@
 // DOM rendering, event binding, panel updates
-import { CHARACTER, WEAPONS, SPELLS, CONDITIONS, SPELL_SLOT_COSTS, DAMAGE_TYPES, STORE_POTIONS, RESOURCE_LIMITS, INVENTORY, RESOURCE_DESCRIPTIONS, STAT_DESCRIPTIONS, SKILL_DESCRIPTIONS, PANEL_DESCRIPTIONS, LANGUAGE_DESCRIPTIONS, RESISTANCE_DESCRIPTIONS, CONDITION_DESCRIPTIONS, ABERRANT_SPIRIT, XANTHRID_COMPANION, POLYMORPH_FORMS, ABILITY_DETAILS, ATTUNEMENT, TINKER_RECIPES } from './data.js?v=31';
+import { CHARACTER, WEAPONS, SPELLS, CONDITIONS, SPELL_SLOT_COSTS, DAMAGE_TYPES, STORE_POTIONS, RESOURCE_LIMITS, INVENTORY, RESOURCE_DESCRIPTIONS, STAT_DESCRIPTIONS, SKILL_DESCRIPTIONS, PANEL_DESCRIPTIONS, LANGUAGE_DESCRIPTIONS, RESISTANCE_DESCRIPTIONS, CONDITION_DESCRIPTIONS, ABERRANT_SPIRIT, XANTHRID_COMPANION, POLYMORPH_FORMS, ABILITY_DETAILS, ATTUNEMENT, TINKER_RECIPES, METAMAGIC_DESCRIPTIONS } from './data.js?v=32';
 import { getState, update, updateNested, resetAll } from './state.js?v=20';
 import * as dice from './dice.js?v=6';
 import { logRoll, renderLog, doClearLog } from './log.js?v=5';
 import { shortRest, longRest } from './rest.js?v=14';
-import { SPELL_FULL_TEXT } from './spelltext.js?v=6';
+import { SPELL_FULL_TEXT } from './spelltext.js?v=7';
 import { fireMadnessEvent, triggerScreenShake, triggerDamageFlash } from './madness.js?v=8';
 
 // Cache DOM refs
@@ -133,6 +133,7 @@ export function renderAll() {
   renderDeathSaves();
   renderSpellSlots();
   renderSorceryPoints();
+  renderMetamagic();
   renderHitDice();
   renderResources();
   renderInspiration();
@@ -809,6 +810,56 @@ function renderSPConversion() {
     toSPRow.appendChild(btn);
   }
   container.appendChild(toSPRow);
+}
+
+// ─── Metamagic ──────────────────────────────────
+function renderMetamagic() {
+  const container = document.getElementById('metamagic-section');
+  if (!container) return;
+  container.textContent = '';
+
+  const header = document.createElement('div');
+  header.className = 'metamagic-header';
+  const icon = document.createElement('i');
+  icon.className = 'fa-solid fa-wand-sparkles';
+  header.appendChild(icon);
+  header.appendChild(document.createTextNode(' Metamagic'));
+  header.addEventListener('click', () => {
+    const list = container.querySelector('.metamagic-list');
+    if (list) list.classList.toggle('collapsed');
+  });
+  container.appendChild(header);
+
+  const list = document.createElement('div');
+  list.className = 'metamagic-list';
+  for (const name of CHARACTER.metamagic) {
+    const meta = METAMAGIC_DESCRIPTIONS[name];
+    const item = document.createElement('div');
+    item.className = 'metamagic-item';
+    const title = document.createElement('div');
+    title.className = 'metamagic-name';
+    title.textContent = name;
+    if (meta) {
+      const cost = document.createElement('span');
+      cost.className = 'metamagic-cost';
+      cost.textContent = meta.cost;
+      title.appendChild(cost);
+    }
+    item.appendChild(title);
+    if (meta) {
+      const desc = document.createElement('div');
+      desc.className = 'metamagic-desc';
+      desc.textContent = meta.description;
+      desc.style.display = 'none';
+      title.style.cursor = 'pointer';
+      title.addEventListener('click', () => {
+        desc.style.display = desc.style.display === 'none' ? 'block' : 'none';
+      });
+      item.appendChild(desc);
+    }
+    list.appendChild(item);
+  }
+  container.appendChild(list);
 }
 
 // ─── Hit Dice ────────────────────────────────────
