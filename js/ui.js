@@ -260,8 +260,8 @@ function renderStats() {
   els.speedValue.textContent = CHARACTER.speed + ' ft.';
   els.initValue.textContent = '+' + CHARACTER.initiative;
   els.profValue.textContent = '+' + CHARACTER.proficiencyBonus;
-  els.spellDcValue.textContent = CHARACTER.spellSaveDC;
-  els.spellAtkValue.textContent = '+' + CHARACTER.spellAttackBonus;
+  els.spellDcValue.textContent = CHARACTER.spellcasting.saveDC;
+  els.spellAtkValue.textContent = '+' + CHARACTER.spellcasting.attackBonus;
   els.concCheckMod.textContent = '+' + CHARACTER.abilities.CON.save;
 }
 
