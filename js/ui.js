@@ -42,6 +42,10 @@ function cacheElements() {
     acValue: document.getElementById('ac-value'),
     speedValue: document.getElementById('speed-value'),
     initValue: document.getElementById('init-value'),
+    profValue: document.getElementById('prof-value'),
+    spellDcValue: document.getElementById('spell-dc-value'),
+    spellAtkValue: document.getElementById('spell-atk-value'),
+    concCheckMod: document.getElementById('conc-check-mod'),
     conditionGrid: document.getElementById('condition-grid'),
     exhaustionTrack: document.getElementById('exhaustion-track'),
     concSelect: document.getElementById('conc-select'),
@@ -49,6 +53,7 @@ function cacheElements() {
     deathFailures: document.getElementById('death-failures'),
     spellSlotsContainer: document.getElementById('spell-slots'),
     spDisplay: document.getElementById('sp-display'),
+    spMax: document.getElementById('sp-max'),
     hitDiceContainer: document.getElementById('hit-dice'),
     luckyContainer: document.getElementById('lucky-pips'),
     innateSorceryContainer: document.getElementById('innate-sorcery-pips'),
@@ -254,6 +259,10 @@ function renderStats() {
   els.acValue.textContent = CHARACTER.ac;
   els.speedValue.textContent = CHARACTER.speed + ' ft.';
   els.initValue.textContent = '+' + CHARACTER.initiative;
+  els.profValue.textContent = '+' + CHARACTER.proficiencyBonus;
+  els.spellDcValue.textContent = CHARACTER.spellSaveDC;
+  els.spellAtkValue.textContent = '+' + CHARACTER.spellAttackBonus;
+  els.concCheckMod.textContent = '+' + CHARACTER.abilities.CON.save;
 }
 
 // ─── Ability Scores ─────────────────────────────
@@ -743,6 +752,7 @@ function getSuffix(n) {
 // ─── Sorcery Points ─────────────────────────────
 function renderSorceryPoints() {
   els.spDisplay.textContent = getState().sorceryPoints;
+  els.spMax.textContent = CHARACTER.sorceryPoints;
   renderSPConversion();
 }
 

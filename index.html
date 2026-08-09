@@ -23,7 +23,7 @@
     }
   }
   </script>
-  <script type="module" src="js/app.js?v=69"></script>
+  <script type="module" src="js/app.js?v=70"></script>
 </head>
 <body>
 <noscript><p style="color:#c8e6c9;text-align:center;padding:2rem;font-family:serif">Eldritch Codex requires JavaScript to run.</p></noscript>
@@ -291,15 +291,15 @@
       </div>
       <div class="stat-row">
         <span class="stat-label">Proficiency</span>
-        <span class="stat-value">+4</span>
+        <span class="stat-value" id="prof-value">+4</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">Spell Save DC</span>
-        <span class="stat-value">16</span>
+        <span class="stat-value" id="spell-dc-value">16</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">Spell Attack</span>
-        <span class="stat-value">+8</span>
+        <span class="stat-value" id="spell-atk-value">+8</span>
       </div>
     </section>
 
@@ -359,7 +359,7 @@
       <div class="panel-header"><h2><i class="fa-solid fa-shield"></i> Saving Throws</h2></div>
       <div class="roll-btn-grid" id="save-buttons"></div>
       <div style="margin-top:6px">
-        <button class="roll-btn" id="btn-conc-check" style="width:100%;border-color:var(--purple-dim);color:var(--purple-bright)">Concentration Check (CON +7 Adv)</button>
+        <button class="roll-btn" id="btn-conc-check" style="width:100%;border-color:var(--purple-dim);color:var(--purple-bright)">Concentration Check (CON <span id="conc-check-mod">+7</span> Adv)</button>
       </div>
     </section>
 
@@ -392,7 +392,7 @@
         <button class="btn btn-icon" id="sp-minus">-</button>
         <span class="sp-display" id="sp-display">10</span>
         <button class="btn btn-icon" id="sp-plus">+</button>
-        <span style="font-size:0.75rem;color:var(--text-muted);margin-left:4px">/ 10</span>
+        <span style="font-size:0.75rem;color:var(--text-muted);margin-left:4px">/ <span id="sp-max">10</span></span>
       </div>
       <div class="sp-conversion" id="sp-conversion"></div>
       <div class="metamagic-section" id="metamagic-section"></div>
