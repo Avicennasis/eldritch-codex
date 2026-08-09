@@ -33,6 +33,7 @@ export function initUI() {
 
 function cacheElements() {
   els = {
+    charLevel: document.getElementById('char-level'),
     hpFill: document.getElementById('hp-fill'),
     hpText: document.getElementById('hp-text'),
     hpTempBar: document.getElementById('hp-temp-bar'),
@@ -122,6 +123,7 @@ function cacheElements() {
 }
 
 export function renderAll() {
+  els.charLevel.textContent = CHARACTER.level;
   renderHp();
   renderStats();
   renderAbilityScores();
