@@ -239,33 +239,30 @@ export function update(key, value) {
   }
 }
 
-// Path segments that would walk into Object.prototype instead of a plain
-// state object. Assigning through any of them is prototype pollution and
-// affects every object in the page, not just state.
-const UNSAFE_KEYS = new Set(['__proto__', 'constructor', 'prototype']);
-
 export function updateNested(path, value) {
   const keys = path.split('.');
-  // Defence in depth. Every current call site hardcodes its first segment
-  // ('deathSaves.' / 'spellSlots.') and interpolates only the LAST one, so
-  // this is not reachable today — but that is a property of the callers,
-  // not of this function, and one future caller passing a user-derived
-  // first segment would silently make it reachable. With '__proto__' first,
-  // obj[keys[i]] is not undefined, the auto-create branch below is skipped,
-  // obj becomes Object.prototype, and the final assignment pollutes it.
-  if (keys.some((k) => UNSAFE_KEYS.has(k))) {
-    return;
-  }
   let obj = state;
   for (let i = 0; i < keys.length - 1; i++) {
+    const key = keys[i];
+    // Prototype-pollution guard, checked per key at the point of use.
+    // With '__proto__' here, obj[key] is not undefined, the auto-create
+    // branch below is skipped, obj becomes Object.prototype, and the final
+    // assignment pollutes every object in the page.
+    if (key === '__proto__' || key === 'constructor' || key === 'prototype') {
+      return;
+    }
     // Auto-create missing intermediate objects instead of dereferencing
     // undefined (which threw a TypeError and could break UI updates).
-    if (obj[keys[i]] === undefined || obj[keys[i]] === null) {
-      obj[keys[i]] = {};
+    if (obj[key] === undefined || obj[key] === null) {
+      obj[key] = {};
     }
-    obj = obj[keys[i]];
+    obj = obj[key];
   }
-  obj[keys[keys.length - 1]] = value;
+  const last = keys[keys.length - 1];
+  if (last === '__proto__' || last === 'constructor' || last === 'prototype') {
+    return;
+  }
+  obj[last] = value;
   saveState();
   if (typeof window._onStateChange === 'function') {
     window._onStateChange();

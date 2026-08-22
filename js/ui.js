@@ -1,9 +1,9 @@
 // DOM rendering, event binding, panel updates
 import { CHARACTER, WEAPONS, SPELLS, CONDITIONS, SPELL_SLOT_COSTS, DAMAGE_TYPES, STORE_POTIONS, RESOURCE_LIMITS, INVENTORY, RESOURCE_DESCRIPTIONS, STAT_DESCRIPTIONS, SKILL_DESCRIPTIONS, PANEL_DESCRIPTIONS, LANGUAGE_DESCRIPTIONS, RESISTANCE_DESCRIPTIONS, CONDITION_DESCRIPTIONS, ABERRANT_SPIRIT, XANTHRID_COMPANION, POLYMORPH_FORMS, ABILITY_DETAILS, ATTUNEMENT, TINKER_RECIPES, METAMAGIC_DESCRIPTIONS } from './data.js?v=32';
-import { getState, update, updateNested, resetAll } from './state.js?v=22';
+import { getState, update, updateNested, resetAll } from './state.js?v=23';
 import * as dice from './dice.js?v=6';
-import { logRoll, renderLog, doClearLog } from './log.js?v=7';
-import { shortRest, longRest } from './rest.js?v=16';
+import { logRoll, renderLog, doClearLog } from './log.js?v=8';
+import { shortRest, longRest } from './rest.js?v=17';
 import { SPELL_FULL_TEXT } from './spelltext.js?v=7';
 import { fireMadnessEvent, triggerScreenShake, triggerDamageFlash } from './madness.js?v=8';
 
