@@ -8,9 +8,20 @@ on:
   schedule:
     - cron: "0 6 * * 1"
 
+# Default-deny at the top level (Scorecard Token-Permissions); the analyze
+# job below re-grants exactly what CodeQL needs.
+permissions:
+  contents: read
+
 jobs:
   analyze:
-    name: Analyze
+    # PINNED DELIBERATELY — do not replace with a bare `name: Analyze`.
+    # GitHub derives an unnamed matrix job's title from ALL of its matrix
+    # keys, so adding a second key later silently renames this job. Where a
+    # branch ruleset requires "Analyze (actions)", a renamed job makes that
+    # rule UNSATISFIABLE rather than failing: PRs sit BLOCKED with every
+    # check green, and only the merge attempt names the missing context.
+    name: Analyze (${{ matrix.language }})
     runs-on: ubuntu-latest
     permissions:
       security-events: write
@@ -20,7 +31,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [actions]
+        # `actions` alone scans workflow YAML and ZERO application source.
+        # This repo is ~12K lines of ES modules; scanning only `actions` is
+        # what left alert #1 (prototype pollution in js/state.js) invisible
+        # from 2026-06-11 onward.
+        language: [actions, javascript-typescript]
 
     steps:
       - name: Checkout repository
@@ -30,6 +45,7 @@ jobs:
         uses: github/codeql-action/init@ff2f1c621b7f889edc0d3c761ac2e6a3f8cdb0dd # v4
         with:
           languages: ${{ matrix.language }}
+          build-mode: none
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@ff2f1c621b7f889edc0d3c761ac2e6a3f8cdb0dd # v4
