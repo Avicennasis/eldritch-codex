@@ -1,6 +1,6 @@
 // Entry point — wires all modules together
 import { initUI, renderAll } from './ui.js?v=47';
-import { getState, update, initState } from './state.js?v=23';
+import { getState, update, initState, onStateChange } from './state.js?v=24';
 import { initMadness, onMadnessChange, getMadness, setMadness, refreshMadnessCSS } from './madness.js?v=8';
 import { initParticles, updateParticles, spawnPortal } from './particles.js?v=7';
 
@@ -51,8 +51,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   let updateBeholderFrame = () => {};
   const beholderModulePromise = loadBeholderModule();
 
-  // State change callback re-renders UI + syncs madness
-  window._onStateChange = () => { renderAll(); syncMadnessDOM(); };
+  // Re-render the UI and sync madness after any state change (FR-160/162).
+  onStateChange(() => { renderAll(); syncMadnessDOM(); });
 
   // Initialize systems — state must load before madness so suppression class is set
   await initState();
