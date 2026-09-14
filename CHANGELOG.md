@@ -1,14 +1,22 @@
 # Changelog
 
-All notable changes to `dnd` will be documented in this file.
+All notable changes to `eldritch-codex` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-09-10
+
 ### Added
-- Initial project scaffolding.
+- Lanezel Havenwood character sheet: ability scores, saves, skills, spell
+  slots, sorcery points, equipment, and dice roller.
+- Session tracker: HP/temp-HP, conditions, exhaustion, death saves, and a
+  persistent roll log (`api.php` + `data/state.json`).
+- Madness engine with HP-linked intensity tiers and CSS-driven horror effects.
+- 3D beholder eye and particle effects.
+- Aberrant Spirit and Xanthrid companion trackers, plus polymorph forms.
 - HP-based madness intensity floor: damage events now ratchet madness
   up to at least `(1 - hp/maxHp) * 100`, so a near-death character is
   guaranteed Singularity-tier madness regardless of how the damage
