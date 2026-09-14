@@ -99,7 +99,6 @@ eldritch-codex/
 │   ├── madness.js      # Horror escalation engine
 │   ├── particles.js    # Canvas particle system
 │   ├── beholder-3d.js  # WebGL 3D beholder (Three.js)
-│   └── eldritch-eye.js # Legacy 2D SVG eye (replaced by beholder-3d)
 ├── img/
 │   ├── favicon.svg
 │   └── tentacle-border.svg
