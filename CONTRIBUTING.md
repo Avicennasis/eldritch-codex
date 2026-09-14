@@ -25,7 +25,7 @@ escalation). Match the existing formatting.
 - [ ] Tested in a browser.
 - [ ] `README.md` updated if public behavior changed.
 - [ ] `CHANGELOG.md` entry added under `[Unreleased]`.
-- [ ] Bumped the `?v=N` cache-busting query on any changed asset and its importers.
+- [ ] Bumped the cache-bust query with `scripts/bump-cache.sh <asset> <version>` (updates every importer at once).
 
 ## Code of Conduct
 
