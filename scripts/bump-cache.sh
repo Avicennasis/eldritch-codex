@@ -30,8 +30,8 @@ fi
 # such as state.js cannot also match stateXjs; the validation above excludes
 # every other ERE metacharacter.
 ASSET_RE="${ASSET//./\\.}"
-mapfile -t FILES < <(grep -rlE "${ASSET_RE}\?v=[0-9]+" \
-    --include='*.js' --include='*.html' . 2>/dev/null || true)
+mapfile -t FILES < <(grep -rlE --include='*.js' --include='*.html' -- \
+    "${ASSET_RE}\?v=[0-9]+" . 2>/dev/null || true)
 
 if [ "${#FILES[@]}" -eq 0 ]; then
     echo "No references to ${ASSET}?v=N found." >&2
