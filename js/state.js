@@ -2,6 +2,18 @@
 import { CHARACTER, INVENTORY } from './data.js?v=32';
 
 const STORAGE_KEY = 'dnd-lanezel-session';
+// Subscribers notified after any state mutation (pub/sub, FR-160/162).
+const _stateListeners = [];
+
+/** Register a callback invoked after every state change. */
+export function onStateChange(fn) {
+  _stateListeners.push(fn);
+}
+
+function _notifyStateChange() {
+  for (const fn of _stateListeners) fn();
+}
+
 const STATE_VERSION = 1;
 const API_URL = 'api.php';
 const SERVER_SAVE_DELAY_MS = 150;
@@ -234,9 +246,7 @@ export function update(key, value) {
     state[key] = value;
   }
   saveState();
-  if (typeof window._onStateChange === 'function') {
-    window._onStateChange();
-  }
+  _notifyStateChange();
 }
 
 export function updateNested(path, value) {
@@ -264,9 +274,7 @@ export function updateNested(path, value) {
   }
   obj[last] = value;
   saveState();
-  if (typeof window._onStateChange === 'function') {
-    window._onStateChange();
-  }
+  _notifyStateChange();
 }
 
 export function addLogEntry(entry) {
@@ -278,23 +286,17 @@ export function addLogEntry(entry) {
     state.rollLog.length = 100;
   }
   saveState();
-  if (typeof window._onStateChange === 'function') {
-    window._onStateChange();
-  }
+  _notifyStateChange();
 }
 
 export function clearLog() {
   state.rollLog = [];
   saveState();
-  if (typeof window._onStateChange === 'function') {
-    window._onStateChange();
-  }
+  _notifyStateChange();
 }
 
 export function resetAll() {
   state = createDefaultState();
   saveState();
-  if (typeof window._onStateChange === 'function') {
-    window._onStateChange();
-  }
+  _notifyStateChange();
 }
