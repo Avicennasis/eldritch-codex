@@ -1,6 +1,6 @@
 # Eldritch Codex
 
-A D&D 5e (2024) digital character sheet and session tracker with a Far Realm cosmic horror aesthetic. Pure HTML/CSS/JS — no frameworks, no build tools, no dependencies beyond Font Awesome (CDN).
+A D&D 5e (2024) digital character sheet and session tracker with a Far Realm cosmic horror aesthetic. Pure HTML/CSS/JS — no frameworks, no build tools, no dependencies beyond Font Awesome 7 (CDN).
 
 Built for an Aasimar Aberrant Mind Sorcerer running *Icewind Dale: Rime of the Frostmaiden*, but the architecture is adaptable to other characters with some data editing.
 
@@ -73,7 +73,7 @@ Character data lives in `js/data.js` — ability scores, spells, inventory items
 ## Architecture
 
 ```
-dnd/
+eldritch-codex/
 ├── index.html          # Structure and layout
 ├── api.php             # Server-side persistence (reads/writes JSON by key)
 ├── data/               # Server-persisted JSON (web server writable)
