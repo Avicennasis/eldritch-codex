@@ -106,7 +106,7 @@ function shift(delta, eventType) {
 export function fireMadnessEvent(type, payload = {}) {
   switch (type) {
     case 'damage': {
-      const maxHp = payload.maxHp || 50;
+      const maxHp = payload.maxHp || 62;
       const amount = payload.amount || 0;
       const delta = (amount / maxHp) * 100;
       shift(delta, 'damage');
@@ -119,7 +119,7 @@ export function fireMadnessEvent(type, payload = {}) {
       break;
     }
     case 'heal': {
-      const maxHp = payload.maxHp || 50;
+      const maxHp = payload.maxHp || 62;
       const amount = payload.amount || 0;
       const delta = -(amount / maxHp) * 30;
       shift(delta, 'heal');
