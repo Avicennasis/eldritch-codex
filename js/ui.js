@@ -169,27 +169,32 @@ function renderLuckyButton() {
 }
 
 // ─── HP ──────────────────────────────────────────
+function renderHpBar(fillEl, textEl, tempBarEl, hp, maxHp, tempHp) {
+  // Shared HP-bar renderer for the player, Aberrant Spirit, and Xanthrid
+  // (FR-157/159). Class thresholds and the temp-HP overlay are identical.
+  const pct = Math.max(0, Math.min(100, (hp / maxHp) * 100));
+  fillEl.style.width = pct + '%';
+  fillEl.className = 'hp-bar-fill';
+  if (pct > 50) fillEl.classList.add('hp-high');
+  else if (pct > 25) fillEl.classList.add('hp-mid');
+  else if (pct > 10) fillEl.classList.add('hp-low');
+  else fillEl.classList.add('hp-critical');
+
+  const tempStr = tempHp > 0 ? ` +${tempHp}` : '';
+  textEl.textContent = `${hp}/${maxHp}${tempStr}`;
+
+  if (tempHp > 0) {
+    const tempPct = (tempHp / (maxHp + tempHp)) * 100;
+    tempBarEl.style.width = tempPct + '%';
+    tempBarEl.style.display = 'block';
+  } else {
+    tempBarEl.style.display = 'none';
+  }
+}
+
 function renderHp() {
   const s = getState();
-  const pct = Math.max(0, Math.min(100, (s.hp / CHARACTER.maxHp) * 100));
-
-  els.hpFill.style.width = pct + '%';
-  els.hpFill.className = 'hp-bar-fill';
-  if (pct > 50) els.hpFill.classList.add('hp-high');
-  else if (pct > 25) els.hpFill.classList.add('hp-mid');
-  else if (pct > 10) els.hpFill.classList.add('hp-low');
-  else els.hpFill.classList.add('hp-critical');
-
-  const tempStr = s.tempHp > 0 ? ` +${s.tempHp}` : '';
-  els.hpText.textContent = `${s.hp}/${CHARACTER.maxHp}${tempStr}`;
-
-  if (s.tempHp > 0) {
-    const tempPct = (s.tempHp / (CHARACTER.maxHp + s.tempHp)) * 100;
-    els.hpTempBar.style.width = tempPct + '%';
-    els.hpTempBar.style.display = 'block';
-  } else {
-    els.hpTempBar.style.display = 'none';
-  }
+  renderHpBar(els.hpFill, els.hpText, els.hpTempBar, s.hp, CHARACTER.maxHp, s.tempHp);
 }
 
 // ─── Damage Type Dropdowns ───────────────────────
@@ -2129,25 +2134,7 @@ function renderAberrantSpirit() {
   }
 
   // HP bar
-  const maxHp = spirit.maxHp;
-  const pct = Math.max(0, Math.min(100, (spirit.hp / maxHp) * 100));
-  els.spiritHpFill.style.width = pct + '%';
-  els.spiritHpFill.className = 'hp-bar-fill';
-  if (pct > 50) els.spiritHpFill.classList.add('hp-high');
-  else if (pct > 25) els.spiritHpFill.classList.add('hp-mid');
-  else if (pct > 10) els.spiritHpFill.classList.add('hp-low');
-  else els.spiritHpFill.classList.add('hp-critical');
-
-  const tempStr = spirit.tempHp > 0 ? ` +${spirit.tempHp}` : '';
-  els.spiritHpText.textContent = `${spirit.hp}/${maxHp}${tempStr}`;
-
-  if (spirit.tempHp > 0) {
-    const tempPct = (spirit.tempHp / (maxHp + spirit.tempHp)) * 100;
-    els.spiritHpTempBar.style.width = tempPct + '%';
-    els.spiritHpTempBar.style.display = 'block';
-  } else {
-    els.spiritHpTempBar.style.display = 'none';
-  }
+  renderHpBar(els.spiritHpFill, els.spiritHpText, els.spiritHpTempBar, spirit.hp, spirit.maxHp, spirit.tempHp);
 
   // Slaad regen button
   els.spiritRegenRow.style.display = spirit.form === 'slaad' ? '' : 'none';
@@ -2381,25 +2368,7 @@ function renderXanthridCompanion() {
   }
 
   // HP bar
-  const maxHp = xan.maxHp;
-  const pct = Math.max(0, Math.min(100, (xan.hp / maxHp) * 100));
-  els.xanthridHpFill.style.width = pct + '%';
-  els.xanthridHpFill.className = 'hp-bar-fill';
-  if (pct > 50) els.xanthridHpFill.classList.add('hp-high');
-  else if (pct > 25) els.xanthridHpFill.classList.add('hp-mid');
-  else if (pct > 10) els.xanthridHpFill.classList.add('hp-low');
-  else els.xanthridHpFill.classList.add('hp-critical');
-
-  const tempStr = xan.tempHp > 0 ? ` +${xan.tempHp}` : '';
-  els.xanthridHpText.textContent = `${xan.hp}/${maxHp}${tempStr}`;
-
-  if (xan.tempHp > 0) {
-    const tempPct = (xan.tempHp / (maxHp + xan.tempHp)) * 100;
-    els.xanthridHpTempBar.style.width = tempPct + '%';
-    els.xanthridHpTempBar.style.display = 'block';
-  } else {
-    els.xanthridHpTempBar.style.display = 'none';
-  }
+  renderHpBar(els.xanthridHpFill, els.xanthridHpText, els.xanthridHpTempBar, xan.hp, xan.maxHp, xan.tempHp);
 
   // Attack button
   els.xanthridAttacks.textContent = '';
