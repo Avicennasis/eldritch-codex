@@ -218,6 +218,23 @@ function adjustForDefenses(amount, dmgType, resistances, immunities) {
   return { final: amount, tag: ` [${dmgType}]` };
 }
 
+function absorbDamage(hp, tempHp, amount) {
+  // Temp HP absorbs damage first, then HP; shared by the player, Aberrant
+  // Spirit, and Xanthrid damage paths (FR-158/160).
+  let remaining = amount;
+  let temp = tempHp;
+  if (temp > 0) {
+    if (remaining >= temp) {
+      remaining -= temp;
+      temp = 0;
+    } else {
+      temp -= remaining;
+      remaining = 0;
+    }
+  }
+  return { hp: Math.max(0, hp - remaining), tempHp: temp };
+}
+
 function applyDamage(rawAmount, dmgType) {
   const allResistances = [...CHARACTER.resistances, ...(getState().tempResistances || [])];
   const { final: amount, tag } = adjustForDefenses(rawAmount, dmgType, allResistances, []);
@@ -227,20 +244,7 @@ function applyDamage(rawAmount, dmgType) {
     return;
   }
   const s = getState();
-  let remaining = amount;
-  let newTemp = s.tempHp;
-  let newHp = s.hp;
-
-  if (newTemp > 0) {
-    if (remaining >= newTemp) {
-      remaining -= newTemp;
-      newTemp = 0;
-    } else {
-      newTemp -= remaining;
-      remaining = 0;
-    }
-  }
-  newHp = Math.max(0, newHp - remaining);
+  const { hp: newHp, tempHp: newTemp } = absorbDamage(s.hp, s.tempHp, amount);
   update({ hp: newHp, tempHp: newTemp });
   logRoll('damage', `Takes ${amount} damage${tag} (${newHp} HP remaining)`);
   renderLog(els.rollLog);
@@ -2246,20 +2250,7 @@ function applySpiritDamage(rawAmount, dmgType) {
     return;
   }
   const cur = getState().aberrantSpirit;
-  let remaining = amount;
-  let newTemp = cur.tempHp;
-  let newHp = cur.hp;
-
-  if (newTemp > 0) {
-    if (remaining >= newTemp) {
-      remaining -= newTemp;
-      newTemp = 0;
-    } else {
-      newTemp -= remaining;
-      remaining = 0;
-    }
-  }
-  newHp = Math.max(0, newHp - remaining);
+  const { hp: newHp, tempHp: newTemp } = absorbDamage(cur.hp, cur.tempHp, amount);
   update('aberrantSpirit', { ...cur, hp: newHp, tempHp: newTemp });
   logRoll('damage', `Aberrant Spirit takes ${amount} damage${tag} (${newHp} HP remaining)`);
   renderLog(els.rollLog);
@@ -2479,20 +2470,7 @@ function applyXanthridDamage(rawAmount, dmgType) {
     return;
   }
   const cur = getState().xanthridCompanion;
-  let remaining = amount;
-  let newTemp = cur.tempHp;
-  let newHp = cur.hp;
-
-  if (newTemp > 0) {
-    if (remaining >= newTemp) {
-      remaining -= newTemp;
-      newTemp = 0;
-    } else {
-      newTemp -= remaining;
-      remaining = 0;
-    }
-  }
-  newHp = Math.max(0, newHp - remaining);
+  const { hp: newHp, tempHp: newTemp } = absorbDamage(cur.hp, cur.tempHp, amount);
   update('xanthridCompanion', { ...cur, hp: newHp, tempHp: newTemp });
   logRoll('damage', `Xanthrid takes ${amount} damage${tag} (${newHp} HP remaining)`);
   renderLog(els.rollLog);
