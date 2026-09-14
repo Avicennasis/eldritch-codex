@@ -94,40 +94,7 @@ function loadState() {
     if (raw) {
       const parsed = JSON.parse(raw);
       if (parsed.version === STATE_VERSION) {
-        // Migrate: add new fields if missing (pre-feature sessions)
-        if (!parsed.inventory) {
-          parsed.inventory = Object.fromEntries(INVENTORY.map(i => [i.name, i.qty]));
-        }
-        if (parsed.rimesBindingIceFree === undefined) {
-          parsed.rimesBindingIceFree = 1;
-        }
-        if (parsed.healingHands === undefined) parsed.healingHands = 1;
-        if (parsed.wandOfSecrets === undefined) parsed.wandOfSecrets = 3;
-        if (parsed.wandOfMagicMissiles === undefined) parsed.wandOfMagicMissiles = 7;
-        if (parsed.xanthrid === undefined) parsed.xanthrid = 1;
-        if (parsed.aurilsAbode === undefined) parsed.aurilsAbode = 1;
-        if (parsed.physicalDice === undefined) parsed.physicalDice = false;
-        if (parsed.madnessSuppressed === undefined) parsed.madnessSuppressed = false;
-        if (parsed.storeOpen === undefined) parsed.storeOpen = false;
-        if (!parsed.tempResistances) parsed.tempResistances = [];
-        if (!parsed.collapsedPanels) parsed.collapsedPanels = [];
-        if (parsed.notes === undefined) parsed.notes = '';
-        if (!parsed.collapsedCategories) parsed.collapsedCategories = [];
-        if (!parsed.customItems) parsed.customItems = {};
-        if (!parsed.tinkerProjects) parsed.tinkerProjects = {};
-        if (parsed.tinkerHoursAvailable === undefined) parsed.tinkerHoursAvailable = 2;
-        // Migrate inventory: add new items, remove old ones
-        for (const item of INVENTORY) {
-          if (parsed.inventory[item.name] === undefined) parsed.inventory[item.name] = item.qty;
-        }
-        // Remove exploded Explorer's Pack
-        if (parsed.inventory["Explorer's Pack"] !== undefined) {
-          delete parsed.inventory["Explorer's Pack"];
-        }
-        if (!parsed.aberrantSpirit) parsed.aberrantSpirit = { active: false, form: 'beholderkin', castLevel: 4, hp: 40, maxHp: 40, tempHp: 0 };
-        if (!parsed.xanthridCompanion) parsed.xanthridCompanion = { active: false, hp: 19, maxHp: 19, tempHp: 0, clairvoyanceUsed: false };
-        if (!parsed.polymorphForm) parsed.polymorphForm = { active: false, form: 'greatYeti', thp: 0 };
-        return parsed;
+        return migrateState(parsed);
       }
     }
   } catch (e) {
@@ -189,6 +156,41 @@ async function flushServerSave() {
   }
 }
 
+function migrateState(data) {
+  // Bring an older session up to the current schema. Shared by loadState()
+  // (localStorage) and initState() (server), which previously duplicated this
+  // block verbatim (FR-156/158/153).
+  if (!data.inventory) {
+    data.inventory = Object.fromEntries(INVENTORY.map(i => [i.name, i.qty]));
+  }
+  if (data.rimesBindingIceFree === undefined) data.rimesBindingIceFree = 1;
+  if (data.healingHands === undefined) data.healingHands = 1;
+  if (data.wandOfSecrets === undefined) data.wandOfSecrets = 3;
+  if (data.wandOfMagicMissiles === undefined) data.wandOfMagicMissiles = 7;
+  if (data.xanthrid === undefined) data.xanthrid = 1;
+  if (data.aurilsAbode === undefined) data.aurilsAbode = 1;
+  if (data.physicalDice === undefined) data.physicalDice = false;
+  if (data.madnessSuppressed === undefined) data.madnessSuppressed = false;
+  if (data.storeOpen === undefined) data.storeOpen = false;
+  if (!data.tempResistances) data.tempResistances = [];
+  if (!data.collapsedPanels) data.collapsedPanels = [];
+  if (data.notes === undefined) data.notes = '';
+  if (!data.collapsedCategories) data.collapsedCategories = [];
+  if (!data.customItems) data.customItems = {};
+  if (!data.tinkerProjects) data.tinkerProjects = {};
+  if (data.tinkerHoursAvailable === undefined) data.tinkerHoursAvailable = 2;
+  for (const item of INVENTORY) {
+    if (data.inventory[item.name] === undefined) data.inventory[item.name] = item.qty;
+  }
+  if (data.inventory["Explorer's Pack"] !== undefined) {
+    delete data.inventory["Explorer's Pack"];
+  }
+  if (!data.aberrantSpirit) data.aberrantSpirit = { active: false, form: 'beholderkin', castLevel: 4, hp: 40, maxHp: 40, tempHp: 0 };
+  if (!data.xanthridCompanion) data.xanthridCompanion = { active: false, hp: 19, maxHp: 19, tempHp: 0, clairvoyanceUsed: false };
+  if (!data.polymorphForm) data.polymorphForm = { active: false, form: 'greatYeti', thp: 0 };
+  return data;
+}
+
 // Async server load — call once at startup, merges server state over localStorage
 export async function initState() {
   try {
@@ -196,37 +198,7 @@ export async function initState() {
     if (res.ok) {
       const data = await res.json();
       if (data && data.version === STATE_VERSION) {
-        if (!data.inventory) {
-          data.inventory = Object.fromEntries(INVENTORY.map(i => [i.name, i.qty]));
-        }
-        if (data.rimesBindingIceFree === undefined) {
-          data.rimesBindingIceFree = 1;
-        }
-        if (data.healingHands === undefined) data.healingHands = 1;
-        if (data.wandOfSecrets === undefined) data.wandOfSecrets = 3;
-        if (data.wandOfMagicMissiles === undefined) data.wandOfMagicMissiles = 7;
-        if (data.xanthrid === undefined) data.xanthrid = 1;
-        if (data.aurilsAbode === undefined) data.aurilsAbode = 1;
-        if (data.physicalDice === undefined) data.physicalDice = false;
-        if (data.madnessSuppressed === undefined) data.madnessSuppressed = false;
-        if (data.storeOpen === undefined) data.storeOpen = false;
-        if (!data.tempResistances) data.tempResistances = [];
-        if (!data.collapsedPanels) data.collapsedPanels = [];
-        if (data.notes === undefined) data.notes = '';
-        if (!data.collapsedCategories) data.collapsedCategories = [];
-        if (!data.customItems) data.customItems = {};
-        if (!data.tinkerProjects) data.tinkerProjects = {};
-        if (data.tinkerHoursAvailable === undefined) data.tinkerHoursAvailable = 2;
-        for (const item of INVENTORY) {
-          if (data.inventory[item.name] === undefined) data.inventory[item.name] = item.qty;
-        }
-        if (data.inventory["Explorer's Pack"] !== undefined) {
-          delete data.inventory["Explorer's Pack"];
-        }
-        if (!data.aberrantSpirit) data.aberrantSpirit = { active: false, form: 'beholderkin', castLevel: 4, hp: 40, maxHp: 40, tempHp: 0 };
-        if (!data.xanthridCompanion) data.xanthridCompanion = { active: false, hp: 19, maxHp: 19, tempHp: 0, clairvoyanceUsed: false };
-        if (!data.polymorphForm) data.polymorphForm = { active: false, form: 'greatYeti', thp: 0 };
-        state = data;
+        state = migrateState(data);
         localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
       }
     }
