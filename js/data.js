@@ -1,11 +1,11 @@
-// Lanezel Havenwood — Level 10 Aasimar Aberrant Sorcerer
+// Lanezel Havenwood — Level 11 Aasimar Aberrant Sorcerer
 // Hardcoded character data from LANEZEL.md, SORCERER.md, SPECIES.md, SPELLS.md, CREATURES.md
 
 export const CHARACTER = {
   name: 'Lanezel Havenwood',
   class: 'Sorcerer',
   subclass: 'Aberrant Sorcery',
-  level: 10,
+  level: 11,
   background: 'Merchant',
   species: 'Aasimar',
   size: 'Medium',
@@ -14,8 +14,8 @@ export const CHARACTER = {
   passivePerception: 15,
 
   ac: 18,         // Aegis of the First Forge 17 (15+DEX) + Cloak +1
-  maxHp: 62,
-  hitDice: { count: 10, die: 6 },
+  maxHp: 68,
+  hitDice: { count: 11, die: 6 },
   initiative: 2,  // DEX mod
 
   abilities: {
@@ -48,9 +48,10 @@ export const CHARACTER = {
     3: 3,
     4: 3,
     5: 2,
+    6: 1,
   },
 
-  sorceryPoints: 10,
+  sorceryPoints: 11,
 
   metamagic: ['Careful Spell', 'Empowered Spell', 'Quickened Spell', 'Seeking Spell'],
 
@@ -147,6 +148,9 @@ export const SPELLS = [
   { level: 5, name: 'Wall of Stone',        source: 'Sorcerer',  school: 'Evocation',    target: 'area',   damageType: null, castTime: 'Action', range: '120 ft.', damage: null, concentration: true, description: 'Stone panels (10×10×6 in). DEX save to dodge. Permanent if concentration held full duration.' },
   { level: 5, name: 'Telekinesis',          source: 'Aberrant',  school: 'Transmutation', target: 'single', damageType: null, castTime: 'Action', range: '60 ft.', damage: null, concentration: true, description: 'Move creature (STR contest) or object up to 1000 lbs. Bonus action sustain.' },
   { level: 5, name: 'Telepathic Bond',      source: 'Aberrant',  school: 'Divination',   target: 'ally',  damageType: null, castTime: 'Action', range: '30 ft.', damage: null, concentration: false, description: 'Up to 8 willing creatures share telepathic link. 1 hour.' },
+
+  // 6th Level
+  { level: 6, name: 'Sunbeam',              source: 'Sorcerer',  school: 'Evocation',    target: 'area',   damageType: ['Radiant'], castTime: 'Action', range: 'Self (60-ft line)', damage: '6d8 Radiant', concentration: true, description: '5×60-ft line. CON save: 6d8 Radiant + Blinded until start of your next turn; half on success. Magic action to fire a new line each turn. Mote sheds sunlight 30 ft.' },
 ];
 
 export const CREATURES = {
@@ -419,8 +423,8 @@ export const PANEL_DESCRIPTIONS = {
   'Concentration': 'Some spells require Concentration to maintain. You can only concentrate on one spell at a time. Taking damage forces a CON save (DC = 10 or half damage, whichever is higher) to maintain it. Being Incapacitated or killed ends Concentration automatically.',
   'Death Saves': 'At 0 HP, roll a d20 at the start of each turn. 10+ = success, 9 or lower = failure. 3 successes = stabilize at 0 HP. 3 failures = death. Natural 20 = regain 1 HP. Natural 1 = 2 failures. Taking damage at 0 HP = automatic failure (crit = 2 failures).',
   'Spell Slots': 'Spell slots are expended to cast leveled spells. You can cast a lower-level spell using a higher-level slot (upcasting), often with increased effect. All slots restore on a Long Rest.',
-  'Sorcery Points': 'Sorcery Points fuel Metamagic and Psionic Sorcery. Font of Magic (Bonus Action): spend SP to create a spell slot, or expend a slot to gain SP equal to its level. Created slots are temporary — they can exceed your base maximum but vanish on Long Rest. Costs: 1st=2 SP, 2nd=3 SP, 3rd=5 SP, 4th=6 SP, 5th=7 SP. Max 10 SP, restored on Long Rest.',
-  'Hit Dice (d6)': 'During a Short Rest, you can spend Hit Dice to heal. Roll 1d6 + CON modifier (+2) per die spent. You have 10 total (one per level). All are restored on a Long Rest.',
+  'Sorcery Points': 'Sorcery Points fuel Metamagic and Psionic Sorcery. Font of Magic (Bonus Action): spend SP to create a spell slot, or expend a slot to gain SP equal to its level. Created slots are temporary — they can exceed your base maximum but vanish on Long Rest. Costs: 1st=2 SP, 2nd=3 SP, 3rd=5 SP, 4th=6 SP, 5th=7 SP. Max 11 SP, restored on Long Rest.',
+  'Hit Dice (d6)': 'During a Short Rest, you can spend Hit Dice to heal. Roll 1d6 + CON modifier (+2) per die spent. You have 11 total (one per level). All are restored on a Long Rest.',
 };
 
 export const LANGUAGE_DESCRIPTIONS = {

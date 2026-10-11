@@ -453,4 +453,16 @@ export const SPELL_FULL_TEXT = {
 <p>You forge a telepathic link among up to eight willing creatures of your choice within range, psychically linking each creature to all the others for the duration. Creatures with Intelligence scores of 2 or less aren't affected by this spell.</p>
 <p>Until the spell ends, the targets can communicate telepathically through the bond whether or not they have a common language. The communication is possible over any distance, though it can't extend to other planes of existence.</p>`,
 
+'Sunbeam': `
+<div class="sft-school">Level 6 Evocation</div>
+<table class="sft-stats">
+  <tr><th>Casting Time</th><td>Action</td></tr>
+  <tr><th>Range</th><td>Self (60-foot line)</td></tr>
+  <tr><th>Components</th><td>V, S, M (a magnifying glass)</td></tr>
+  <tr><th>Duration</th><td>Concentration, up to 1 minute</td></tr>
+</table>
+<p>You launch a sunbeam in a 5-foot-wide, 60-foot-long Line. Each creature in the Line makes a Constitution saving throw. On a failed save, a creature takes 6d8 Radiant damage and has the Blinded condition until the start of your next turn. On a successful save, it takes half as much damage only.</p>
+<p>Until the spell ends, you can take a Magic action to create a new Line of radiance.</p>
+<p>For the duration, a mote of brilliant radiance shines above you. It sheds Bright Light in a 30-foot radius and Dim Light for an additional 30 feet. This light is sunlight.</p>`,
+
 };

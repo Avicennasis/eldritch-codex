@@ -595,3 +595,21 @@ You gain the ability to move or manipulate creatures or objects by thought. When
 You forge a telepathic link among up to eight willing creatures of your choice within range, psychically linking each creature to all the others for the duration. Creatures with an Intelligence score of 2 or less aren't affected by this spell.
 
 Until the spell ends, the targets can communicate telepathically through the bond whether or not they have a common language. The communication is possible over any distance, though it can't extend to other planes of existence.
+
+---
+
+## Sunbeam
+**Level 6 Evocation**
+
+| | |
+|---|---|
+| **Casting Time** | Action |
+| **Range** | Self (60-foot line) |
+| **Components** | V, S, M (a magnifying glass) |
+| **Duration** | Concentration, up to 1 minute |
+
+You launch a sunbeam in a 5-foot-wide, 60-foot-long Line. Each creature in the Line makes a Constitution saving throw. On a failed save, a creature takes 6d8 Radiant damage and has the Blinded condition until the start of your next turn. On a successful save, it takes half as much damage only.
+
+Until the spell ends, you can take a Magic action to create a new Line of radiance.
+
+For the duration, a mote of brilliant radiance shines above you. It sheds Bright Light in a 30-foot radius and Dim Light for an additional 30 feet. This light is sunlight.

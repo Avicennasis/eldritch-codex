@@ -1,5 +1,5 @@
 // Session state model with server + localStorage persistence
-import { CHARACTER, INVENTORY } from './data.js?v=32';
+import { CHARACTER, INVENTORY } from './data.js?v=33';
 
 const STORAGE_KEY = 'dnd-lanezel-session';
 // Subscribers notified after any state mutation (pub/sub, FR-160/162).
@@ -162,6 +162,12 @@ function migrateState(data) {
   // block verbatim (FR-156/158/153).
   if (!data.inventory) {
     data.inventory = Object.fromEntries(INVENTORY.map(i => [i.name, i.qty]));
+  }
+  // A level-up can add a new slot level; grant it full rather than 0 until the next Long Rest
+  if (data.spellSlots) {
+    for (const [lvl, max] of Object.entries(CHARACTER.spellSlots)) {
+      if (data.spellSlots[lvl] === undefined) data.spellSlots[lvl] = max;
+    }
   }
   if (data.rimesBindingIceFree === undefined) data.rimesBindingIceFree = 1;
   if (data.healingHands === undefined) data.healingHands = 1;

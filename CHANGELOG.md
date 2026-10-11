@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Lanezel reaches level 11: max HP 68 (average), 11d6 hit dice, 11 sorcery
+  points, and a 6th-level spell slot.
+- Sunbeam (6th level) with full spell text, a "Sunbeam Line" damage button for
+  later beams that cost no slot, and Level 6 / Radiant spell filter pills.
+- Saved sessions gain any slot level added by a level-up at full, instead of
+  showing 0 until the next Long Rest.
+
+### Fixed
+- `docs/LANEZEL.md` was still at level 9; it now matches the sheet.
+- Every module imports one `state.js` version (app.js had drifted to v24
+  while the rest loaded v23).
+
 ## [1.0.0] - 2026-09-10
 
 ### Added

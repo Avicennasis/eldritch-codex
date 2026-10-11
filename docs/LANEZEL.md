@@ -5,7 +5,7 @@
 | | |
 |---|---|
 | **Class** | Sorcerer (Aberrant Mind) |
-| **Level** | 9 |
+| **Level** | 11 |
 | **Background** | Merchant |
 | **Species** | Aasimar |
 | **Campaign** | Icewind Dale: Rime of the Frostmaiden |
@@ -18,8 +18,8 @@
 | | |
 |---|---|
 | **Armor Class** | 18 (Aegis of the First Forge 17 + Cloak of Protection +1) |
-| **Hit Points** | 56 Max |
-| **Hit Dice** | 9d6 |
+| **Hit Points** | 68 Max |
+| **Hit Dice** | 11d6 |
 | **Initiative** | +2 |
 | **Speed** | 30 ft. |
 | **Size** | Medium |
@@ -83,30 +83,34 @@
 | 2nd | 3 |
 | 3rd | 3 |
 | 4th | 3 |
-| 5th | 1 |
+| 5th | 2 |
+| 6th | 1 |
 
-> **Font of Magic:** Can create temporary spell slots by spending SP (1st=2, 2nd=3, 3rd=5, 4th=6, 5th=7 SP). Created slots can exceed base max and vanish on long rest.
+> **Font of Magic:** Can create temporary spell slots by spending SP (1st=2, 2nd=3, 3rd=5, 4th=6, 5th=7 SP). Created slots can exceed base max and vanish on long rest. Slots above 5th can't be created, but a 6th-level slot can be converted into 6 SP.
 
 ## Class Features & Metamagic
 
 | | |
 |---|---|
-| **Sorcery Points** | 9 |
+| **Sorcery Points** | 11 |
 | **Innate Sorcery** | 2/long rest — +1 spell DC and Advantage on Sorcerer spell attacks for 1 min |
 | **Sorcery Incarnate** | Spend 2 SP to use Innate Sorcery with no uses left; while active, up to 2 Metamagic/spell |
-| **Sorcerous Restoration** | Regain floor(level/2) = 4 SP on short rest, 1/long rest |
+| **Sorcerous Restoration** | Regain floor(level/2) = 5 SP on short rest, 1/long rest |
 | **Careful Spell** | Metamagic |
 | **Empowered Spell** | Metamagic |
+| **Quickened Spell** | Metamagic |
+| **Seeking Spell** | Metamagic |
 | **Telepathic Speech** | Aberrant Mind feature |
 | **Psionic Sorcery** | Cast psionic spells with SP (no V/S) |
 | **Psychic Defenses** | Resist Psychic, Adv vs Charmed/Frightened |
 
-## Known Spells (14 prepared + Aberrant psionic)
+## Known Spells (16 prepared + Aberrant psionic)
 
-### Cantrips (5 Sorcerer + 1 Aasimar + 1 Aberrant + 1 Ythryn Goblet)
+### Cantrips (6 Sorcerer + 1 Aasimar + 1 Aberrant + 1 Ythryn Goblet)
 
 | Spell | Source | Notes |
 |---|---|---|
+| Acid Splash | Sorcerer | 60 ft., 2d6 Acid, DEX save, 1–2 creatures |
 | Friends | Ythryn Goblet | 10 ft., Concentration, Advantage on CHA checks |
 | Light | Aasimar | Touch, 1 hour |
 | Mage Hand | Sorcerer | 30 ft. |
@@ -145,6 +149,8 @@
 | 5th | Bigby's Hand | Sorcerer | 120 ft., 4d8 Force, Concentration |
 | 5th | Telekinesis | Aberrant | 60 ft., Concentration |
 | 5th | Telepathic Bond | Aberrant | 30 ft., 1 hour (Ritual) |
+| 5th | Wall of Stone | Sorcerer | 120 ft., Concentration |
+| 6th | Sunbeam | Sorcerer | Self (60-ft line), 6d8 Radiant + Blinded, CON half, Concentration |
 
 > **Psionic Sorcery:** Spells marked Ψ can be cast using Sorcery Points without V/S components.
 >

@@ -1,8 +1,8 @@
 // Entry point — wires all modules together
-import { initUI, renderAll } from './ui.js?v=47';
-import { getState, update, initState, onStateChange } from './state.js?v=24';
-import { initMadness, onMadnessChange, getMadness, setMadness, refreshMadnessCSS } from './madness.js?v=8';
-import { initParticles, updateParticles, spawnPortal } from './particles.js?v=7';
+import { initUI, renderAll } from './ui.js?v=48';
+import { getState, update, initState, onStateChange } from './state.js?v=25';
+import { initMadness, onMadnessChange, getMadness, setMadness, refreshMadnessCSS } from './madness.js?v=9';
+import { initParticles, updateParticles, spawnPortal } from './particles.js?v=8';
 
 // Hook dice stage for portal particles
 // Observe the dice stage — when children are added (dice appear), spawn portal
@@ -40,7 +40,7 @@ function createNoopBeholder() {
 
 async function loadBeholderModule() {
   try {
-    return await import('./beholder-3d.js?v=2');
+    return await import('./beholder-3d.js?v=3');
   } catch (e) {
     console.warn('Beholder module failed to load; continuing without 3D eye', e);
     return createNoopBeholder();

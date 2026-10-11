@@ -1,9 +1,9 @@
 // Short Rest / Long Rest logic
-import { CHARACTER, TINKER_RECIPES } from './data.js?v=32';
-import { getState, update } from './state.js?v=23';
+import { CHARACTER, TINKER_RECIPES } from './data.js?v=33';
+import { getState, update } from './state.js?v=25';
 import { rollHitDie } from './dice.js?v=6';
-import { logRoll } from './log.js?v=8';
-import { fireMadnessEvent } from './madness.js?v=8';
+import { logRoll } from './log.js?v=9';
+import { fireMadnessEvent } from './madness.js?v=9';
 
 export function shortRest(hitDiceToSpend) {
   const s = getState();
