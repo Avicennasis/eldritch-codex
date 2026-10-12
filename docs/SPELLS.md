@@ -2,6 +2,20 @@
 
 ---
 
+## Acid Splash
+**Conjuration Cantrip**
+
+| | |
+|---|---|
+| **Casting Time** | Action |
+| **Range** | 60 feet |
+| **Components** | V, S |
+| **Duration** | Instantaneous |
+
+You create a bubble of acid and hurl it at a point within range, where it explodes in a 5-foot-radius Sphere. Each creature in that Sphere must succeed on a Dexterity saving throw or take 3d6 Acid damage.
+
+---
+
 ## Friends
 **Enchantment Cantrip**
 
