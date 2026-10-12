@@ -64,7 +64,7 @@
 |---|:---:|---|---|
 | Dagger | +6 | 1d4+2 | Finesse, Light, Nick, Thrown |
 | Quarterstaff | +3 | 1d6-1 / 1d8-1 | Versatile |
-| Sorcerous Burst | +8 | 2d8 | V, S, 120 ft. Exploding 8s (cascade) |
+| Sorcerous Burst | +8 | 3d8 | V, S, 120 ft. Exploding 8s (cascade) |
 | Chromatic Orb | +8 | 3d8 | 90 ft. Choose damage type. Leaps on doubles |
 
 ## Spellcasting
@@ -110,15 +110,15 @@
 
 | Spell | Source | Notes |
 |---|---|---|
-| Acid Splash | Sorcerer | 60 ft., 2d6 Acid, DEX save, 1–2 creatures |
+| Acid Splash | Sorcerer | 60 ft., 3d6 Acid, DEX save, 1–2 creatures |
 | Friends | Ythryn Goblet | 10 ft., Concentration, Advantage on CHA checks |
 | Light | Aasimar | Touch, 1 hour |
 | Mage Hand | Sorcerer | 30 ft. |
 | Mending | Sorcerer | Touch |
-| Mind Sliver | Aberrant | 60 ft., INT save, -1d4 next save |
+| Mind Sliver | Aberrant | 60 ft., 3d6 Psychic, INT save, -1d4 next save |
 | Minor Illusion | Sorcerer | 30 ft. |
 | Prestidigitation | Sorcerer | 10 ft. |
-| Sorcerous Burst | Sorcerer | 120 ft., 2d8, exploding 8s |
+| Sorcerous Burst | Sorcerer | 120 ft., 3d8, exploding 8s |
 
 ### Leveled Spells
 

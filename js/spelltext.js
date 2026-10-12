@@ -13,7 +13,7 @@ export const SPELL_FULL_TEXT = {
   <tr><th>Components</th><td>V, S</td></tr>
   <tr><th>Duration</th><td>Instantaneous</td></tr>
 </table>
-<p>You create a bubble of acid and hurl it at a point within range, where it explodes in a 5-foot-radius Sphere. Each creature in that Sphere must succeed on a Dexterity saving throw or take 2d6 Acid damage.</p>`,
+<p>You create a bubble of acid and hurl it at a point within range, where it explodes in a 5-foot-radius Sphere. Each creature in that Sphere must succeed on a Dexterity saving throw or take 3d6 Acid damage.</p>`,
 
 'Friends': `
 <div class="sft-school">Enchantment Cantrip</div>
@@ -78,7 +78,7 @@ export const SPELL_FULL_TEXT = {
   <tr><th>Components</th><td>V</td></tr>
   <tr><th>Duration</th><td>1 round</td></tr>
 </table>
-<p>You try to temporarily sliver the mind of one creature you can see within range. The target must succeed on an Intelligence saving throw or take 2d6 Psychic damage and subtract 1d4 from the next saving throw it makes before the end of your next turn.</p>`,
+<p>You try to temporarily sliver the mind of one creature you can see within range. The target must succeed on an Intelligence saving throw or take 3d6 Psychic damage and subtract 1d4 from the next saving throw it makes before the end of your next turn.</p>`,
 
 'Minor Illusion': `
 <div class="sft-school">Illusion Cantrip</div>
@@ -117,7 +117,7 @@ export const SPELL_FULL_TEXT = {
   <tr><th>Components</th><td>V, S</td></tr>
   <tr><th>Duration</th><td>Instantaneous</td></tr>
 </table>
-<p>You cast sorcerous energy at one creature or object within range. Make a ranged attack roll against the target. On a hit, the target takes 2d8 damage of a type you choose: Acid, Cold, Fire, Lightning, Poison, Psychic, or Thunder.</p>
+<p>You cast sorcerous energy at one creature or object within range. Make a ranged attack roll against the target. On a hit, the target takes 3d8 damage of a type you choose: Acid, Cold, Fire, Lightning, Poison, Psychic, or Thunder.</p>
 <p>If you roll an 8 on a d8 for this spell, you can roll another d8, and add it to the damage. When you cast this spell, the maximum number of these d8s you can add to the spell's damage equals your spellcasting ability modifier.</p>`,
 
 // --- 1st Level ----------------------------------------

@@ -97,21 +97,21 @@ export const TINKER_RECIPES = [
 export const WEAPONS = [
   { name: 'Dagger',          atkBonus: 6, damage: '1d4+2',  notes: 'Finesse, Light, Nick, Thrown' },
   { name: 'Quarterstaff',    atkBonus: 3, damage: '1d6-1',  notes: '1d8-1 versatile' },
-  { name: 'Sorcerous Burst', atkBonus: 8, damage: '2d8',    notes: 'V,S, 120 ft. Exploding 8s' },
+  { name: 'Sorcerous Burst', atkBonus: 8, damage: '3d8',    notes: 'V,S, 120 ft. Exploding 8s' },
   { name: 'Chromatic Orb',   atkBonus: 8, damage: '3d8',    notes: '90 ft. Choose type. Leaps on doubles', spellLevel: 1 },
 ];
 
 export const SPELLS = [
   // Cantrips
-  { level: 0, name: 'Acid Splash',       source: 'Sorcerer',      school: 'Conjuration',  target: 'area',   damageType: ['Acid'], castTime: 'Action', range: '60 ft.', damage: '2d6 Acid', concentration: false, description: 'DEX save. 1 or 2 creatures within 5 ft of each other.' },
+  { level: 0, name: 'Acid Splash',       source: 'Sorcerer',      school: 'Conjuration',  target: 'area',   damageType: ['Acid'], castTime: 'Action', range: '60 ft.', damage: '3d6 Acid', concentration: false, description: 'DEX save. 1 or 2 creatures within 5 ft of each other.' },
   { level: 0, name: 'Friends',           source: 'Ythryn Goblet', school: 'Enchantment', target: 'single', damageType: null, castTime: 'Action', range: '10 ft.', damage: null, concentration: true, description: 'Advantage on CHA checks vs one creature. 1 minute. Target knows afterward.' },
   { level: 0, name: 'Light',            source: 'Aasimar',   school: 'Evocation',    target: 'utility', damageType: null, castTime: 'Action', range: 'Touch',  damage: null, concentration: false, description: 'Object sheds bright light 20 ft, dim 20 ft more. 1 hour.' },
   { level: 0, name: 'Mage Hand',        source: 'Sorcerer',  school: 'Conjuration',  target: 'utility', damageType: null, castTime: 'Action', range: '30 ft.', damage: null, concentration: false, description: 'Spectral hand manipulates objects. 1 minute.' },
   { level: 0, name: 'Mending',          source: 'Sorcerer',  school: 'Transmutation', target: 'utility', damageType: null, castTime: '1 min',  range: 'Touch',  damage: null, concentration: false, description: 'Repair single break/tear up to 1 ft.' },
-  { level: 0, name: 'Mind Sliver',      source: 'Aberrant',  school: 'Enchantment',  target: 'single', damageType: ['Psychic'], castTime: 'Action', range: '60 ft.', damage: '2d6 Psychic', concentration: false, description: 'INT save. -1d4 next save. 1 round.' },
+  { level: 0, name: 'Mind Sliver',      source: 'Aberrant',  school: 'Enchantment',  target: 'single', damageType: ['Psychic'], castTime: 'Action', range: '60 ft.', damage: '3d6 Psychic', concentration: false, description: 'INT save. -1d4 next save. 1 round.' },
   { level: 0, name: 'Minor Illusion',   source: 'Sorcerer',  school: 'Illusion',     target: 'utility', damageType: null, castTime: 'Action', range: '30 ft.', damage: null, concentration: false, description: 'Sound or image of object, 5-ft cube. 1 minute.' },
   { level: 0, name: 'Prestidigitation', source: 'Sorcerer',  school: 'Transmutation', target: 'utility', damageType: null, castTime: 'Action', range: '10 ft.', damage: null, concentration: false, description: 'Minor magical trick. Up to 3 effects.' },
-  { level: 0, name: 'Sorcerous Burst',  source: 'Sorcerer',  school: 'Evocation',    target: 'single', damageType: ['Acid','Cold','Fire','Lightning','Poison','Psychic','Thunder'], castTime: 'Action', range: '120 ft.', damage: '2d8', concentration: false, description: 'Ranged spell attack. Choose damage type. Exploding 8s (up to +4d8).' },
+  { level: 0, name: 'Sorcerous Burst',  source: 'Sorcerer',  school: 'Evocation',    target: 'single', damageType: ['Acid','Cold','Fire','Lightning','Poison','Psychic','Thunder'], castTime: 'Action', range: '120 ft.', damage: '3d8', concentration: false, description: 'Ranged spell attack. Choose damage type. Exploding 8s (up to +4d8).' },
 
   // 1st Level
   { level: 1, name: 'Chromatic Orb',        source: 'Sorcerer',  school: 'Evocation',    target: 'single', damageType: ['Acid','Cold','Fire','Lightning','Poison','Thunder'], castTime: 'Action', range: '90 ft.', damage: '3d8', concentration: false, description: 'Choose damage type. Ranged spell attack. Leaps on doubles.', upcast: { dieSides: 8, perLevel: 1 } },

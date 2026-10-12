@@ -1,6 +1,6 @@
 // Entry point — wires all modules together
-import { initUI, renderAll } from './ui.js?v=48';
-import { getState, update, initState, onStateChange } from './state.js?v=25';
+import { initUI, renderAll } from './ui.js?v=49';
+import { getState, update, initState, onStateChange } from './state.js?v=26';
 import { initMadness, onMadnessChange, getMadness, setMadness, refreshMadnessCSS } from './madness.js?v=9';
 import { initParticles, updateParticles, spawnPortal } from './particles.js?v=8';
 

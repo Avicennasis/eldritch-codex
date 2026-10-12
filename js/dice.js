@@ -29,9 +29,9 @@ export function rollDice(count, sides) {
   return results;
 }
 
-// Sorcerous Burst: exploding d8s (max extra = CHA mod = 4)
+// Sorcerous Burst: 3d8 at level 11, exploding d8s (max extra = CHA mod = 4)
 export function rollSorcerousBurst() {
-  const results = [rollDie(8), rollDie(8)];
+  const results = [rollDie(8), rollDie(8), rollDie(8)];
   let extras = 0;
   let i = 0;
   while (i < results.length && extras < 4) {

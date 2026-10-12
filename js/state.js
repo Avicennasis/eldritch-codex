@@ -1,5 +1,5 @@
 // Session state model with server + localStorage persistence
-import { CHARACTER, INVENTORY } from './data.js?v=33';
+import { CHARACTER, INVENTORY } from './data.js?v=34';
 
 const STORAGE_KEY = 'dnd-lanezel-session';
 // Subscribers notified after any state mutation (pub/sub, FR-160/162).

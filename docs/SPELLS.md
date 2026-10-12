@@ -80,7 +80,7 @@ This spell can physically repair a magic item, but it can't restore magic to suc
 | **Components** | V |
 | **Duration** | 1 round |
 
-You try to temporarily sliver the mind of one creature you can see within range. The target must succeed on an Intelligence saving throw or take 2d6 Psychic damage and subtract 1d4 from the next saving throw it makes before the end of your next turn.
+You try to temporarily sliver the mind of one creature you can see within range. The target must succeed on an Intelligence saving throw or take 3d6 Psychic damage and subtract 1d4 from the next saving throw it makes before the end of your next turn.
 
 ---
 
@@ -140,7 +140,7 @@ You create a magical effect within range. Choose the effect from the options bel
 | **Components** | V, S |
 | **Duration** | Instantaneous |
 
-You cast sorcerous energy at one creature or object within range. Make a ranged attack roll against the target. On a hit, the target takes 2d8 damage of a type you choose: Acid, Cold, Fire, Lightning, Poison, Psychic, or Thunder.
+You cast sorcerous energy at one creature or object within range. Make a ranged attack roll against the target. On a hit, the target takes 3d8 damage of a type you choose: Acid, Cold, Fire, Lightning, Poison, Psychic, or Thunder.
 
 If you roll an 8 on a d8 for this spell, you can roll another d8, and add it to the damage. When you cast this spell, the maximum number of these d8s you can add to the spell's damage equals your spellcasting ability modifier.
 

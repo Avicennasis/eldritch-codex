@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   points, and a 6th-level spell slot.
 - Sunbeam (6th level) with full spell text, a "Sunbeam Line" damage button for
   later beams that cost no slot, and Level 6 / Radiant spell filter pills.
+- Level-11 cantrip scaling: Sorcerous Burst 3d8 (still up to +4 exploding
+  d8s), Mind Sliver 3d6, Acid Splash 3d6.
 - Saved sessions gain any slot level added by a level-up at full, instead of
   showing 0 until the next Long Rest.
 
